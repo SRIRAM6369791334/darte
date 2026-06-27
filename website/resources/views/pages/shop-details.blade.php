@@ -30,55 +30,42 @@
     flex-wrap: wrap !important;
 }
 
-/* ── Two-column layout (Price | Quantity, Size below) ── */
+/* ── CSS Grid: Price | Quantity on first row, Size below spanning both ── */
 .product-details-grid {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 22px;
 }
-.product-details-grid > .product-num {
-    display: contents !important;
-}
-.product-details-grid > .product-num > .d-flex {
-    display: contents !important;
-}
-.product-details-grid > .meta-content {
-    width: 50% !important;
-    margin-bottom: 0 !important;
+.price-section {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: baseline !important;
     gap: 2px 6px !important;
 }
-.product-details-grid > .meta-content > .price-name {
+.price-section .price-name {
     flex: 0 0 100% !important;
-    margin-bottom: 0 !important;
 }
-.product-details-grid .btn-quantity.light {
-    width: 50% !important;
-    margin-bottom: 0 !important;
+.quantity-section {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-end !important;
 }
-.product-details-grid .btn-quantity.light .form-label {
+.quantity-section .form-label {
     margin-bottom: 4px !important;
     text-align: right !important;
     width: 100% !important;
 }
-.product-details-grid .product-num > .d-flex > div:last-child {
-    width: 100% !important;
-    margin-top: 22px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+.size-section {
+    grid-column: 1 / -1;
     text-align: center !important;
 }
-.product-details-grid .product-num > .d-flex > div:last-child .btn-group {
+.size-section .form-label {
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 4px !important;
+}
+.size-section .product-size {
     justify-content: center !important;
-}
-.product-details-grid .product-num > .d-flex > div:last-child .form-label {
-    text-align: center !important;
-    width: 100% !important;
 }
 
 .price-name {
@@ -296,11 +283,7 @@
     }
     .dz-content .title { font-size: 1.15rem !important; }
     #details-price { font-size: 1.3rem !important; }
-    .product-details-grid > .meta-content { margin-bottom: 0 !important; }
-
-    .product-details-grid .product-num > .d-flex > div:last-child {
-        margin-top: 14px !important;
-    }
+    .product-details-grid { row-gap: 16px; }
 
     .cart-btn { gap: 12px !important; margin-top: 16px !important; }
     #add-to-cart-btn, .btn-outline-secondary.btn-icon {
@@ -397,9 +380,7 @@
 
     .dz-product-detail.style-2.p-t50 { padding-top: 16px !important; }
 
-    .product-details-grid .product-num > .d-flex > div:last-child {
-        margin-top: 12px !important;
-    }
+    .product-details-grid { row-gap: 12px; }
 
     .cart-btn { flex-direction: row !important; }
     #add-to-cart-btn, .btn-outline-secondary.btn-icon {
@@ -569,107 +550,88 @@
                                                                                                                                                                                                                                         </span>
                                                                                                                                                                                                                                     </div> -->
                         <div class="product-details-grid">
-                        <div class="meta-content m-b20 d-flex align-items-center flex-wrap" style="gap: 15px;">
-                            <span class="price-name text-uppercase" style="margin-bottom: 0;">Price</span>
-                            <span class="price d-flex align-items-center" style="gap: 10px; margin-bottom: 0;">
-                                <span id="details-price">₹{{ $variant->offer_price ?? $product->product_price }}</span>
-                                <del id="details-mrp" class="text-muted" style="{{ ($variant->mrp_price ?? $product->product_mrp_price) > ($variant->offer_price ?? $product->product_price) ? '' : 'display: none;' }}">₹{{ $variant->mrp_price ?? $product->product_mrp_price }}</del>
-                            </span>
-                            @php
-                            $offerVal = $variant->offer_price ?? $product->product_price;
-                            $mrpVal = $variant->mrp_price ?? $product->product_mrp_price;
-                            $hasDiscount = $mrpVal > $offerVal && $mrpVal > 0;
-                            $discountPercent = $hasDiscount ? round((($mrpVal - $offerVal) / $mrpVal) * 100) : 0;
-                            @endphp
-                            <span class="badge bg-danger text-white px-2 py-1" id="details-discount" style="{{ $hasDiscount ? '' : 'display: none;' }} font-size: 0.85rem; font-weight: 700; border-radius: 4px; line-height: 1;">
-                                {{ $discountPercent }}% OFF
-                            </span>
-                        </div>
 
-                        <div class="product-num d-flex flex-column gap-3 align-items-center align-items-lg-start"
-                            style="margin-bottom: unset; width: 100%;">
+                            <!-- Price Section -->
+                            <div class="price-section">
+                                <span class="price-name">Price</span>
+                                <span class="price d-flex align-items-center" style="gap: 10px;">
+                                    <span id="details-price">₹{{ $variant->offer_price ?? $product->product_price }}</span>
+                                    <del id="details-mrp" class="text-muted" style="{{ ($variant->mrp_price ?? $product->product_mrp_price) > ($variant->offer_price ?? $product->product_price) ? '' : 'display: none;' }}">₹{{ $variant->mrp_price ?? $product->product_mrp_price }}</del>
+                                </span>
+                                @php
+                                $offerVal = $variant->offer_price ?? $product->product_price;
+                                $mrpVal = $variant->mrp_price ?? $product->product_mrp_price;
+                                $hasDiscount = $mrpVal > $offerVal && $mrpVal > 0;
+                                $discountPercent = $hasDiscount ? round((($mrpVal - $offerVal) / $mrpVal) * 100) : 0;
+                                @endphp
+                                <span class="badge bg-danger text-white px-2 py-1" id="details-discount" style="{{ $hasDiscount ? '' : 'display: none;' }} font-size: 0.85rem; font-weight: 700; border-radius: 4px; line-height: 1;">
+                                    {{ $discountPercent }}% OFF
+                                </span>
+                            </div>
 
-                            <!-- Quantity + Size side by side -->
+                            <!-- Quantity Section -->
                             @php
                             $currentStock = $variant->product_qty ?? ($product->product_qty ?? 0);
                             @endphp
-                            <div class="d-flex flex-row align-items-start gap-4 flex-wrap">
-
-                                <!-- Quantity -->
-                                <div class="btn-quantity light mb-1 d-flex flex-column align-items-center align-items-lg-start">
-                                    <label class="form-label d-block mb-2 text-uppercase small fw-bold">Quantity</label>
-
-                                    <div class="d-flex align-items-center bg-light rounded-pill px-2"
-                                        style="width: fit-content;">
-
-                                        <button type="button" id="minus-btn" onclick="changeDetailsQty('minus')"
-                                            class="btn btn-sm btn-link text-white text-decoration-none fw-bold px-3 py-2"
-                                            style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;background: #000000 !important;font-size: 20px;"
-                                            {{ $currentStock <= 0 ? 'disabled' : '' }}>−</button>
-
-                                        <input type="text" id="details-qty" value="1" readonly
-                                            class="form-control text-center border-0 bg-transparent p-0"
-                                            data-stock="{{ $currentStock }}"
-                                            style="width: 45px; font-weight:bold; font-size: 1.1rem;min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;font-size: 20px;">
-
-                                        <button type="button" id="plus-btn"
-                                            class="btn btn-sm btn-link text-white text-decoration-none fw-bold px-3 py-2"
-                                            onclick="changeDetailsQty('plus')"
-                                            style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;background: #000000 !important;font-size: 20px;"
-                                            {{ $currentStock <= 0 ? 'disabled' : '' }}>+</button>
-                                    </div>
-                                    <small id="stock-error" class="text-danger fw-bold mt-2 d-block text-center text-lg-start"
-                                        style="display:none;"></small>
+                            <div class="btn-quantity light quantity-section">
+                                <label class="form-label d-block text-uppercase small fw-bold">Quantity</label>
+                                <div class="d-flex align-items-center bg-light rounded-pill px-2" style="width: fit-content;">
+                                    <button type="button" id="minus-btn" onclick="changeDetailsQty('minus')"
+                                        class="btn btn-sm btn-link text-white text-decoration-none fw-bold px-3 py-2"
+                                        style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;background: #000000 !important;font-size: 20px;"
+                                        {{ $currentStock <= 0 ? 'disabled' : '' }}>−</button>
+                                    <input type="text" id="details-qty" value="1" readonly
+                                        class="form-control text-center border-0 bg-transparent p-0"
+                                        data-stock="{{ $currentStock }}"
+                                        style="width: 45px; font-weight:bold; font-size: 1.1rem;min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;font-size: 20px;">
+                                    <button type="button" id="plus-btn"
+                                        class="btn btn-sm btn-link text-white text-decoration-none fw-bold px-3 py-2"
+                                        onclick="changeDetailsQty('plus')"
+                                        style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;background: #000000 !important;font-size: 20px;"
+                                        {{ $currentStock <= 0 ? 'disabled' : '' }}>+</button>
                                 </div>
+                                <small id="stock-error" class="text-danger fw-bold mt-2 d-block" style="display:none;"></small>
+                            </div>
 
-                                <!-- Size -->
-                                <div class="mb-1 d-flex flex-column align-items-center align-items-lg-start">
-                                    <label class="form-label d-block mb-2 text-uppercase small fw-bold">
-                                        Size:
-                                    </label>
+                            <!-- Size Section -->
+                            <div class="size-section">
+                                <label class="form-label d-block text-uppercase small fw-bold">Size:</label>
+                                <div class="btn-group product-size flex-wrap gap-2 justify-content-center mb-0">
+                                    @foreach ($product->variants as $v)
+                                    @php
+                                    $v_category = !empty($v->subcatename)
+                                    ? $v->subcatename
+                                    : (!empty($product->category->category_name)
+                                    ? $product->category->category_name
+                                    : (!empty($product->cate_name)
+                                    ? $product->cate_name
+                                    : 'N/A'));
 
-                                    <div class="btn-group product-size flex-wrap gap-2 justify-content-center justify-content-lg-start mb-0">
-
-                                        @foreach ($product->variants as $v)
-                                        @php
-                                        $v_category = !empty($v->subcatename)
-                                        ? $v->subcatename
-                                        : (!empty($product->category->category_name)
-                                        ? $product->category->category_name
-                                        : (!empty($product->cate_name)
-                                        ? $product->cate_name
-                                        : 'N/A'));
-
-                                        // Fallback generated SKU if empty/null in database
-                                        $v_sku = !empty($v->sku)
-                                        ? $v->sku
-                                        : ('DRT-' . strtoupper(substr(preg_replace('/[^A-Za-z0-9]/', '', $product->product_name), 0, 3)) . '-' . $v->id);
-                                        @endphp
-                                        <button type="button"
-                                            class="btn btn-sm border details-variant-btn
-                                                    {{ $v->id == ($variant->id ?? 0) ? 'btn-dark text-white' : 'btn-light' }}"
-                                            style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px; {{ $v->id == ($variant->id ?? 0) ? 'background: #000000 !important; color: #ffffff !important;' : '' }}"
-                                            onclick="updateDetailsVariant(
-                                                        {{ $v->id }},
-                                                        {{ $v->offer_price }},
-                                                        {{ $v->mrp_price }},
-                                                        '{{ env('MAIN_URL') . 'images/' . $v->varient_img }}',
-                                                        '{{ $v->varient }}',
-                                                        '{{ $v_sku }}',
-                                                        '{{ $v_category }}',
-                                                        this,
-                                                        {{ $v->product_qty ?? 0 }}
-                                                    )">
-                                            {{ $v->varient }}
-                                        </button>
-                                        @endforeach
-
-                                    </div>
+                                    $v_sku = !empty($v->sku)
+                                    ? $v->sku
+                                    : ('DRT-' . strtoupper(substr(preg_replace('/[^A-Za-z0-9]/', '', $product->product_name), 0, 3)) . '-' . $v->id);
+                                    @endphp
+                                    <button type="button"
+                                        class="btn btn-sm border details-variant-btn
+                                                {{ $v->id == ($variant->id ?? 0) ? 'btn-dark text-white' : 'btn-light' }}"
+                                        style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px; {{ $v->id == ($variant->id ?? 0) ? 'background: #000000 !important; color: #ffffff !important;' : '' }}"
+                                        onclick="updateDetailsVariant(
+                                                    {{ $v->id }},
+                                                    {{ $v->offer_price }},
+                                                    {{ $v->mrp_price }},
+                                                    '{{ env('MAIN_URL') . 'images/' . $v->varient_img }}',
+                                                    '{{ $v->varient }}',
+                                                    '{{ $v_sku }}',
+                                                    '{{ $v_category }}',
+                                                    this,
+                                                    {{ $v->product_qty ?? 0 }}
+                                                )">
+                                        {{ $v->varient }}
+                                    </button>
+                                    @endforeach
                                 </div>
+                            </div>
 
-                            </div><!-- end side-by-side flex row -->
-
-                        </div>
                         </div>
 
                         <div class="btn-group cart-btn mt-4 mb-0 gap-3">
