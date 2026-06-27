@@ -15,9 +15,10 @@
     font-size: 1.35rem !important;
     font-weight: 800 !important;
     line-height: 1.3 !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 22px !important;
     letter-spacing: -0.3px;
     color: #000;
+    text-align: center !important;
 }
 
 /* ── Price ── */
@@ -28,6 +29,58 @@
     align-items: center !important;
     flex-wrap: wrap !important;
 }
+
+/* ── Two-column layout (Price | Quantity, Size below) ── */
+.product-details-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+.product-details-grid > .product-num {
+    display: contents !important;
+}
+.product-details-grid > .product-num > .d-flex {
+    display: contents !important;
+}
+.product-details-grid > .meta-content {
+    width: 50% !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    gap: 2px 6px !important;
+}
+.product-details-grid > .meta-content > .price-name {
+    flex: 0 0 100% !important;
+    margin-bottom: 0 !important;
+}
+.product-details-grid .btn-quantity.light {
+    width: 50% !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+}
+.product-details-grid .btn-quantity.light .form-label {
+    margin-bottom: 4px !important;
+    text-align: right !important;
+    width: 100% !important;
+}
+.product-details-grid .product-num > .d-flex > div:last-child {
+    width: 100% !important;
+    margin-top: 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+.product-details-grid .product-num > .d-flex > div:last-child .btn-group {
+    justify-content: center !important;
+}
+.product-details-grid .product-num > .d-flex > div:last-child .form-label {
+    text-align: center !important;
+    width: 100% !important;
+}
+
 .price-name {
     font-size: 17px !important;
     letter-spacing: 1px !important;
@@ -243,18 +296,17 @@
     }
     .dz-content .title { font-size: 1.15rem !important; }
     #details-price { font-size: 1.3rem !important; }
-    .meta-content { margin-bottom: 14px !important; }
+    .product-details-grid > .meta-content { margin-bottom: 0 !important; }
+
+    .product-details-grid .product-num > .d-flex > div:last-child {
+        margin-top: 14px !important;
+    }
 
     .cart-btn { gap: 12px !important; margin-top: 16px !important; }
     #add-to-cart-btn, .btn-outline-secondary.btn-icon {
         height: 48px !important;
         font-size: 11px !important;
         padding: 0 12px !important;
-    }
-    .btn-outline-secondary.btn-icon {
-        white-space: normal !important;
-        word-break: break-word !important;
-        line-height: 1.3 !important;
     }
     .btn-outline-secondary.btn-icon .icon.feather {
         font-size: 0.9rem !important;
@@ -280,8 +332,6 @@
         font-size: 14px !important;
     }
     .btn-quantity .d-flex { height: 38px !important; }
-
-    .product-num { gap: 22px !important; }
 }
 
 /* ── Small Mobile (max-width: 575px) ── */
@@ -346,18 +396,16 @@
     }
 
     .dz-product-detail.style-2.p-t50 { padding-top: 16px !important; }
-    .product-num { gap: 20px !important; }
+
+    .product-details-grid .product-num > .d-flex > div:last-child {
+        margin-top: 12px !important;
+    }
 
     .cart-btn { flex-direction: row !important; }
     #add-to-cart-btn, .btn-outline-secondary.btn-icon {
         height: 46px !important;
         font-size: 10px !important;
         padding: 0 8px !important;
-    }
-    .btn-outline-secondary.btn-icon {
-        white-space: normal !important;
-        word-break: break-word !important;
-        line-height: 1.3 !important;
     }
     .btn-outline-secondary.btn-icon .icon.feather {
         font-size: 0.85rem !important;
@@ -520,6 +568,7 @@
                                                                                                                                                                                                                                                 id="details-mrp">₹{{ $variant->mrp_price ?? $product->product_mrp_price }}</del>
                                                                                                                                                                                                                                         </span>
                                                                                                                                                                                                                                     </div> -->
+                        <div class="product-details-grid">
                         <div class="meta-content m-b20 d-flex align-items-center flex-wrap" style="gap: 15px;">
                             <span class="price-name text-uppercase" style="margin-bottom: 0;">Price</span>
                             <span class="price d-flex align-items-center" style="gap: 10px; margin-bottom: 0;">
@@ -620,6 +669,7 @@
 
                             </div><!-- end side-by-side flex row -->
 
+                        </div>
                         </div>
 
                         <div class="btn-group cart-btn mt-4 mb-0 gap-3">
