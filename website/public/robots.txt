@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap Location (Change this to your actual domain after deployment)
+Sitemap: http://127.0.0.1:8000/sitemap.xml
+
+# Disallow sensitive paths
+Disallow: /admin
+Disallow: /checkout
+Disallow: /cart
+Disallow: /wishlist
+Disallow: /my-account

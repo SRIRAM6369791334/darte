@@ -1,0 +1,14 @@
+[20-Apr-2026 10:35:30 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.34. in /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/composer/autoload_real.php(25): require()
+#1 /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/autoload.php(22): ComposerAutoloaderInit53b5d56b3b7e3cbac1713e68c8850f6c::getLoader()
+#2 /home/vxmlyels/public_html/darte.saitechnosolutions.in/public/index.php(14): require('/home/vxmlyels/...')
+#3 {main}
+  thrown in /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/composer/platform_check.php on line 22
+[05-Jun-2026 09:51:59 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.34. in /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/composer/autoload_real.php(25): require()
+#1 /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/autoload.php(22): ComposerAutoloaderInit53b5d56b3b7e3cbac1713e68c8850f6c::getLoader()
+#2 /home/vxmlyels/public_html/darte.saitechnosolutions.in/public/index.php(14): require('/home/vxmlyels/...')
+#3 {main}
+  thrown in /home/vxmlyels/public_html/darte.saitechnosolutions.in/vendor/composer/platform_check.php on line 22

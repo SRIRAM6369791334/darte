@@ -1,0 +1,6 @@
+[27-May-2026 11:57:40 UTC] PHP Warning:  require(/home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/index.php on line 34
+[27-May-2026 11:57:40 UTC] PHP Warning:  require(/home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/index.php on line 34
+[27-May-2026 11:57:40 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/vxmlyels/public_html/dashdarte.saitechnosolutions.in/public/index.php on line 34
