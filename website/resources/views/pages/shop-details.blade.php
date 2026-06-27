@@ -29,10 +29,10 @@
     flex-wrap: wrap !important;
 }
 .price-name {
-    font-size: 10px !important;
+    font-size: 17px !important;
     letter-spacing: 1px !important;
-    color: #888 !important;
-    font-weight: 500 !important;
+    color: #000000 !important;
+    font-weight: 700 !important;
     text-transform: uppercase;
 }
 #details-price {
