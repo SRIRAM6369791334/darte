@@ -38,21 +38,31 @@
 }
 .price-section {
     display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: baseline !important;
-    gap: 2px 6px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
 }
-.price-section .price-name {
-    flex: 0 0 100% !important;
+.price-section .price {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+.price-section .badge {
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    border-radius: 4px !important;
+    line-height: 1 !important;
+    padding: 2px 8px !important;
+    background: #dc3545 !important;
+    color: #fff !important;
 }
 .quantity-section {
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-end !important;
+    align-items: flex-start !important;
 }
 .quantity-section .form-label {
     margin-bottom: 4px !important;
-    text-align: right !important;
     width: 100% !important;
 }
 .size-section {
@@ -86,7 +96,7 @@
 }
 
 /* ── Quantity ── */
-.btn-quantity .d-flex {
+.qty-stepper {
     height: 42px !important;
     border-radius: 12px !important;
     background: #f8f8f8 !important;
@@ -95,8 +105,9 @@
     gap: 2px !important;
     display: flex !important;
     align-items: center !important;
+    width: fit-content;
 }
-#minus-btn, #plus-btn {
+.qty-btn {
     min-width: 30px !important;
     width: 30px !important;
     height: 30px !important;
@@ -111,7 +122,7 @@
     align-items: center !important;
     justify-content: center !important;
 }
-#details-qty {
+.qty-input {
     width: 34px !important;
     min-width: 34px !important;
     height: 30px !important;
@@ -187,15 +198,22 @@
     background: #fff !important;
     color: #000 !important;
     border: 1.5px solid #000 !important;
+    gap: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 .btn-outline-secondary.btn-icon:hover {
     background: #000 !important;
     color: #fff !important;
 }
 .btn-outline-secondary.btn-icon .icon.feather {
-    font-size: 1rem !important;
-    margin-right: 6px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
     flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 /* ── Accordion ── */
@@ -284,16 +302,15 @@
     .dz-content .title { font-size: 1.15rem !important; }
     #details-price { font-size: 1.3rem !important; }
     .product-details-grid { row-gap: 16px; }
+    .price-section,
+    .quantity-section { align-items: center !important; }
+    .quantity-section .form-label { text-align: center !important; }
 
     .cart-btn { gap: 12px !important; margin-top: 16px !important; }
     #add-to-cart-btn, .btn-outline-secondary.btn-icon {
         height: 48px !important;
         font-size: 11px !important;
         padding: 0 12px !important;
-    }
-    .btn-outline-secondary.btn-icon .icon.feather {
-        font-size: 0.9rem !important;
-        margin-right: 4px !important;
     }
 
     .details-variant-btn {
@@ -302,19 +319,19 @@
         min-width: 44px !important;
     }
 
-    #minus-btn, #plus-btn {
+    .qty-btn {
         min-width: 28px !important;
         width: 28px !important;
         height: 28px !important;
         font-size: 14px !important;
     }
-    #details-qty {
+    .qty-input {
         width: 30px !important;
         min-width: 30px !important;
         height: 28px !important;
         font-size: 14px !important;
     }
-    .btn-quantity .d-flex { height: 38px !important; }
+    .qty-stepper { height: 38px !important; }
 }
 
 /* ── Small Mobile (max-width: 575px) ── */
@@ -390,7 +407,6 @@
     }
     .btn-outline-secondary.btn-icon .icon.feather {
         font-size: 0.85rem !important;
-        margin-right: 3px !important;
     }
 }
 </style>
@@ -554,7 +570,7 @@
                             <!-- Price Section -->
                             <div class="price-section">
                                 <span class="price-name">Price</span>
-                                <span class="price d-flex align-items-center" style="gap: 10px;">
+                                <span class="price">
                                     <span id="details-price">₹{{ $variant->offer_price ?? $product->product_price }}</span>
                                     <del id="details-mrp" class="text-muted" style="{{ ($variant->mrp_price ?? $product->product_mrp_price) > ($variant->offer_price ?? $product->product_price) ? '' : 'display: none;' }}">₹{{ $variant->mrp_price ?? $product->product_mrp_price }}</del>
                                 </span>
@@ -564,7 +580,7 @@
                                 $hasDiscount = $mrpVal > $offerVal && $mrpVal > 0;
                                 $discountPercent = $hasDiscount ? round((($mrpVal - $offerVal) / $mrpVal) * 100) : 0;
                                 @endphp
-                                <span class="badge bg-danger text-white px-2 py-1" id="details-discount" style="{{ $hasDiscount ? '' : 'display: none;' }} font-size: 0.85rem; font-weight: 700; border-radius: 4px; line-height: 1;">
+                                <span class="badge" id="details-discount" style="{{ $hasDiscount ? '' : 'display: none;' }}">
                                     {{ $discountPercent }}% OFF
                                 </span>
                             </div>
@@ -574,29 +590,26 @@
                             $currentStock = $variant->product_qty ?? ($product->product_qty ?? 0);
                             @endphp
                             <div class="btn-quantity light quantity-section">
-                                <label class="form-label d-block text-uppercase small fw-bold">Quantity</label>
-                                <div class="d-flex align-items-center bg-light rounded-pill px-2" style="width: fit-content;">
+                                <label class="form-label text-uppercase fw-bold">Quantity</label>
+                                <div class="qty-stepper">
                                     <button type="button" id="minus-btn" onclick="changeDetailsQty('minus')"
-                                        class="btn btn-sm btn-link text-white text-decoration-none fw-bold px-3 py-2"
-                                        style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;background: #000000 !important;font-size: 20px;"
+                                        class="qty-btn"
                                         {{ $currentStock <= 0 ? 'disabled' : '' }}>−</button>
                                     <input type="text" id="details-qty" value="1" readonly
-                                        class="form-control text-center border-0 bg-transparent p-0"
-                                        data-stock="{{ $currentStock }}"
-                                        style="width: 45px; font-weight:bold; font-size: 1.1rem;min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;font-size: 20px;">
+                                        class="qty-input"
+                                        data-stock="{{ $currentStock }}">
                                     <button type="button" id="plus-btn"
-                                        class="btn btn-sm btn-link text-white text-decoration-none fw-bold px-3 py-2"
+                                        class="qty-btn"
                                         onclick="changeDetailsQty('plus')"
-                                        style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px;background: #000000 !important;font-size: 20px;"
                                         {{ $currentStock <= 0 ? 'disabled' : '' }}>+</button>
                                 </div>
-                                <small id="stock-error" class="text-danger fw-bold mt-2 d-block" style="display:none;"></small>
+                                <small id="stock-error" class="text-danger fw-bold mt-2" style="display:none;"></small>
                             </div>
 
                             <!-- Size Section -->
                             <div class="size-section">
-                                <label class="form-label d-block text-uppercase small fw-bold">Size:</label>
-                                <div class="btn-group product-size flex-wrap gap-2 justify-content-center mb-0">
+                                <label class="form-label text-uppercase fw-bold">Size:</label>
+                                <div class="btn-group product-size">
                                     @foreach ($product->variants as $v)
                                     @php
                                     $v_category = !empty($v->subcatename)
@@ -614,7 +627,6 @@
                                     <button type="button"
                                         class="btn btn-sm border details-variant-btn
                                                 {{ $v->id == ($variant->id ?? 0) ? 'btn-dark text-white' : 'btn-light' }}"
-                                        style="min-width: 50px; height: 50px; font-weight: bold; border-radius: 50px; {{ $v->id == ($variant->id ?? 0) ? 'background: #000000 !important; color: #ffffff !important;' : '' }}"
                                         onclick="updateDetailsVariant(
                                                     {{ $v->id }},
                                                     {{ $v->offer_price }},
@@ -634,19 +646,17 @@
 
                         </div>
 
-                        <div class="btn-group cart-btn mt-4 mb-0 gap-3">
+                        <div class="btn-group cart-btn">
                             <button id="add-to-cart-btn"
                                 onclick="addToCartFromDetails({{ $product->id }}, '{{ $variant->id ?? '' }}')"
-                                class="btn btn-secondary text-uppercase py-3 px-5 fw-bold flex-grow-1"
+                                class="btn btn-secondary text-uppercase fw-bold"
                                 {{ $currentStock <= 0 ? 'disabled' : '' }}>
                                 {{ $currentStock <= 0 ? 'Out of Stock' : 'Add To Cart' }}
                             </button>
                             <button onclick="addToWishlist({{ $product->id }}, currentDetailsVariantId)"
-                                class="btn btn-outline-secondary btn-icon p-3">
-                                <i class="icon feather icon-heart h4 mb-0"></i>
-
+                                class="btn btn-outline-secondary btn-icon">
+                                <i class="icon feather icon-heart"></i>
                                 Add To Wishlist
-
                             </button>
                         </div>
 
