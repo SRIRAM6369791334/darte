@@ -52931,7 +52931,7 @@ body .working-location img {
     }
 
     .dz-product-detail.style-2 .dz-content .meta-content {
-        justify-content: space-between;
+        /* justify-content: space-between; */
         margin-bottom: 5px;
         text-align: center
     }
@@ -53029,11 +53029,11 @@ body .working-location img {
     background: transparent
 }
 
-@media only screen and (max-width:767px) {
+/* @media only screen and (max-width:767px) {
     .dz-product-detail.style-3 {
         margin-bottom: 30px
     }
-}
+} */
 
 .dz-product-detail.style-3 .swiper-btn-center-lr {
     margin-left: -80px;
