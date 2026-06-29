@@ -512,134 +512,141 @@
             }
         }
 
-        /* --- Discover New Arrivals Premium UI --- */
-        .premium-product-card {
-            position: relative;
+        /* --- Discover New Arrivals — Marquee Infinite Scroll --- */
+
+        /* Swiper container: no overflow clip so cards peek in from sides */
+        .testimonial-swiper {
+            overflow: visible !important;
+        }
+        .testimonial-swiper .swiper-wrapper {
+            transition-timing-function: linear !important;
+        }
+        /* But clip the outer column so cards don't bleed out of bounds */
+        .col-lg-8.col-md-12.m-b30 {
             overflow: hidden;
-            border-radius: 20px;
-            cursor: pointer;
-            isolation: isolate;
         }
 
-        .premium-img-wrapper {
+        .premium-product-card-v2 {
+            position: relative;
+            background: #ffffff;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            /* No overflow:hidden here — let the img-wrapper handle clipping */
+            transition: box-shadow 0.35s ease;
+        }
+        .premium-product-card-v2:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        }
+
+        .premium-img-wrapper-v2 {
             position: relative;
             width: 100%;
-            height: 100%;
+            aspect-ratio: 3 / 4;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 14px;
+            background: #f2f2f2;
         }
 
-        .premium-img-wrapper img {
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .premium-img-wrapper-v2 img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block;
         }
 
-        .premium-product-card:hover .premium-img-wrapper img {
-            transform: scale(1.08);
+        .premium-product-card-v2:hover .premium-img-wrapper-v2 img {
+            transform: scale(1.05);
         }
 
-        /* Vercel-core Glass Overlay */
-        .premium-shop-overlay {
+        /* Quick View — slides up from bottom of image */
+        .premium-quick-add {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 16px;
-            padding: 12px 16px;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-            transform: translateY(10px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 10;
-        }
-
-        .premium-product-card:hover .premium-shop-overlay {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        .premium-info-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .premium-product-name {
-            font-family: 'Geist', 'Inter', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            color: #09090b; /* Zinc-950 */
-            margin: 0;
-            line-height: 1.2;
-            letter-spacing: -0.01em;
-            flex: 1;
-        }
-
-        .premium-shop-btn {
+            bottom: 0; left: 0; right: 0;
+            padding: 12px 0;
+            background: rgba(255,255,255,0.92);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            background: #09090b; /* Zinc-950 */
-            color: #ffffff;
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2;
+            border-radius: 0 0 14px 14px;
+            backdrop-filter: blur(4px);
+        }
+        .premium-quick-add span {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #111;
+        }
+        .premium-product-card-v2:hover .premium-quick-add {
+            transform: translateY(0);
+        }
+
+        /* Product info below card */
+        .premium-details-v2 {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 0 4px 8px;
+            text-align: left;
+        }
+
+        .premium-name-v2 {
             font-size: 13px;
             font-weight: 600;
-            font-family: 'Geist', 'Inter', sans-serif;
-            padding: 8px 14px;
-            border-radius: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #111;
+            margin: 0;
+            letter-spacing: 0.2px;
+            line-height: 1.4;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .premium-shop-btn svg {
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .premium-price-row-v2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .premium-shop-btn:hover {
-            background: #27272a; /* Zinc-800 */
+        .premium-price-v2 {
+            font-size: 14px;
+            font-weight: 800;
+            color: #111;
+        }
+
+        .premium-mrp-v2 {
+            font-size: 12px;
+            color: #aaa;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .premium-discount-v2 {
+            font-size: 11px;
+            font-weight: 700;
             color: #ffffff;
-            transform: scale(1.02);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: #16a34a;
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
         }
 
-        .premium-shop-btn:hover svg {
-            transform: translateX(3px);
-        }
-
-        /* Mobile View: Make overlay visible by default */
+        /* Mobile */
         @media (max-width: 991px) {
-            .premium-product-card {
-                border-radius: 16px;
-            }
-            .premium-img-wrapper {
-                border-radius: 16px;
-            }
-            .premium-shop-overlay {
-                bottom: 12px;
-                left: 12px;
-                right: 12px;
-                padding: 10px 12px;
-                transform: translateY(0);
-                opacity: 1; /* Always visible on touch screens */
-                background: rgba(255, 255, 255, 0.92);
-            }
-            .premium-product-name {
-                font-size: 13px;
-            }
-            .premium-shop-btn {
-                padding: 6px 12px;
-                font-size: 11px;
-                border-radius: 8px;
-            }
+            .premium-img-wrapper-v2 { border-radius: 10px; }
+            .premium-product-card-v2 { border-radius: 10px; }
+            .premium-name-v2 { font-size: 12px; }
+            .premium-price-v2 { font-size: 13px; }
+            .premium-mrp-v2 { font-size: 11px; }
+            .premium-quick-add { display: none !important; }
         }
 
         /* Spacing optimizations to reduce white space */
@@ -902,170 +909,139 @@
 
 
 
-        <section class="banner-section relative group overflow-hidden" style="background-color: #F5EFEB !important;">
+        <section class="full-banner-section" style="position:relative; overflow:hidden;">
             <div class="swiper noberoSwiper">
                 <div class="swiper-wrapper">
                     @foreach ($bannerImages as $banner)
+                        @php
+                            $bannerImageUrl = env('MAIN_URL') . 'images/' . $banner->image;
+                        @endphp
                         <div class="swiper-slide">
-                            <div class="container-fluid px-6 md:px-20">
-                                <div class="row g-0 align-items-center flex-row-reverse min-vh-75 py-10">
-
-                                    <!-- Right side: model image -->
-                                    <div class="col-lg-6 col-md-12 text-center">
-                                        <div class="banner-media relative inline-block p-5 md:p-12">
-                                            @php
-                                                $bannerImageUrl = env('MAIN_URL') . 'images/' . $banner->image;
-                                            @endphp
-                                            <img src="{{ $bannerImageUrl }}" alt="banner-media"
-                                                class="object-contain transition-all duration-500"
-                                                fetchpriority="high" loading="eager"
-                                                style="width: 85%; max-height: 550px; margin: 0 auto; filter: contrast(1.05);"
-                                                width="600" height="808">
+                            <div class="full-banner-slide" style="background-image: url('{{ $bannerImageUrl }}');">
+                                {{-- Gradient overlay for text legibility --}}
+                                <div class="full-banner-overlay"></div>
+                                {{-- Text content --}}
+                                <div class="container h-100">
+                                    <div class="full-banner-content">
+                                        <h1 class="full-banner-title wow fadeInUp" data-wow-delay="0.2s">
+                                            {{ $banner->title }}
+                                        </h1>
+                                        <p class="full-banner-desc wow fadeInUp" data-wow-delay="0.4s">
+                                            {{ $banner->content }}
+                                        </p>
+                                        <div class="wow fadeInUp" data-wow-delay="0.6s">
+                                            <a href="/shop" class="full-banner-btn">{{ $banner->subtitle }}</a>
                                         </div>
                                     </div>
-
-                                    <!-- Left side: text content -->
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="banner-content text-left pe-lg-5 ps-lg-5">
-                                            <!-- Title -->
-                                            <h1 class="luxury-heading wow fadeInUp" data-wow-delay="0.2s" style="margin-bottom: 25px;">
-                                                {{ $banner->title }}
-                                            </h1>
-
-                                            <!-- Description -->
-                                            <p class="wow fadeInUp mb-4" data-wow-delay="0.4s"
-                                                style="font-size: 16px; line-height: 1.6; color: #555; font-weight: 400; max-width: 95%; margin-bottom: 30px;">
-                                                {{ $banner->content }}
-                                            </p>
-
-                                            <!-- Button -->
-                                            <div class="content-btn wow fadeInUp" data-wow-delay="0.6s">
-                                                <a href="/shop"
-                                                    class="btn btn-primary px-10 py-3 font-bold transition-all uppercase tracking-widest"
-                                                    style="letter-spacing: 2px;">
-                                                    {{ $banner->subtitle }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-
-                <div class="nobero-pagination absolute bottom-10 left-0 right-0 z-50 flex justify-center gap-3"></div>
+                <div class="nobero-pagination"></div>
             </div>
         </section>
 
         <style>
-            .min-vh-75 {
-                min-height: 75vh;
+            /* ========================================
+               FULL-WIDTH HERO BANNER
+            ======================================== */
+            .full-banner-section {
+                width: 100%;
             }
 
-            .banner-content h1 {
-                /* Inheriting luxury Playfair Display from skin-1.css */
+            .full-banner-slide {
+                position: relative;
+                width: 100%;
+                min-height: 90vh;
+                background-size: cover;
+                background-position: center top;
+                background-repeat: no-repeat;
+                display: flex;
+                align-items: center;
             }
 
-            .nobero-pagination {
-                bottom: 40px !important;
-                position: absolute !important;
-                cursor: pointer;
+            /* Stronger gradient — handles both dark & light photo backgrounds */
+            .full-banner-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0.70) 0%,
+                    rgba(0, 0, 0, 0.45) 45%,
+                    rgba(0, 0, 0, 0.10) 75%,
+                    rgba(0, 0, 0, 0.00) 100%
+                );
+                z-index: 1;
             }
 
-            .nobero-pagination .swiper-pagination-bullet {
-                width: 15px;
-                height: 6px;
-                background: #F5F5F5;
-                border-radius: 10px;
-                transition: all 0.4s ease;
-                opacity: 1;
-                cursor: pointer !important;
+            .full-banner-section .container {
+                position: relative;
+                z-index: 2;
             }
 
-            .nobero-pagination .swiper-pagination-bullet-active {
-                width: 40px;
-                background: #000 !important;
+            .full-banner-content {
+                max-width: 560px;
+                padding: 80px 0;
             }
 
-            .banner-content h1 {
+            .full-banner-title {
+                font-size: clamp(2rem, 4vw, 3.6rem);
+                font-weight: 800;
+                color: #ffffff !important;
+                line-height: 1.15;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                text-shadow: 0 2px 15px rgba(0, 0, 0, 0.45);
+            }
+
+            .full-banner-desc {
+                font-size: 16px;
+                color: rgba(255,255,255,0.9) !important;
+                line-height: 1.7;
+                margin-bottom: 32px;
+                max-width: 420px;
+                text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+            }
+
+            .full-banner-btn {
+                display: inline-block;
+                background: #ffffff;
                 color: #000000;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                padding: 15px 36px;
+                border-radius: 4px;
+                text-decoration: none;
+                transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
             }
 
-            .min-vh-75 {
-                min-height: 75vh;
+            .full-banner-btn:hover {
+                background: #000000;
+                color: #ffffff;
+                transform: translateY(-2px);
             }
 
-            .banner-media img {
-                display: block;
-                margin: 0 auto;
-                max-width: 100%;
-                height: auto !important;
-            }
-
-            @media (max-width: 767px) {
-                .banner-media img {
-                    width: 80% !important;
-                    max-height: 340px !important;
-                    border-radius: 20px;
-                    margin-top: 20px !important;
-                }
-
-                .swiper-horizontal>.swiper-pagination-bullets,
-                .swiper-pagination-bullets.swiper-pagination-horizontal,
-                .swiper-pagination-custom,
-                .swiper-pagination-fraction {
-                    position: relative !important;
-                    bottom: 40px !important;
-                    left: 0 !important;
-                    width: 100% !important;
-                    /* display: flex !important; */
-                    justify-content: center !important;
-                    top: auto !important;
-                    display: none;
-                }
-
-
-
-                .banner-media {
-                    padding: 10px !important;
-                    margin-top: 30px;
-                }
-            }
-
-            @media (max-width: 991px) {
-
-                .swiper-horizontal>.swiper-pagination-bullets,
-                .swiper-pagination-bullets.swiper-pagination-horizontal,
-                .swiper-pagination-custom,
-                .swiper-pagination-fraction {
-                    position: relative !important;
-                    bottom: 40%;
-                    left: 42%;
-                    top: 3px;
-                }
-            }
-
-            @media (min-width: 992px) {
-                .banner-media img {
-                    width: 85% !important;
-                    max-height: 595px !important;
-                    border-radius: 20px !important;
-                }
-            }
-
+            /* Pagination */
             .nobero-pagination {
-                position: absolute !important;
-                bottom: 30px !important;
+                position: absolute;
+                bottom: 30px;
+                left: 0;
+                right: 0;
                 z-index: 99;
+                display: flex;
+                justify-content: center;
+                gap: 8px;
                 cursor: pointer;
             }
 
             .nobero-pagination .swiper-pagination-bullet {
                 width: 15px;
                 height: 6px;
-                background: #F5F5F5;
+                background: rgba(255,255,255,0.5);
                 border-radius: 10px;
                 transition: all 0.3s ease;
                 opacity: 1;
@@ -1074,7 +1050,54 @@
 
             .nobero-pagination .swiper-pagination-bullet-active {
                 width: 40px;
-                background: #000 !important;
+                background: #ffffff !important;
+            }
+
+            /* Mobile */
+            @media (max-width: 991px) {
+                .full-banner-slide {
+                    min-height: 75vh;
+                    background-position: center top;
+                }
+                .full-banner-content {
+                    padding: 50px 0 90px;
+                    max-width: 90%;
+                }
+                .full-banner-overlay {
+                    background: linear-gradient(
+                        to bottom,
+                        rgba(0,0,0,0.25) 0%,
+                        rgba(0,0,0,0.60) 40%,
+                        rgba(0,0,0,0.75) 100%
+                    );
+                }
+                .full-banner-content {
+                    margin-top: auto;
+                }
+                .full-banner-section .container {
+                    display: flex;
+                    align-items: flex-end;
+                    padding-bottom: 60px;
+                }
+                .full-banner-slide {
+                    align-items: flex-end;
+                }
+                .full-banner-title {
+                    font-size: clamp(1.6rem, 6vw, 2.4rem);
+                }
+                .full-banner-desc {
+                    font-size: 14px;
+                    max-width: 100%;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .full-banner-slide {
+                    min-height: 70vh;
+                }
+                .full-banner-title {
+                    font-size: clamp(1.4rem, 7vw, 2rem);
+                }
             }
 
             @media screen and (max-width: 400px) {
@@ -1082,7 +1105,6 @@
                     font-size: 11px !important;
                 }
             }
-            /* Removed duplicate/conflicting mobile relative styles to preserve circle layout */
         </style>
 
         <script>
@@ -1309,124 +1331,98 @@
         </section>
 
 
-        <section class="content-inner overflow-hidden">
+        <section class="content-inner new-arrivals-marquee-section" style="overflow:hidden;">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 col-md-12 m-b30">
-                        <div class="swiper about-main-swiper dz-media style-2 wow fadeInUp" data-wow-delay="0.2s">
-                            <div class="swiper-wrapper">
-                                @if ($popularProducts->isNotEmpty())
-                                    @php $mainProduct = $popularProducts->last(); @endphp
-                                    <div class="swiper-slide">
-                                        <div class="premium-product-card h-100" style="border-radius: 30px;">
-                                            <div class="premium-img-wrapper" style="border-radius: 30px;">
-                                                <img src="{{ env('MAIN_URL') . 'images/' . $mainProduct->varient_img }}"
-                                                    alt="image" loading="lazy" width="400" height="500" class="w-100 object-cover" style="min-height: 400px;">
-                                            </div>
-                                            <div class="premium-shop-overlay">
-                                                <div class="premium-info-container">
-                                                    <h5 class="premium-product-name text-truncate" title="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
-                                                        {{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}
-                                                    </h5>
-                                                    <a class="premium-shop-btn"
-                                                        href="{{ route('shop.details', $mainProduct->product->slug) }}">
-                                                        <span>Shop</span>
-                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="m12 5 7 7-7 7"></path>
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-12 m-b30">
-                        <div class="about-wraper   position-relative">
-                            <div class="section-head style-1 wow fadeInUp d-flex flex-column flex-md-row justify-content-md-between align-items-center mb-4"
-                                data-wow-delay="0.4s">
-                                <h3 class="title mb-3 mb-md-0 text-center text-md-start">Discover New Arrivals</h3>
-                                <a class="service-btn-2 wow fadeInUp position-relative light d-flex"
-                                    data-wow-delay="0.6s" href="/shop">
-                                    <span class="icon-wrapper">
-                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12.832 31.1663L31.1654 12.833" stroke="var(--title)" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                            <path d="M12.832 12.833H31.1654V31.1663" stroke="var(--title)" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                </a>
-                            </div>
+                <div class="section-head style-1 wow fadeInUp d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4" data-wow-delay="0.2s">
+                    <h3 class="title mb-0">Discover New Arrivals</h3>
+                    <a href="/shop" class="service-btn-2 wow fadeInUp position-relative light d-flex mt-3 mt-sm-0" data-wow-delay="0.4s">
+                        <span class="icon-wrapper">
+                            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.832 31.1663L31.1654 12.833" stroke="var(--title)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M12.832 12.833H31.1654V31.1663" stroke="var(--title)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
 
-                            <div class="swiper testimonial-swiper about-swiper m-b30">
-                                <div class="swiper-wrapper">
-                                    @foreach ($popularProducts as $variant)
-                                        @php $product = $variant->product; @endphp
-                                        <div class="swiper-slide">
-                                            <div class="about-box premium-product-card">
-                                                <div class="about-img premium-img-wrapper">
-                                                    <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}"
-                                                        alt="image" loading="lazy" width="300" height="375">
-                                                </div>
-                                                <div class="premium-shop-overlay">
-                                                    <div class="premium-info-container">
-                                                        <h5 class="premium-product-name text-truncate" title="{{ $variant->varient_name ?? $product->product_name }}">
-                                                            {{ $variant->varient_name ?? $product->product_name }}
-                                                        </h5>
-                                                        <a class="premium-shop-btn"
-                                                            href="{{ route('shop.details', $product->slug) }}">
-                                                            <span>Shop</span>
-                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path d="M5 12h14"></path>
-                                                                <path d="m12 5 7 7-7 7"></path>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
+            {{-- Full-width marquee swiper (no container, bleeds to edges) --}}
+            <div class="marquee-swiper-wrap" style="position:relative;">
+                {{-- Edge fade gradients --}}
+                <div class="marquee-edge marquee-edge-left"></div>
+                <div class="marquee-edge marquee-edge-right"></div>
+
+                <div class="swiper testimonial-swiper about-swiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($popularProducts as $variant)
+                            @php $product = $variant->product; @endphp
+                            <div class="swiper-slide">
+                                <div class="premium-product-card-v2" onclick="location.href='{{ route('shop.details', $product->slug) }}'">
+                                    <div class="premium-img-wrapper-v2">
+                                        <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}"
+                                            alt="{{ $variant->varient_name ?? $product->product_name }}" loading="lazy">
+                                        <div class="premium-quick-add">
+                                            <span>Quick View</span>
                                         </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex gap-3">
-                                    <div class="testimonial-button-prev">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"
-                                            fill="none">
-                                            <path
-                                                d="M36.8751 19.372H4.6659L12.288 11.9623C12.8705 11.3965 12.0066 10.4958 11.4164 11.0663C11.4164 11.0663 2.68932 19.5502 2.68932 19.5502C2.43467 19.7821 2.45495 20.2007 2.68935 20.4462C2.68932 20.4462 11.4164 28.9337 11.4164 28.9337C12.0038 29.4974 12.8725 28.6135 12.288 28.0377C12.288 28.0377 4.66308 20.622 4.66308 20.622H36.8751C37.6738 20.6144 37.7149 19.3872 36.8751 19.372Z"
-                                                fill="black" />
-                                        </svg>
                                     </div>
-                                    <div class="testimonial-button-next">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"
-                                            fill="none">
-                                            <path
-                                                d="M3.12489 19.372H35.3341L27.712 11.9623C27.1295 11.3965 27.9934 10.4958 28.5836 11.0663L37.3107 19.5502C37.5653 19.7821 37.5451 20.2007 37.3107 20.4462L28.5836 28.9337C27.9962 29.4973 27.1275 28.6135 27.712 28.0377L35.3369 20.622H3.12489C2.32618 20.6144 2.28506 19.3872 3.12489 19.372Z"
-                                                fill="black" />
-                                        </svg>
+                                    @php
+                                        $price    = $variant->offer_price  ?? $product->product_price;
+                                        $mrp      = $variant->mrp_price    ?? $product->product_mrp_price;
+                                        $discount = ($mrp > $price) ? round((($mrp - $price) / $mrp) * 100) : 0;
+                                    @endphp
+                                    <div class="premium-details-v2">
+                                        <h5 class="premium-name-v2" title="{{ $variant->varient_name ?? $product->product_name }}">
+                                            {{ $variant->varient_name ?? $product->product_name }}
+                                        </h5>
+                                        <div class="premium-price-row-v2">
+                                            <span class="premium-price-v2">₹{{ $price }}</span>
+                                            @if($discount > 0)
+                                                <del class="premium-mrp-v2">₹{{ $mrp }}</del>
+                                                <span class="premium-discount-v2">{{ $discount }}% OFF</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                                <div
-                                    class="swiper-pagination style-1 text-end swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
-                                    <span class="swiper-pagination-bullet" tabindex="0">01</span>
-                                    <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0"
-                                        aria-current="true">02</span>
-                                    <span class="swiper-pagination-bullet" tabindex="0">03</span>
+                            </div>
+                        @endforeach
+
+                        {{-- Duplicate slides for seamless infinite loop --}}
+                        @foreach ($popularProducts as $variant)
+                            @php $product = $variant->product; @endphp
+                            <div class="swiper-slide">
+                                <div class="premium-product-card-v2" onclick="location.href='{{ route('shop.details', $product->slug) }}'">
+                                    <div class="premium-img-wrapper-v2">
+                                        <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}"
+                                            alt="{{ $variant->varient_name ?? $product->product_name }}" loading="lazy">
+                                        <div class="premium-quick-add">
+                                            <span>Quick View</span>
+                                        </div>
+                                    </div>
+                                    @php
+                                        $price    = $variant->offer_price  ?? $product->product_price;
+                                        $mrp      = $variant->mrp_price    ?? $product->product_mrp_price;
+                                        $discount = ($mrp > $price) ? round((($mrp - $price) / $mrp) * 100) : 0;
+                                    @endphp
+                                    <div class="premium-details-v2">
+                                        <h5 class="premium-name-v2" title="{{ $variant->varient_name ?? $product->product_name }}">
+                                            {{ $variant->varient_name ?? $product->product_name }}
+                                        </h5>
+                                        <div class="premium-price-row-v2">
+                                            <span class="premium-price-v2">₹{{ $price }}</span>
+                                            @if($discount > 0)
+                                                <del class="premium-mrp-v2">₹{{ $mrp }}</del>
+                                                <span class="premium-discount-v2">{{ $discount }}% OFF</span>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </section>
+
 
 
 

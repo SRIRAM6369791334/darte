@@ -556,7 +556,7 @@
                                             </div>
                                         @empty
                                             <div class="col-12 text-center py-5">
-                                                <h4>No products found!</h4>
+                                                <h4>We're designing something. Coming soon.!</h4>
                                             </div>
                                         @endforelse
                                     </div>
@@ -624,7 +624,7 @@
                                             </div>
                                         @empty
                                             <div class="col-12 text-center py-5">
-                                                <h4>No products found!</h4>
+                                                <h4>We're designing something. Coming soon.!</h4>
                                             </div>
                                         @endforelse
                                     </div>
@@ -692,7 +692,7 @@
                                             </div>
                                         @empty
                                             <div class="col-12 text-center py-5">
-                                                <h4>No products found!</h4>
+                                                <h4>We're designing something. Coming soon.!</h4>
                                             </div>
                                         @endforelse
                                     </div>

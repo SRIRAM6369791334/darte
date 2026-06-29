@@ -552,6 +552,40 @@
         }
     }
 
+    /* Header Right Items Vertical Alignment & Navigation Polish */
+    .extra-cell ul.header-right {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+        height: 100% !important;
+        gap: 12px !important;
+    }
+
+    .extra-cell ul.header-right li {
+        display: inline-flex !important;
+        align-items: center !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .extra-cell ul.header-right li > a {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 10px !important;
+        height: 50px !important;
+        line-height: 50px !important;
+        margin: 0 !important;
+    }
+
+    .header-nav .nav > li > a {
+        letter-spacing: 0.3px !important;
+    }
+
     /* Mobile Header Layout Rules to show Search and Cart icons */
     @media only screen and (max-width: 991px) {
         .site-header .extra-nav {

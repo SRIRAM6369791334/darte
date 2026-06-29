@@ -1,414 +1,576 @@
 @extends('layouts.app')
 @section('content')
 <style>
-.page-content, .content-inner, .content-inner-1, .content-inner-3,
-.dz-product-detail, .product-description, .shop-card, .modal-content, .bg-light {
-    background: #ffffff !important;
-}
+    .page-content,
+    .content-inner,
+    .content-inner-1,
+    .content-inner-3,
+    .dz-product-detail,
+    .product-description,
+    .shop-card,
+    .modal-content,
+    .bg-light {
+        background: #ffffff !important;
+    }
 
-/* ── Product Card ── */
-.dz-product-detail.style-2 .dz-content {
-    padding: 24px 20px 12px !important;
-}
-
-.dz-content .title {
-    font-size: 1.35rem !important;
-    font-weight: 800 !important;
-    line-height: 1.3 !important;
-    margin-bottom: 22px !important;
-    letter-spacing: -0.3px;
-    color: #000;
-    text-align: center !important;
-}
-
-/* ── Price ── */
-.meta-content {
-    gap: 6px !important;
-    margin-bottom: 20px !important;
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-}
-
-/* ── CSS Grid: Price | Quantity on first row, Size below spanning both ── */
-.product-details-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    row-gap: 22px;
-}
-.price-section {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
-}
-.price-section .price {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-}
-.price-section .badge {
-    font-size: 0.85rem !important;
-    font-weight: 700 !important;
-    border-radius: 4px !important;
-    line-height: 1 !important;
-    padding: 2px 8px !important;
-    background: #dc3545 !important;
-    color: #fff !important;
-}
-.quantity-section {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-}
-.quantity-section .form-label {
-    margin-bottom: 4px !important;
-    width: 100% !important;
-}
-.size-section {
-    grid-column: 1 / -1;
-    text-align: center !important;
-}
-.size-section .form-label {
-    text-align: center !important;
-    width: 100% !important;
-    margin-bottom: 4px !important;
-}
-.size-section .product-size {
-    justify-content: center !important;
-}
-
-.price-name {
-    font-size: 17px !important;
-    letter-spacing: 1px !important;
-    color: #000000 !important;
-    font-weight: 700 !important;
-    text-transform: uppercase;
-}
-#details-price {
-    font-size: 1.5rem !important;
-    font-weight: 800 !important;
-    color: #000;
-}
-#details-mrp {
-    font-size: 0.9rem !important;
-    color: #aaa !important;
-}
-
-/* ── Quantity ── */
-.qty-stepper {
-    height: 42px !important;
-    border-radius: 12px !important;
-    background: #f8f8f8 !important;
-    border: 1px solid #e0e0e0 !important;
-    padding: 0 3px !important;
-    gap: 2px !important;
-    display: flex !important;
-    align-items: center !important;
-    width: fit-content;
-}
-.qty-btn {
-    min-width: 30px !important;
-    width: 30px !important;
-    height: 30px !important;
-    padding: 0 !important;
-    font-size: 15px !important;
-    line-height: 1 !important;
-    border-radius: 8px !important;
-    background: #000 !important;
-    color: #fff !important;
-    border: none !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-.qty-input {
-    width: 34px !important;
-    min-width: 34px !important;
-    height: 30px !important;
-    font-weight: 800 !important;
-    font-size: 15px !important;
-    background: transparent !important;
-    border: none !important;
-    color: #000 !important;
-    text-align: center !important;
-}
-
-/* ── Size ── */
-.details-variant-btn {
-    min-width: 46px !important;
-    width: 46px !important;
-    height: 46px !important;
-    border-radius: 50% !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    border: 1.5px solid #ddd !important;
-    background: #fff !important;
-    color: #000 !important;
-    line-height: 1 !important;
-    transition: all 0.25s ease !important;
-}
-.details-variant-btn.btn-dark {
-    background: #000 !important;
-    border-color: #000 !important;
-    color: #fff !important;
-}
-.product-size {
-    gap: 12px !important;
-}
-
-/* ── Action Buttons ── */
-.cart-btn {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 14px !important;
-    width: 100% !important;
-    margin-top: 20px !important;
-    margin-bottom: 0 !important;
-}
-#add-to-cart-btn, .btn-outline-secondary.btn-icon {
-    flex: 1 !important;
-    height: 52px !important;
-    border-radius: 12px !important;
-    padding: 0 16px !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.8px !important;
-    text-transform: uppercase;
-    white-space: nowrap !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.3s ease !important;
-}
-#add-to-cart-btn {
-    background: #000 !important;
-    background-image: none !important;
-    color: #fff !important;
-    border: none !important;
-}
-#add-to-cart-btn:hover {
-    background: #222 !important;
-}
-.btn-outline-secondary.btn-icon {
-    background: #fff !important;
-    color: #000 !important;
-    border: 1.5px solid #000 !important;
-    gap: 10px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-.btn-outline-secondary.btn-icon:hover {
-    background: #000 !important;
-    color: #fff !important;
-}
-.btn-outline-secondary.btn-icon .icon.feather {
-    font-size: 18px !important;
-    line-height: 1 !important;
-    flex-shrink: 0 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-/* ── Accordion ── */
-.luxury-accordion {
-    border-top: 1px solid #e5e5e5;
-    margin-top: 24px;
-}
-.luxury-accordion .accordion-item {
-    border: none;
-    border-bottom: 1px solid #e5e5e5;
-    background: transparent;
-    border-radius: 0 !important;
-}
-.luxury-accordion .accordion-button {
-    background: transparent;
-    color: #000;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    padding: 18px 0;
-    box-shadow: none !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: none;
-}
-.luxury-accordion .accordion-button:not(.collapsed) {
-    background: transparent;
-    color: #000;
-}
-.luxury-accordion .accordion-button::after {
-    display: none !important;
-}
-.luxury-accordion .accordion-button .accordion-icon {
-    font-size: 16px;
-    transition: transform 0.3s ease;
-}
-.luxury-accordion .accordion-button:not(.collapsed) .accordion-icon {
-    transform: rotate(180deg);
-}
-.luxury-accordion .accordion-body {
-    padding: 0;
-    font-size: 14px;
-    color: #555;
-    line-height: 1.7;
-}
-.luxury-accordion .accordion-body p,
-.luxury-accordion .accordion-body li,
-.luxury-accordion .accordion-body span,
-.luxury-accordion .accordion-body td,
-.luxury-accordion .accordion-body th,
-.luxury-accordion .accordion-body small {
-    font-size: 14px !important;
-}
-.luxury-accordion .feature-card {
-    background: #fafafa;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-.luxury-accordion .feature-card:hover {
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    background: #fff;
-}
-.luxury-accordion .trust-block {
-    background: #fafafa;
-    border: 1px solid #eee;
-    padding: 24px;
-    border-radius: 8px;
-    height: 100%;
-}
-.para-text.font-15 {
-    font-size: 15px !important;
-}
-
-/* ── Mobile (max-width: 767px) ── */
-@media (max-width: 767px) {
-    .para-text.font-15 { font-size: 14px !important; }
+    /* ── Product Card ── */
+    .dz-product-detail.style-2 {
+        padding-left: 0px !important;
+    }
 
     .dz-product-detail.style-2 .dz-content {
-        padding: 18px 16px 10px !important;
-        border-radius: 20px !important;
-        margin-top: -20px !important;
+        padding: 24px 0px 12px 0px !important;
     }
-    .dz-content .title { font-size: 1.15rem !important; }
-    #details-price { font-size: 1.3rem !important; }
-    .product-details-grid { row-gap: 16px; }
-    .price-section,
-    .quantity-section { align-items: center !important; }
-    .quantity-section .form-label { text-align: center !important; }
 
-    .cart-btn { gap: 12px !important; margin-top: 16px !important; }
-    #add-to-cart-btn, .btn-outline-secondary.btn-icon {
+    .dz-content .title {
+        /* font-size:  !important; */
+        font-weight: 800 !important;
+        line-height: 1.3 !important;
+        margin-bottom: 22px !important;
+        letter-spacing: 0.5px !important;
+        color: #000;
+        text-align: left !important;
+        text-transform: uppercase !important;
+    }
+
+    /* ── CSS Grid: Stacked on desktop, 2-columns on mobile ── */
+    .product-details-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        row-gap: 16px !important;
+        column-gap: 16px !important;
+    }
+
+    .price-section {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+    }
+
+    .price-section .price-main {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .price-discount-row {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        margin-top: 2px !important;
+    }
+
+    .price-section .badge {
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        border-radius: 4px !important;
+        line-height: 1 !important;
+        padding: 4px 8px !important;
+        background: #ff2c74 !important;
+        color: #fff !important;
+        text-transform: uppercase;
+    }
+
+    .quantity-section {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .quantity-section .form-label {
+        margin-bottom: 8px !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .price-name {
+        font-size: 15px !important;
+        letter-spacing: 0.5px !important;
+        color: #000000 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        margin-bottom: 8px !important;
+    }
+
+    #details-price {
+        font-size: 1.85rem !important;
+        font-weight: 800 !important;
+        color: #000000 !important;
+        line-height: 1.1 !important;
+    }
+
+    #details-mrp {
+        font-size: 1rem !important;
+        color: #999999 !important;
+        text-decoration: line-through !important;
+    }
+
+    .grid-divider {
+        grid-column: 1 / -1;
+        border-top: 1px solid #eeeeee !important;
+        margin: 4px 0 !important;
+    }
+
+    /* ── Quantity Stepper ── */
+    .qty-stepper {
         height: 48px !important;
-        font-size: 11px !important;
-        padding: 0 12px !important;
+        border-radius: 14px !important;
+        background: #fafafa !important;
+        border: 1px solid #eaeaea !important;
+        padding: 4px 6px !important;
+        gap: 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 120px !important;
+        min-width: 120px !important;
+        box-sizing: border-box !important;
+    }
+
+    .qty-stepper .qty-btn {
+        min-width: 32px !important;
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        font-size: 16px !important;
+        line-height: 1 !important;
+        border-radius: 8px !important;
+        background: #000000 !important;
+        color: #ffffff !important;
+        border: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+    }
+
+    .qty-stepper .qty-btn:disabled {
+        background: #cccccc !important;
+        cursor: not-allowed !important;
+    }
+
+    .qty-stepper .qty-input {
+        width: 30px !important;
+        min-width: 30px !important;
+        height: 32px !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        background: transparent !important;
+        border: none !important;
+        color: #000000 !important;
+        text-align: center !important;
+        padding: 0 !important;
+    }
+
+    /* ── Size Section ── */
+    .size-section {
+        grid-column: 1 / -1;
+        text-align: left !important;
+        margin-top: 4px !important;
+    }
+
+    .size-section .form-label {
+        text-align: left !important;
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+        color: #000000 !important;
+        margin-bottom: 8px !important;
+        width: 100% !important;
+    }
+
+    .product-size {
+        display: flex !important;
+        justify-content: flex-start !important;
+        gap: 14px !important;
+        flex-wrap: wrap !important;
     }
 
     .details-variant-btn {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
+        width: 54px !important;
+        height: 54px !important;
+        min-width: 54px !important;
+        border-radius: 50% !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 4px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        border: 1.5px solid #cccccc !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
     }
 
-    .qty-btn {
-        min-width: 28px !important;
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 14px !important;
+    .details-variant-btn.btn-dark {
+        background: #000000 !important;
+        border-color: #000000 !important;
+        color: #ffffff !important;
     }
-    .qty-input {
-        width: 30px !important;
-        min-width: 30px !important;
-        height: 28px !important;
-        font-size: 14px !important;
-    }
-    .qty-stepper { height: 38px !important; }
-}
 
-/* ── Small Mobile (max-width: 575px) ── */
-@media (max-width: 575px) {
-    .product-gallery-swiper,
-    .swiper.product-gallery-swiper.thumb-swiper-lg,
-    .swiper.product-gallery-swiper.thumb-swiper-lg.swiper-initialized {
-        display: block !important;
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        margin: 8px 0 0 0 !important;
-        padding: 4px 0 !important;
-        overflow: visible !important;
-        top: auto !important;
-        bottom: auto !important;
-        left: auto !important;
-        right: auto !important;
-        transform: none !important;
+    .details-variant-btn:hover {
+        border-color: #000000 !important;
     }
-    .product-gallery-swiper .swiper-wrapper,
-    .swiper.product-gallery-swiper.thumb-swiper-lg .swiper-wrapper {
-        flex-direction: row !important;
+
+    /* ── Action Buttons ── */
+    .cart-btn {
         display: flex !important;
-        overflow-x: auto !important;
-        height: auto !important;
-        min-height: 0 !important;
-        gap: 8px;
-        transform: none !important;
+        flex-direction: row !important;
+        gap: 14px !important;
+        width: 100% !important;
+        margin-top: 24px !important;
+        margin-bottom: 0 !important;
     }
-    .product-gallery-swiper .swiper-slide,
-    .swiper.product-gallery-swiper.thumb-swiper-lg .swiper-slide {
-        width: 56px !important;
-        height: 56px !important;
-        flex-shrink: 0 !important;
-        border-radius: 10px !important;
-        overflow: hidden;
-        border: 2px solid #eee;
-        background: #fff;
+
+    .cart-btn #add-to-cart-btn,
+    .cart-btn .btn-outline-secondary.btn-icon {
+        flex: 1 !important;
+        height: 54px !important;
+        border-radius: 12px !important;
+        padding: 0 16px !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+        white-space: nowrap !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.2s ease !important;
+        cursor: pointer !important;
         margin: 0 !important;
     }
-    .product-gallery-swiper .swiper-slide.swiper-slide-thumb-active {
-        border-color: #000 !important;
-    }
-    .product-gallery-swiper2 {
-        width: 100% !important;
-        height: auto !important;
-        margin-bottom: 0 !important;
-    }
-    .dz-product-detail.style-3 .swiper-btn-center-lr {
-        display: flex !important;
-        flex-direction: column !important;
-        padding: 0 !important;
-        height: auto !important;
-        gap: 0 !important;
-    }
-    .dz-product-detail.style-3 {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
+
+    .cart-btn #add-to-cart-btn {
+        background: #000000 !important;
+        background-image: none !important;
+        color: #ffffff !important;
+        border: none !important;
     }
 
-    .dz-product-detail.style-2.p-t50 { padding-top: 16px !important; }
-
-    .product-details-grid { row-gap: 12px; }
-
-    .cart-btn { flex-direction: row !important; }
-    #add-to-cart-btn, .btn-outline-secondary.btn-icon {
-        height: 46px !important;
-        font-size: 10px !important;
-        padding: 0 8px !important;
+    .cart-btn #add-to-cart-btn:hover {
+        background: #222222 !important;
     }
+
+    .cart-btn .btn-outline-secondary.btn-icon {
+        background: #ffffff !important;
+        color: #000000 !important;
+        border: 1.5px solid #000000 !important;
+        gap: 10px !important;
+    }
+
+    .cart-btn .btn-outline-secondary.btn-icon:hover {
+        background: #000000 !important;
+        color: #ffffff !important;
+    }
+
     .btn-outline-secondary.btn-icon .icon.feather {
-        font-size: 0.85rem !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
+        flex-shrink: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
-}
+
+    /* ── Accordion ── */
+    .luxury-accordion {
+        border-top: 1px solid #eeeeee !important;
+        margin-top: 32px !important;
+    }
+
+    .luxury-accordion .accordion-item {
+        border: none !important;
+        border-bottom: 1px solid #eeeeee !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+    }
+
+    .luxury-accordion .accordion-button {
+        background: transparent !important;
+        color: #000000 !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.8px !important;
+        padding: 18px 0 !important;
+        box-shadow: none !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        border: none !important;
+    }
+
+    .luxury-accordion .accordion-button:not(.collapsed) {
+        background: transparent !important;
+        color: #000000 !important;
+    }
+
+    .luxury-accordion .accordion-button::after {
+        display: none !important;
+    }
+
+    .luxury-accordion .accordion-button .accordion-icon {
+        font-size: 14px !important;
+        transition: transform 0.3s ease !important;
+    }
+
+    .luxury-accordion .accordion-button:not(.collapsed) .accordion-icon {
+        transform: rotate(180deg) !important;
+    }
+
+    .luxury-accordion .accordion-body {
+        padding: 12px 0 20px !important;
+        font-size: 14px !important;
+        color: #555555 !important;
+        line-height: 1.6 !important;
+    }
+
+    .luxury-accordion .accordion-body p,
+    .luxury-accordion .accordion-body li,
+    .luxury-accordion .accordion-body span,
+    .luxury-accordion .accordion-body td,
+    .luxury-accordion .accordion-body th,
+    .luxury-accordion .accordion-body small {
+        font-size: 14px !important;
+    }
+
+    .luxury-accordion .feature-card {
+        background: #fafafa;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .luxury-accordion .feature-card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        background: #fff;
+    }
+
+    .luxury-accordion .trust-block {
+        background: #fafafa;
+        border: 1px solid #eee;
+        padding: 24px;
+        border-radius: 8px;
+        height: 100%;
+    }
+
+    .para-text.font-15 {
+        font-size: 15px !important;
+    }
+
+    /* ── Mobile (max-width: 767px) ── */
+    @media (max-width: 767px) {
+        .para-text.font-15 {
+            font-size: 14px !important;
+        }
+
+        .dz-product-detail.style-2 .dz-content {
+            padding: 18px 16px 10px !important;
+            border-radius: 20px !important;
+            margin-top: -20px !important;
+        }
+
+        .dz-content .title {
+            /* font-size: 1.25rem !important; */
+            margin-bottom: 16px !important;
+            text-align: center !important;
+        }
+
+        #details-price {
+            font-size: 1.85rem !important;
+        }
+
+        .product-details-grid {
+            grid-template-columns: 1fr 1fr !important;
+            row-gap: 16px !important;
+        }
+
+        .price-section {
+            align-items: flex-start !important;
+        }
+
+        .size-section {
+            text-align: center !important;
+        }
+
+        .size-section .form-label {
+            text-align: center !important;
+        }
+
+        .product-size {
+            justify-content: center !important;
+        }
+
+        .quantity-section {
+            align-items: flex-end !important;
+        }
+
+        .quantity-section .form-label {
+            text-align: right !important;
+        }
+
+        .cart-btn {
+            gap: 12px !important;
+            margin-top: 16px !important;
+        }
+
+        #add-to-cart-btn,
+        .btn-outline-secondary.btn-icon {
+            height: 50px !important;
+            font-size: 11px !important;
+            padding: 0 10px !important;
+        }
+
+        .details-variant-btn {
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+        }
+
+        .qty-btn {
+            min-width: 32px !important;
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 15px !important;
+        }
+
+        .qty-input {
+            width: 30px !important;
+            min-width: 30px !important;
+            height: 32px !important;
+            font-size: 15px !important;
+        }
+
+        .qty-stepper {
+            height: 46px !important;
+            padding: 4px 6px !important;
+            gap: 10px !important;
+        }
+    }
+
+    /* ── Small Mobile (max-width: 575px) ── */
+    @media (max-width: 575px) {
+
+        .product-gallery-swiper,
+        .swiper.product-gallery-swiper.thumb-swiper-lg,
+        .swiper.product-gallery-swiper.thumb-swiper-lg.swiper-initialized {
+            display: block !important;
+            position: relative !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+            margin: 8px 0 0 0 !important;
+            padding: 4px 0 !important;
+            overflow: visible !important;
+            top: auto !important;
+            bottom: auto !important;
+            left: auto !important;
+            right: auto !important;
+            transform: none !important;
+        }
+
+        .product-gallery-swiper .swiper-wrapper,
+        .swiper.product-gallery-swiper.thumb-swiper-lg .swiper-wrapper {
+            flex-direction: row !important;
+            display: flex !important;
+            overflow-x: auto !important;
+            height: auto !important;
+            min-height: 0 !important;
+            gap: 8px;
+            transform: none !important;
+        }
+
+        .product-gallery-swiper .swiper-slide,
+        .swiper.product-gallery-swiper.thumb-swiper-lg .swiper-slide {
+            width: 56px !important;
+            height: 56px !important;
+            flex-shrink: 0 !important;
+            border-radius: 10px !important;
+            overflow: hidden;
+            border: 2px solid #eee;
+            background: #fff;
+            margin: 0 !important;
+        }
+
+        .product-gallery-swiper .swiper-slide.swiper-slide-thumb-active {
+            border-color: #000 !important;
+        }
+
+        .product-gallery-swiper2 {
+            width: 100% !important;
+            height: auto !important;
+            margin-bottom: 0 !important;
+        }
+
+        .dz-product-detail.style-3 .swiper-btn-center-lr {
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 0 !important;
+            height: auto !important;
+            gap: 0 !important;
+        }
+
+        .dz-product-detail.style-3 {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .dz-product-detail.style-2.p-t50 {
+            padding-top: 16px !important;
+        }
+
+        .product-details-grid {
+            row-gap: 12px;
+        }
+
+        .cart-btn {
+            flex-direction: row !important;
+        }
+
+        #add-to-cart-btn,
+        .btn-outline-secondary.btn-icon {
+            height: 46px !important;
+            font-size: 10px !important;
+            padding: 0 8px !important;
+        }
+
+        .btn-outline-secondary.btn-icon .icon.feather {
+            font-size: 0.85rem !important;
+            display: none !important;
+        }
+
+        #add-to-cart-btn .icon-shopping-bag {
+            display: none !important;
+        }
+    }
+
+    /* ── Related Products Card Alignment ── */
+    .shop-card .dz-content {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    .shop-card .dz-content .title {
+        align-self: center !important;
+        margin: 0 !important;
+    }
+
+    .shop-card .dz-content .price {
+        align-self: center !important;
+        margin: 0 !important;
+    }
 </style>
 <div class="page-content bg-light">
 
@@ -525,7 +687,7 @@
 
 
 
-                        <h4 class="title mb-1">
+                        <h4 class="title mb-4 text-uppercase">
                             {{ $product->product_name }}
                         </h4>
                         <!-- <div class="review-num">
@@ -556,33 +718,26 @@
                                                         {{ $product->description ?? 'No description available' }}
                                                     </p> -->
 
-                        <!-- <div class="meta-content m-b20">
-                                                                                                                                                                                                                                        <span class="price-name text-uppercase small font-weight-bold">Price</span>
-                                                                                                                                                                                                                                        <span class="price h4 mb-0">
-                                                                                                                                                                                                                                            <span
-                                                                                                                                                                                                                                                id="details-price">₹{{ $variant->offer_price ?? $product->product_price }}</span>
-                                                                                                                                                                                                                                            <del class="text-muted h6 ms-2"
-                                                                                                                                                                                                                                                id="details-mrp">₹{{ $variant->mrp_price ?? $product->product_mrp_price }}</del>
-                                                                                                                                                                                                                                        </span>
-                                                                                                                                                                                                                                    </div> -->
                         <div class="product-details-grid">
 
                             <!-- Price Section -->
                             <div class="price-section">
                                 <span class="price-name">Price</span>
-                                <span class="price">
+                                <div class="price-main">
                                     <span id="details-price">₹{{ $variant->offer_price ?? $product->product_price }}</span>
+                                </div>
+                                <div class="price-discount-row">
                                     <del id="details-mrp" class="text-muted" style="{{ ($variant->mrp_price ?? $product->product_mrp_price) > ($variant->offer_price ?? $product->product_price) ? '' : 'display: none;' }}">₹{{ $variant->mrp_price ?? $product->product_mrp_price }}</del>
-                                </span>
-                                @php
-                                $offerVal = $variant->offer_price ?? $product->product_price;
-                                $mrpVal = $variant->mrp_price ?? $product->product_mrp_price;
-                                $hasDiscount = $mrpVal > $offerVal && $mrpVal > 0;
-                                $discountPercent = $hasDiscount ? round((($mrpVal - $offerVal) / $mrpVal) * 100) : 0;
-                                @endphp
-                                <span class="badge" id="details-discount" style="{{ $hasDiscount ? '' : 'display: none;' }}">
-                                    {{ $discountPercent }}% OFF
-                                </span>
+                                    @php
+                                    $offerVal = $variant->offer_price ?? $product->product_price;
+                                    $mrpVal = $variant->mrp_price ?? $product->product_mrp_price;
+                                    $hasDiscount = $mrpVal > $offerVal && $mrpVal > 0;
+                                    $discountPercent = $hasDiscount ? round((($mrpVal - $offerVal) / $mrpVal) * 100) : 0;
+                                    @endphp
+                                    <span class="badge" id="details-discount" style="{{ $hasDiscount ? '' : 'display: none;' }}">
+                                        {{ $discountPercent }}% OFF
+                                    </span>
+                                </div>
                             </div>
 
                             <!-- Quantity Section -->
@@ -594,22 +749,25 @@
                                 <div class="qty-stepper">
                                     <button type="button" id="minus-btn" onclick="changeDetailsQty('minus')"
                                         class="qty-btn"
-                                        {{ $currentStock <= 0 ? 'disabled' : '' }}>−</button>
+                                        {{ $currentStock <= 0 ? 'disabled' : '' }}><i class="fa fa-minus"></i></button>
                                     <input type="text" id="details-qty" value="1" readonly
                                         class="qty-input"
                                         data-stock="{{ $currentStock }}">
                                     <button type="button" id="plus-btn"
                                         class="qty-btn"
                                         onclick="changeDetailsQty('plus')"
-                                        {{ $currentStock <= 0 ? 'disabled' : '' }}>+</button>
+                                        {{ $currentStock <= 0 ? 'disabled' : '' }}><i class="fa fa-plus"></i></button>
                                 </div>
                                 <small id="stock-error" class="text-danger fw-bold mt-2" style="display:none;"></small>
                             </div>
 
+                            <!-- Divider line -->
+                            <div class="grid-divider"></div>
+
                             <!-- Size Section -->
                             <div class="size-section">
                                 <label class="form-label text-uppercase fw-bold">Size:</label>
-                                <div class="btn-group product-size">
+                                <div class="product-size">
                                     @foreach ($product->variants as $v)
                                     @php
                                     $v_category = !empty($v->subcatename)
@@ -646,11 +804,12 @@
 
                         </div>
 
-                        <div class="btn-group cart-btn">
+                        <div class="cart-btn">
                             <button id="add-to-cart-btn"
                                 onclick="addToCartFromDetails({{ $product->id }}, '{{ $variant->id ?? '' }}')"
                                 class="btn btn-secondary text-uppercase fw-bold"
                                 {{ $currentStock <= 0 ? 'disabled' : '' }}>
+                                <i class="icon feather icon-shopping-bag me-2"></i>
                                 {{ $currentStock <= 0 ? 'Out of Stock' : 'Add To Cart' }}
                             </button>
                             <button onclick="addToWishlist({{ $product->id }}, currentDetailsVariantId)"
@@ -675,11 +834,30 @@
                         <!-- ACCORDION: Product Details + Description + ... -->
                         <div class="accordion luxury-accordion mt-4" id="productAccordion">
 
+                            <!-- Description Pane -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDescription">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
+                                        Description
+                                        <i class="feather icon-chevron-down accordion-icon"></i>
+                                    </button>
+                                </h2>
+                                <div id="collapseDescription" class="accordion-collapse collapse" aria-labelledby="headingDescription" data-bs-parent="#productAccordion">
+                                    <div class="accordion-body">
+                                        <div class="py-2">
+                                            <p class="para-text font-15 leading-relaxed text-dark">
+                                                {{ $product->product_specification ?? 'No description available' }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Product Details (SKU + Category) — collapsible -->
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingProductDetails">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProductDetails" aria-expanded="false" aria-controls="collapseProductDetails">
-                                        Product Details
+                                        Product Info
                                         <i class="feather icon-chevron-down accordion-icon"></i>
                                     </button>
                                 </h2>
@@ -701,20 +879,41 @@
                                 </div>
                             </div>
 
-                            <!-- Description Pane -->
+                            <!-- Shipping Pane -->
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingDescription">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDescription" aria-expanded="false" aria-controls="collapseDescription">
-                                        Description
+                                <h2 class="accordion-header" id="headingShipping">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShipping" aria-expanded="false" aria-controls="collapseShipping">
+                                        Shipping & Returns
                                         <i class="feather icon-chevron-down accordion-icon"></i>
                                     </button>
                                 </h2>
-                                <div id="collapseDescription" class="accordion-collapse collapse" aria-labelledby="headingDescription" data-bs-parent="#productAccordion">
+                                <div id="collapseShipping" class="accordion-collapse collapse" aria-labelledby="headingShipping" data-bs-parent="#productAccordion">
                                     <div class="accordion-body">
                                         <div class="py-2">
-                                            <p class="para-text font-15 leading-relaxed text-dark">
-                                                {{ $product->product_specification ?? 'No description available' }}
-                                            </p>
+                                            <div class="row g-3 align-items-stretch">
+                                                <div class="col-12">
+                                                    <div class="trust-block p-3">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <i class="feather icon-truck font-20 me-2 text-dark"></i>
+                                                            <h4 class="h6 font-weight-bold text-uppercase mb-0 letter-spacing-1">Delivery Information</h4>
+                                                        </div>
+                                                        <ul class="list-unstyled small text-muted mb-0">
+                                                            <li class="mb-1"><i class="feather icon-check me-2 text-dark"></i> Standard Delivery: 3-5 Business Days</li>
+                                                            <li class="mb-1"><i class="feather icon-check me-2 text-dark"></i> Express Shipping available at checkout</li>
+                                                            <li><i class="feather icon-check me-2 text-dark"></i> Free shipping on orders above ₹1999</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="trust-block p-3">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <i class="feather icon-credit-card font-20 me-2 text-dark"></i>
+                                                            <h4 class="h6 font-weight-bold text-uppercase mb-0 letter-spacing-1">Cash on Delivery</h4>
+                                                        </div>
+                                                        <p class="small text-muted mb-0">We offer COD across most pincodes in India. A small convenience fee may apply to COD orders. Please check at checkout for your specific location.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -814,46 +1013,6 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Shipping Pane -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingShipping">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseShipping" aria-expanded="false" aria-controls="collapseShipping">
-                                        Shipping & COD
-                                        <i class="feather icon-chevron-down accordion-icon"></i>
-                                    </button>
-                                </h2>
-                                <div id="collapseShipping" class="accordion-collapse collapse" aria-labelledby="headingShipping" data-bs-parent="#productAccordion">
-                                    <div class="accordion-body">
-                                        <div class="py-2">
-                                            <div class="row g-3 align-items-stretch">
-                                                <div class="col-12">
-                                                    <div class="trust-block p-3">
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <i class="feather icon-truck font-20 me-2 text-dark"></i>
-                                                            <h4 class="h6 font-weight-bold text-uppercase mb-0 letter-spacing-1">Delivery Information</h4>
-                                                        </div>
-                                                        <ul class="list-unstyled small text-muted mb-0">
-                                                            <li class="mb-1"><i class="feather icon-check me-2 text-dark"></i> Standard Delivery: 3-5 Business Days</li>
-                                                            <li class="mb-1"><i class="feather icon-check me-2 text-dark"></i> Express Shipping available at checkout</li>
-                                                            <li><i class="feather icon-check me-2 text-dark"></i> Free shipping on orders above ₹1999</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="trust-block p-3">
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <i class="feather icon-credit-card font-20 me-2 text-dark"></i>
-                                                            <h4 class="h6 font-weight-bold text-uppercase mb-0 letter-spacing-1">Cash on Delivery</h4>
-                                                        </div>
-                                                        <p class="small text-muted mb-0">We offer COD across most pincodes in India. A small convenience fee may apply to COD orders. Please check at checkout for your specific location.</p>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1204,18 +1363,18 @@
 
         if (!checkUserAuth()) return;
 
-        fetch('{{ route('cart.add') }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        product_id: productId,
-                        variant_id: variantId,
-                        quantity: quantity
-                    })
+        fetch("{{ route('cart.add') }}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    variant_id: variantId,
+                    quantity: quantity
                 })
+            })
             .then(r => r.json())
             .then(data => {
                 if (data.success) {

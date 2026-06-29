@@ -814,61 +814,48 @@ var PixioCarousel = function(){
 
 	// Collections Swiper ==
 	var handleCollectionsSwiper = function() {
-		if (!jQuery('.about-main-swiper').length || !jQuery('.testimonial-swiper').length) return;
-		var aboutMainSwiper = new Swiper('.about-main-swiper', {
-			speed: 1500,
-			parallax: true,
-			slidesPerView: 1,
-			loop: loopSafe('.about-main-swiper', 1),
-		});
+		if (jQuery('.about-main-swiper').length) {
+			var aboutMainSwiper = new Swiper('.about-main-swiper', {
+				speed: 1500,
+				parallax: true,
+				slidesPerView: 1,
+				loop: loopSafe('.about-main-swiper', 1),
+			});
+		}
 
-		var testimonialSwiper = new Swiper('.testimonial-swiper', {
-			speed: 1500,
-			parallax: true,
-			slidesPerView: 3,
-			spaceBetween: 30,
-			loop: loopSafe('.testimonial-swiper', 3),
-			autoplay: {
-				delay: 3000,
-			},
-			breakpoints: {
-				1600: {
-					slidesPerView: 3,
+		if (jQuery('.testimonial-swiper').length) {
+			var testimonialSwiper = new Swiper('.testimonial-swiper', {
+				speed: 6000,
+				loop: true,
+				freeMode: true,
+				freeModeMomentum: false,
+				autoplay: {
+					delay: 0,
+					disableOnInteraction: false,
+					pauseOnMouseEnter: true,
 				},
-				1200: {
-					slidesPerView: 3,
+				slidesPerView: 3.5,
+				spaceBetween: 24,
+				breakpoints: {
+					1600: {
+						slidesPerView: 3.5,
+					},
+					1200: {
+						slidesPerView: 3.2,
+					},
+					1024: {
+						slidesPerView: 2.8,
+					},
+					768: {
+						slidesPerView: 2.2,
+					},
+					0: {
+						slidesPerView: 1.5,
+						spaceBetween: 16,
+					},
 				},
-				1024: {
-					slidesPerView: 2,
-				},
-				991: {
-					slidesPerView: 2,
-				},
-				767: {
-					slidesPerView: 2,
-				},
-				575: {
-					slidesPerView: 2,
-				},
-				0: {
-					slidesPerView: 1,
-				},
-			},
-			navigation: {
-				nextEl: ".testimonial-button-next",
-				prevEl: ".testimonial-button-prev",
-			},
-			pagination: {
-				el: ".swiper-pagination",
-				clickable: true,
-				renderBullet: function(index, className) {
-					return '<span class="' + className + '">' + "0" + (index + 1) + "</span>";
-				},
-			},
-		});
-
-		aboutMainSwiper.controller.control = testimonialSwiper;
-		testimonialSwiper.controller.control = aboutMainSwiper;
+			});
+		}
 	}
 	
 

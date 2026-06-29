@@ -183,9 +183,9 @@
                     <form id="addWebImagesForm" novalidate>
                         <div class="mb-3">
                             <label class="form-label" for="add_webImageImage">Banner Image</label>
-                            <span class="dark-asterisk">*(600px X 808px) (Only png, jpg, jpeg)</span>
+                            <span class="dark-asterisk">*(Recommended: 1920px X 1080px) (Only png, jpg, jpeg, webp)</span>
                             <input type="file" class="form-control" id="add_webImageImage" name="image"
-                                accept=".jpeg, .jpg, .webp" />
+                                accept=".jpeg, .jpg, .png, .webp" />
                         </div>
 
                         <!-- Title -->
@@ -243,10 +243,10 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label" for="edit_webImageImage">Banner Image* <span
-                                            class="dark-asterisk">*(600pxpx X 808px)(Only
-                                            png,jpg,jpeg)</span></label>
+                                            class="dark-asterisk">*(Recommended: 1920px X 1080px)(Only
+                                            png,jpg,jpeg,webp)</span></label>
                                     <input type="file" class="form-control" id="edit_webImageImage"
-                                        placeholder="BannerImageImage" name="image" accept=".png, .jpg, .webp">
+                                        placeholder="BannerImageImage" name="image" accept=".png, .jpg, .jpeg, .webp">
                                     <div class="col-6">
                                         <div class="mb-2">Previous Image</div>
                                         <label class="edit_show_preview-container">

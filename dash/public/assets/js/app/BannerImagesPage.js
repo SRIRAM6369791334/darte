@@ -22,12 +22,12 @@ $("#add_webImageImage").on("change", function () {
         const img = new Image();
 
         img.onload = () => {
-            if (img.width !== 600 || img.height !== 808) {
+            if (img.width !== 1920 || img.height < 900 || img.height > 1080) {
                 // Show SweetAlert
                 Swal.fire({
                     icon: "error",
                     title: "Invalid Image Size",
-                    text: "Image must be exactly 600 x808 pixels.",
+                    text: "Image width must be 1920px and height must be between 900px and 1080px.",
                 });
 
                 // Clear the file input
@@ -56,11 +56,11 @@ $("#edit_webImageImage").on("change", function () {
         const img = new Image();
 
         img.onload = () => {
-            if (img.width !== 600 || img.height !== 808) {
+            if (img.width !== 1920 || img.height < 900 || img.height > 1080) {
                 Swal.fire({
                     icon: "error",
                     title: "Invalid Image Size",
-                    text: "Banner image must be exactly 600 x 808 pixels.",
+                    text: "Banner image width must be 1920px and height must be between 900px and 1080px.",
                 });
 
                 // Clear the input field
@@ -105,11 +105,11 @@ editValidator1
             rule: "files",
             value: {
                 files: {
-                    extensions: ["jpeg", "jpg", "png"],
-                    maxSize: 1000000,
+                    extensions: ["jpeg", "jpg", "png", "webp"],
+                    maxSize: 5000000, // 5 MB
                 },
             },
-            errorMessage: "*Unsupported format or file too large",
+            errorMessage: "*Unsupported format or file too large (Max 5MB)",
         },
         {
             validator: (value, fields) => {
@@ -122,14 +122,14 @@ editValidator1
 
                     const img = new Image();
                     img.onload = () => {
-                        const isValidSize = img.width === 600 && img.height === 808;
+                        const isValidSize = img.width === 1920 && img.height >= 900 && img.height <= 1080;
                         resolve(isValidSize);
                     };
                     img.onerror = () => resolve(false);
                     img.src = URL.createObjectURL(file);
                 });
             },
-            errorMessage: "*Image size must be exactly 600px × 808px",
+            errorMessage: "*Image must be 1920px wide and between 900px and 1080px high",
         },
     ])
     .addField("#edit_webImageTitle", [
@@ -230,11 +230,11 @@ addValidator1
             rule: "files",
             value: {
                 files: {
-                    extensions: ["jpeg", "jpg", "png"],
-                    maxSize: 1000000, // 1 MB
+                    extensions: ["jpeg", "jpg", "png", "webp"],
+                    maxSize: 5000000, // 5 MB
                 },
             },
-            errorMessage: "*Unsupported format or file too large",
+            errorMessage: "*Unsupported format or file too large (Max 5MB)",
         },
         {
             validator: (value, fields) => {
@@ -249,14 +249,14 @@ addValidator1
 
                     const img = new Image();
                     img.onload = () => {
-                        const validSize = img.width === 600 && img.height === 808;
+                        const validSize = img.width === 1920 && img.height >= 900 && img.height <= 1080;
                         resolve(validSize);
                     };
                     img.onerror = () => resolve(false);
                     img.src = URL.createObjectURL(file);
                 });
             },
-            errorMessage: "*Image size must be exactly 600px × 808px",
+            errorMessage: "*Image must be 1920px wide and between 900px and 1080px high",
         },
     ])
     .onSuccess((event) => {

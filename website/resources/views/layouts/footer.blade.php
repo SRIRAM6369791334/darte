@@ -18,11 +18,13 @@
                     .disc {
                         font-size: 12px !important;
                     }
+
                     .site-footer.style-1 .footer-logo h1 {
                         font-size: 40px !important;
                     }
 
                 }
+
                 @media only screen and (max-width: 768px) {
                     .site-footer.style-1 .footer-logo h1 {
                         font-size: 32px !important;
@@ -132,6 +134,12 @@
                     justify-content: center;
                     font-size: 1.25rem;
                     border-radius: 0 4px 4px 0 !important;
+                }
+
+                @media (max-width: 767px) {
+                    .widget_services ul li {
+                        padding: 0 0 5px 0 !important;
+                    }
                 }
             </style>
             <div class="row">
