@@ -15,12 +15,12 @@
             padding-top: 240px !important;
         } */
 
-  @media only screen and (max-width: 1480px) {
+  /* @media only screen and (max-width: 1480px) {
     .content-inner {
         padding-top: 187px;
         padding-bottom: 117px;
     }
-}
+} */
     @media (max-width: 767px) {
         .dz-bnr-inr {
             min-height: 172px !important;
@@ -32,6 +32,14 @@
             display: table-cell;
         }
     }
+@media only screen and (max-width: 560px) {
+    .content-inner {
+        padding-top: 58px;
+        padding-bottom: 38px;
+    }
+}
+
+
 </style>
 <div class="page-content bg-light">
 
