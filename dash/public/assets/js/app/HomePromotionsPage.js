@@ -17,7 +17,7 @@ function validateImage(file) {
         if (!file) return resolve(false);
 
         const img = new Image();
-        img.onload = () => resolve(img.width === 480 && img.height === 480);
+        img.onload = () => resolve(img.width === 480 && img.height === 600);
         img.onerror = () => resolve(false);
         img.src = URL.createObjectURL(file);
     });
@@ -37,11 +37,11 @@ addValidator
         errorMessage: "*Upload Image",
     },
     {
-        validator: async (value, fields) => {
+        validator: (value, fields) => () => {
             const file = fields["#add_bg_image"].elem.files[0];
-            return await validateImage(file);
+            return validateImage(file);
         },
-        errorMessage: "*Image must be 480x480"
+        errorMessage: "*Image must be 480x600"
     }
 ])
 .onSuccess((event) => submitForm(event, "store"));
@@ -56,12 +56,12 @@ editValidator
 ])
 .addField("#edit_bg_image", [
     {
-        validator: async (value, fields) => {
+        validator: (value, fields) => () => {
             const file = fields["#edit_bg_image"].elem.files[0];
-            if (!file) return true;
-            return await validateImage(file);
+            if (!file) return Promise.resolve(true);
+            return validateImage(file);
         },
-        errorMessage: "*Image must be 480x480"
+        errorMessage: "*Image must be 480x600"
     }
 ])
 .onSuccess((event) => submitForm(event, "update"));
@@ -215,7 +215,7 @@ $("#add_bg_image").on("change", function () {
             // Swal.fire("Error", "Image must be 480x480", "error");
 
             addValidator.showErrors({
-                "#add_bg_image": "*Image must be 480x480"
+                "#add_bg_image": "*Image must be 480x600"
             });
 
             return;
@@ -248,7 +248,7 @@ $("#edit_bg_image").on("change", function () {
             // Swal.fire("Error", "Image must be 480x480", "error");
 
             editValidator.showErrors({
-                "#edit_bg_image": "*Image must be 480x480"
+                "#edit_bg_image": "*Image must be 480x600"
             });
 
             return;

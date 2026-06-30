@@ -93,6 +93,9 @@
         }
 
         /* SweetAlert2 brand overrides */
+        .swal2-container {
+            z-index: 100001;
+        }
         .swal2-popup {
             border-radius: 16px !important;
             font-family: 'DM Sans', 'Roboto', sans-serif !important;
@@ -116,7 +119,7 @@
             background-color: var(--darte-danger) !important;
             border-radius: 8px !important;
         }
-        .swal2-title { color: var(--darte-dark) !important; font-weight: 700 !important; }
+        .swal2-title { color: var(--darte-dark) !important; font-weight: 700 !important; font-size: 22px !important; }
         .swal2-html-container { color: #555 !important; }
         .swal2-icon.swal2-success .swal2-success-ring { border-color: var(--darte-primary) !important; }
         .swal2-icon.swal2-success [class^=swal2-success-line] { background-color: var(--darte-primary) !important; }

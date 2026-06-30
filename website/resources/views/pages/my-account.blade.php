@@ -99,13 +99,86 @@
                 justify-content: center !important;
             }
         }
-        #myAccountSection{
-    padding-bottom:30px !important;
-}
-</style>
+        #myAccountSection {
+            padding-top: 100px !important;
+            padding-bottom: 40px !important;
+        }
+
+        /* ── Option 1: Dual-Pane Card Layout Styles ── */
+        @media (min-width: 992px) {
+            #myAccountSection {
+                padding-top: 140px !important;
+                padding-bottom: 60px !important;
+            }
+
+            .my-account-card-container {
+                max-width: 1200px !important;
+                width: 100% !important;
+                margin: 0 auto !important;
+                border-radius: 24px !important;
+                overflow: hidden !important;
+                box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07) !important;
+                background: #ffffff !important;
+                border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            }
+
+            .start-side-content {
+                padding: 60px 50px 0 50px !important;
+                min-height: 520px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+            }
+
+            .end-side-content {
+                padding: 60px 60px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                background-color: #ffffff !important;
+            }
+
+            .end-side-content .login-area {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                background: transparent !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+
+            .my-account-media {
+                margin-top: auto !important;
+                text-align: center !important;
+            }
+
+            .my-account-media img {
+                max-height: 320px !important;
+                width: auto !important;
+                object-fit: contain !important;
+                margin: 0 auto !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .my-account-card-container {
+                width: 100% !important;
+                box-shadow: none !important;
+                border: none !important;
+                background: transparent !important;
+            }
+            .end-side-content .login-area {
+                border: 1px solid #ddd0d0 !important;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+                background: #ffffff !important;
+                border-radius: 20px !important;
+            }
+        }
+    </style>
 <div class="page-content bg-light">
     <section class="px-3" id="myAccountSection">
-        <div class="row">
+        <div class="my-account-card-container">
+            <div class="row g-0">
             <div class="col-xxl-6 col-xl-6 col-lg-6 start-side-content">
                 <div class="dz-bnr-inr-entry">
                     <h1>My Account</h1>
@@ -216,6 +289,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </section>
 </div>
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel"

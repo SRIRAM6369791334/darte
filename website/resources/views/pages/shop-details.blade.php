@@ -128,7 +128,7 @@
         align-items: center !important;
         justify-content: space-between !important;
         width: 120px !important;
-        min-width: 120px !important;
+        min-width: 140px !important;
         box-sizing: border-box !important;
     }
 
@@ -273,8 +273,8 @@
         color: #ffffff !important;
     }
 
-    .btn-outline-secondary.btn-icon .icon.feather {
-        font-size: 18px !important;
+    .btn-outline-secondary.btn-icon i {
+        font-size: 20px !important;
         line-height: 1 !important;
         flex-shrink: 0 !important;
         display: inline-flex !important;
@@ -333,6 +333,7 @@
         font-size: 14px !important;
         color: #555555 !important;
         line-height: 1.6 !important;
+        text-align: justify !important;
     }
 
     .luxury-accordion .accordion-body p,
@@ -342,6 +343,7 @@
     .luxury-accordion .accordion-body th,
     .luxury-accordion .accordion-body small {
         font-size: 14px !important;
+        text-align: justify !important;
     }
 
     .luxury-accordion .feature-card {
@@ -362,6 +364,10 @@
         padding: 24px;
         border-radius: 8px;
         height: 100%;
+    }
+
+    .para-text {
+        text-align: justify !important;
     }
 
     .para-text.font-15 {
@@ -401,10 +407,12 @@
 
         .size-section {
             text-align: center !important;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .size-section .form-label {
-            text-align: center !important;
+            /* text-align: center !important; */
         }
 
         .product-size {
@@ -424,17 +432,26 @@
             margin-top: 16px !important;
         }
 
-        #add-to-cart-btn,
-        .btn-outline-secondary.btn-icon {
+        .cart-btn #add-to-cart-btn {
             height: 50px !important;
             font-size: 11px !important;
-            padding: 0 10px !important;
+            flex: 1 !important;
         }
 
-        .details-variant-btn {
+        .cart-btn .btn-outline-secondary.btn-icon {
+            height: 50px !important;
+            font-size: 11px !important;
+            flex: none !important;
+            width: 50px !important;
+            min-width: 50px !important;
+            padding: 0 !important;
+        }
+
+        .size-section .product-size button.details-variant-btn {
             width: 48px !important;
             height: 48px !important;
             min-width: 48px !important;
+            border-radius: 8px !important;
         }
 
         .qty-btn {
@@ -538,16 +555,24 @@
             flex-direction: row !important;
         }
 
-        #add-to-cart-btn,
-        .btn-outline-secondary.btn-icon {
+        .cart-btn #add-to-cart-btn {
             height: 46px !important;
             font-size: 10px !important;
-            padding: 0 8px !important;
+            flex: 1 !important;
+        }
+
+        .cart-btn .btn-outline-secondary.btn-icon {
+            height: 46px !important;
+            font-size: 10px !important;
+            flex: none !important;
+            width: 46px !important;
+            min-width: 46px !important;
+            padding: 0 !important;
         }
 
         .btn-outline-secondary.btn-icon .icon.feather {
-            font-size: 0.85rem !important;
-            display: none !important;
+            font-size: 1.85rem !important;
+            /* display: none !important; */
         }
 
         #add-to-cart-btn .icon-shopping-bag {
@@ -571,6 +596,24 @@
         align-self: center !important;
         margin: 0 !important;
     }
+
+    @media (max-width: 991.98px) {
+        .size-section .product-size button.details-variant-btn {
+            width: 48px !important;
+            height: 48px !important;
+            min-width: 48px !important;
+            border-radius: 8px !important;
+        }
+    }
+    @media (min-width: 767px) and (max-width: 769px) {
+    #add-to-cart-btn .icon-shopping-bag {
+        display: none !important;
+    }
+    /* Hide wishlist heart icon */
+    .btn-outline-secondary.btn-icon i  {
+        display: none !important;
+    }
+}
 </style>
 <div class="page-content bg-light">
 
@@ -813,9 +856,9 @@
                                 {{ $currentStock <= 0 ? 'Out of Stock' : 'Add To Cart' }}
                             </button>
                             <button onclick="addToWishlist({{ $product->id }}, currentDetailsVariantId)"
-                                class="btn btn-outline-secondary btn-icon">
-                                <i class="icon feather icon-heart"></i>
-                                Add To Wishlist
+                                class="btn btn-outline-secondary btn-icon" title="Add To Wishlist">
+                                <i class="iconly-Light-Heart2"></i>
+                                <span class="d-none d-md-inline">Add To Wishlist</span>
                             </button>
                         </div>
 
@@ -942,7 +985,7 @@
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="feature-card p-3 d-flex align-items-center gap-3">
-                                                        <i class="feather icon-smile font-24 text-dark flex-shrink-0"></i>
+                                                        <i class="ti-face-smile font-24 text-dark flex-shrink-0"></i>
                                                         <div>
                                                             <h4 class="h6 font-weight-bold text-uppercase mb-1 letter-spacing-1">Comfortable Fit</h4>
                                                             <p class="small text-muted mb-0">Engineered with ergonomic seams for a fit that feels like a second skin.</p>

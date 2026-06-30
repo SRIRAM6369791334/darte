@@ -37717,6 +37717,7 @@ video#video-background {
 @media only screen and (max-width: 1199px) {
     .about-style2 .section-head {
         margin-bottom: 25px;
+        text-justify: auto;
     }
 
     .about-style2 .section-head .title {
@@ -61395,7 +61396,7 @@ a {
 
 .dz-search-area.offcanvas {
     overflow: auto;
-    height: 580px;
+    height: 640px;
 }
 
 .dz-search-area .header-item-search {
@@ -62007,7 +62008,7 @@ a {
 .shop-sidebar-cart {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 190px);
+    /* min-height: calc(100vh - 190px); */
 }
 
 .dz-bnr-inr {

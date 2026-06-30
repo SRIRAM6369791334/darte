@@ -140,6 +140,14 @@
                     .widget_services ul li {
                         padding: 0 0 5px 0 !important;
                     }
+                    .site-footer.style-1 .widget_services {
+                        text-align: center !important;
+                    }
+                    .site-footer.style-1 .widget_services ul {
+                        display: flex !important;
+                        flex-direction: column !important;
+                        align-items: center !important;
+                    }
                 }
             </style>
             <div class="row">
@@ -156,7 +164,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-md-4 col-sm-6 col-6 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-xl-4 col-md-4 col-sm-12 col-12 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.3s">
                     <div class="widget widget_services">
                         <h5 class="footer-title">Quick Links</h5>
                         <ul>
@@ -168,7 +176,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-4 col-sm-6 col-6 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-xl-4 col-md-4 col-sm-12 col-12 d-flex justify-content-center wow fadeInUp" data-wow-delay="0.3s">
 
                     <div class="widget widget_services">
                         <h5 class="footer-title">Our Policies</h5>
@@ -250,8 +258,8 @@
                 </div>
                 <div class="col-lg-6 col-md-12 text-end">
                     <div
-                        class="d-flex align-items-center justify-content-center justify-content-md-center justify-content-xl-end">
-                        <span class="me-3">We Accept: </span>
+                        class="d-flex flex-column flex-lg-row align-items-center justify-content-center justify-content-lg-end">
+                        <span class="me-lg-3 mb-2 mb-lg-0">We Accept<span class="d-none d-lg-inline">:</span></span>
                         <div class="payment-icons" style="font-size: 32px; display: flex; gap: 12px; color: #fff;">
                             <i class="fab fa-cc-visa"></i>
                             <i class="fab fa-cc-mastercard"></i>

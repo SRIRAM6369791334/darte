@@ -946,7 +946,7 @@ var Pixio = function () {
 
     var handleOpenModal = function() {
         var t = `<div class="modal fade inquiry-modal style-1" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="inquiry-adv">
 					<img src="assets/images/adv-2.webp" alt=""/>
 				</div>

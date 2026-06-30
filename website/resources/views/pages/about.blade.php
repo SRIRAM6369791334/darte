@@ -38,7 +38,7 @@
 }
 @media (max-width: 767px) {
     .about-thumb img {
-        height: 332px !important; /* Adjust as needed */
+        
         object-fit: cover;
     }
 }
@@ -46,7 +46,7 @@
     <div class="page-content bg-light pt-5 mt-3">
 
         <div class="dz-bnr-inr bg-secondary overlay-black-light" style="position: relative;min-height: 251px;display: flex;align-items: center;overflow: hidden;z-index: 1;">
-            <img src="{{ asset('assets/images/cropped_about.png') }}" alt="About Us Banner" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;object-fit: revert;object-position: center 15%;z-index: -1;">
+            <img src="{{ asset('assets/images/cropped_about.png') }}" alt="About Us Banner" style="position: absolute;top: 0;left: 0;width: 100%;height: 150%;object-fit: revert;object-position: center 15%;z-index: -1;">
             <div class="container" style="position: relative; z-index: 2;">
                 <div class="dz-bnr-inr-entry">
                     <h1 class="color1">About Us</h1>
@@ -71,7 +71,7 @@
                 <div class="row about-style2 align-items-center">
                     <div class="col-lg-6 col-md-12 col-sm-12 m-b30">
                         <div class="about-thumb">
-                            <img src="assets/images/pic7.webp" alt="" style="height: 350px">
+                            <img src="assets/images/pic7.webp" alt="" >
                         </div>
                     </div>
                     <div class=" col-lg-6 col-md-12 col-sm-12">
@@ -107,7 +107,7 @@
         </section>
 
 
-        <section class=" about-style3">
+        <section class=" about-style3" style="padding-bottom: 0px;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 col-md-12 col-sm-12">
@@ -171,9 +171,9 @@
                 </div>
             </div>
         </section>
-        <div class="dz-media alignfullwide m-b30">
+        <!-- <div class="dz-media alignfullwide m-b30">
             <img src="assets/images/blog/detail/pic3.webp" alt="/">
-        </div>
+        </div> -->
 
         <!-- Get In Touch -->
         <section class="get-in-touch">

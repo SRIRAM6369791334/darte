@@ -157,8 +157,8 @@
                             <textarea name="meta_description" class="form-control" rows="3"></textarea>
                         </div>
                         <hr>
-                        <h6>Open Graph (Social)</h6>
-                        <div class="row">
+                        <h6 style="display: none;">Open Graph (Social)</h6>
+                        <div class="row" style="display: none;">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">OG Title</label>
                                 <input type="text" name="og_title" class="form-control">
@@ -168,12 +168,12 @@
                                 <input type="text" name="og_image" class="form-control">
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" style="display: none;">
                             <label class="form-label">OG Description</label>
                             <textarea name="og_description" class="form-control" rows="2"></textarea>
                         </div>
                         <hr>
-                        <div class="mb-3">
+                        <div class="mb-3" style="display: none;">
                             <label class="form-label">Schema Markup (JSON-LD)</label>
                             <textarea name="schema_code" class="form-control" rows="5" placeholder='<script type="application/ld+json">...</script>'></textarea>
                         </div>
@@ -217,8 +217,8 @@
                             <textarea name="meta_description" id="edit_meta_description" class="form-control" rows="3"></textarea>
                         </div>
                         <hr>
-                        <h6>Open Graph (Social)</h6>
-                        <div class="row">
+                        <h6 style="display: none;">Open Graph (Social)</h6>
+                        <div class="row" style="display: none;">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">OG Title</label>
                                 <input type="text" name="og_title" id="edit_og_title" class="form-control">
@@ -228,12 +228,12 @@
                                 <input type="text" name="og_image" id="edit_og_image" class="form-control">
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" style="display: none;">
                             <label class="form-label">OG Description</label>
                             <textarea name="og_description" id="edit_og_description" class="form-control" rows="2"></textarea>
                         </div>
                         <hr>
-                        <div class="mb-3">
+                        <div class="mb-3" style="display: none;">
                             <label class="form-label">Schema Markup (JSON-LD)</label>
                             <textarea name="schema_code" id="edit_schema_code" class="form-control" rows="5"></textarea>
                         </div>

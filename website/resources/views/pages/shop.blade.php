@@ -57,7 +57,7 @@
 
 
         <div class="dz-bnr-inr bg-secondary overlay-black-light" style="position: relative;min-height: 251px;display: flex;align-items: center;overflow: hidden;z-index: 1;margin-top: 90px;">
-            <img src="{{ asset('assets/images/cropped_shop.png') }}" alt="Shop Banner" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;object-fit: revert;object-position: center 15%;z-index: -1;">
+            <img src="{{ asset('assets/images/cropped_shop.png') }}" alt="Shop Banner" style="position: absolute;top: 0;left: 0;width: 100%;height: 150%;object-fit: revert;object-position: center 15%;z-index: -1;">
             <div class="container" style="position: relative; z-index: 2;">
                 <div class="dz-bnr-inr-entry">
                     <h1 class="color1">{{ $activeCategory ? $activeCategory->category_name ?? 'Shop' : 'Shop' }}</h1>

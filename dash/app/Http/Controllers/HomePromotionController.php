@@ -19,10 +19,10 @@ class HomePromotionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "bg_image" => "required|image|mimes:png,jpg,jpeg,webp|dimensions:width=480,height=480",
+            "bg_image" => "required|image|mimes:png,jpg,jpeg,webp|dimensions:width=480,height=600",
             "link_url" => "required|string|max:255",
         ], [
-            "bg_image.dimensions" => "Image must be exactly 480x480 pixels."
+            "bg_image.dimensions" => "Image must be exactly 480x600 pixels."
         ]);
 
         try {
@@ -51,10 +51,10 @@ class HomePromotionController extends Controller
         $promo = HomePromotion::findOrFail($id);
 
         $request->validate([
-            "bg_image" => "nullable|image|mimes:png,jpg,jpeg,webp|dimensions:width=480,height=480",
+            "bg_image" => "nullable|image|mimes:png,jpg,jpeg,webp|dimensions:width=480,height=600",
             "link_url" => "required|string|max:255",
         ], [
-            "bg_image.dimensions" => "Instagram Image must be exactly 480x480 pixels."
+            "bg_image.dimensions" => "Instagram Image must be exactly 480x600 pixels."
         ]);
 
         try {

@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .thank-you-content p {
+        text-align: justify !important;
+    }
+</style>
 <div class="page-content bg-light">
     <!-- Banner Start -->
     <div class="dz-bnr-inr bg-secondary overlay-black-light" style="background-image:url(assets/images/background/bg1.webp); background-size: cover;">

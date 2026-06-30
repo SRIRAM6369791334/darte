@@ -5,6 +5,20 @@
         .content-inner-1 {
             background: white !important;
         }
+
+        /* Banner Overrides for this page */
+        .dz-bnr-inr {
+            padding-top: 200px !important;
+        }
+
+        @media (max-width: 767px) {
+            .dz-bnr-inr {
+                padding-top: 0px !important;
+                padding-bottom: 0px !important;
+                height: auto !important;
+                min-height: 140px !important;
+            }
+        }
     </style>
     <div class="page-content bg-light">
         <div class="dz-bnr-inr bg-secondary overlay-black-light"

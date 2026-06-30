@@ -1,1427 +1,1679 @@
 @extends('layouts.app')
 @section('content')
-    <style>
-        @media (min-width: 992px) {
-            section {
-                padding-top: 45px !important;
-                padding-bottom: 45px !important;
-            }
+<style>
+    @media (min-width: 992px) {
+        section {
+            padding-top: 45px !important;
+            padding-bottom: 45px !important;
         }
-        @media (max-width: 991px) {
-            section {
-                padding-top: 1px !important;
-                padding-bottom: 1px !important;
-            }
-            .swiper-button-prev, .swiper-button-next {
-                min-width: 44px !important;
-                min-height: 44px !important;
-            }
-            .shop-card .meta-icon a, .shop-card .btn {
-                min-width: 44px !important;
-                min-height: 44px !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-            }
-            
-            /* Typography & Margin Fixes for Mobile */
-            .luxury-heading {
-                font-size: 36px !important;
-                line-height: 1.2 !important;
-            }
-            .banner-content .class2 {
-                font-size: 16px !important;
-            }
-            .section-head .title {
-                font-size: 24px !important;
-                line-height: 1.2 !important;
-                margin-bottom: 10px !important;
-                margin-top: 10px !important;
-            }
-            .section-head p {
-                font-size: 14px !important;
-            }
-            section.about-style4 {
-                padding: 30px 0 !important;
-                margin: 30px auto !important;
-                border-radius: 30px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box {
-                position: absolute !important;
-                top: 50% !important;
-                right: 5% !important;
-                transform: translateY(-50%) !important;
-                width: 260px !important;
-                height: 260px !important;
-                border-radius: 50% !important;
-                z-index: 10 !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                align-items: center !important;
-                padding: 25px !important;
-                text-align: center !important;
-                background: transparent !important;
-            }
-            .adv-area .product-box.style-circle .sale-box:after {
-                display: block !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .sale-name {
-                font-size: 24px !important;
-                margin-bottom: 15px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .badge.style-1 {
-                font-size: 12px !important;
-                margin-bottom: 5px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .btn {
-                padding: 8px 16px !important;
-                font-size: 11px !important;
-            }
-            /* Position images to avoid covering subject faces on mobile/tablet */
-            .adv-area .product-box.style-circle .product-media {
-                background-position: left center !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-media {
-                background-position: right center !important;
-            }
-            .dz-features .title {
-                font-size: 40px !important;
-            }
-            .dz-features li svg {
-                width: 30px !important;
-                height: 30px !important;
-            }
-            .about-wraper, .testimonial-swiper, .swiper-insta {
-                padding: 0 15px !important;
-            }
+    }
 
-            /* Banner 2 text overrides for max-width 991px */
-            .adv-area .product-box:not(.style-circle) .product-content .product-name {
-                font-size: 26px !important;
-                margin-bottom: 15px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
-                font-size: 12px !important;
-                margin-bottom: 10px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .btn {
-                padding: 8px 16px !important;
-                font-size: 11px !important;
-            }
+
+    @media (max-width: 991px) {
+        section {
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
         }
 
-        @media (max-width: 768px) {
-            .adv-area .product-box.style-circle .sale-box .sale-name {
-                font-size: 24px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .product-name {
-                font-size: 22px !important;
-            }
+        .swiper-button-prev,
+        .swiper-button-next {
+            min-width: 44px !important;
+            min-height: 44px !important;
         }
 
-        @media (max-width: 575px) {
-            .adv-area .product-box.style-circle .sale-box {
-                width: 220px !important;
-                height: 220px !important;
-                right: 3% !important;
-                padding: 20px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .sale-name {
-                font-size: 20px !important;
-                margin-bottom: 10px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .badge.style-1 {
-                font-size: 11px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .btn {
-                padding: 6px 12px !important;
-                font-size: 10px !important;
-            }
-
-            /* Banner 2 text overrides for max-width 575px */
-            .adv-area .product-box:not(.style-circle) .product-content .product-name {
-                font-size: 18px !important;
-                margin-bottom: 10px !important;
-                max-width: 180px !important; /* Keep it narrow so it doesn't wrap over family faces */
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
-                font-size: 11px !important;
-                margin-bottom: 5px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .btn {
-                padding: 6px 12px !important;
-                font-size: 10px !important;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .adv-area .product-box.style-circle .sale-box {
-                width: 190px !important;
-                height: 190px !important;
-                right: 2% !important;
-                padding: 12px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .sale-name {
-                font-size: 14px !important;
-                margin-bottom: 8px !important;
-                letter-spacing: 1px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .badge.style-1 {
-                font-size: 9px !important;
-                margin-bottom: 4px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .btn {
-                padding: 8px 14px !important;
-                font-size: 9px !important;
-                letter-spacing: 1px !important;
-            }
-
-            /* Banner 2 text overrides for max-width 360px */
-            .adv-area .product-box:not(.style-circle) .product-content {
-                padding: 25px 15px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .product-name {
-                font-size: 14px !important;
-                margin-bottom: 8px !important;
-                max-width: 125px !important; /* Extremely narrow to keep clear of subject faces */
-                letter-spacing: 1px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
-                font-size: 10px !important;
-                margin-bottom: 5px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .btn {
-                padding: 8px 14px !important;
-                font-size: 9px !important;
-                letter-spacing: 1px !important;
-                margin-left: 20px;
-            }
-        }
-
-        .container-fluid {
-            background: white !important;
-        }
-
-        .adv-area .product-box.style-circle {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .swiper-backface-hidden .swiper-slide {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        @media (min-width: 992px) {
-            .adv-area .product-box.style-circle .sale-box {
-                position: absolute !important;
-                top: 50% !important;
-                right: 8% !important;
-                transform: translateY(-50%) !important;
-                width: 380px !important;
-                height: 380px !important;
-                /* background: rgb(255 255 255 / 85%) !important; */
-                border-radius: 50% !important;
-                /* border: 1.5px solid #1a1a1a !important; */
-                z-index: 10;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 30px;
-                text-align: center;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-            }
-
-            .adv-area .product-box.style-circle .sale-box .badge.style-1 {
-                background: transparent !important;
-                color: #000 !important;
-                font-size: 16px !important;
-                font-weight: 700 !important;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                margin-bottom: 10px;
-            }
-
-            .adv-area .product-box.style-circle .sale-box .sale-name {
-                font-family: 'Inter', sans-serif !important;
-                font-size: clamp(32px, 5vw, 48px) !important;
-                font-weight: 700 !important;
-                color: #000 !important;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                margin: 0 0 25px 0 !important;
-                line-height: 1;
-            }
-        }
-
-        /* Prevent Swiper image alignment shift on page restore */
-        .main-swiper-thumb .banner-media {
-            width: 100% !important;
-            height: 100% !important;
-            /* overflow: hidden removed — was clipping DARTE ::after watermark */
-        }
-
-        .main-swiper-thumb .banner-media .img-preview {
-            width: 100% !important;
-            height: 100% !important;
-            display: flex !important;
+        .shop-card .meta-icon a,
+        .shop-card .btn {
+            min-width: 44px !important;
+            min-height: 44px !important;
+            display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
         }
 
-        .main-swiper-thumb .banner-media .img-preview img {
-            width: 100% !important;
-            height: 100% !important;
-            object-fit: cover !important;
-            object-position: center !important;
+        /* Typography & Margin Fixes for Mobile */
+        .luxury-heading {
+            font-size: 36px !important;
+            line-height: 1.2 !important;
+        }
+
+        .banner-content .class2 {
+            font-size: 16px !important;
+        }
+
+        .section-head .title {
+            font-size: 24px !important;
+            line-height: 1.2 !important;
+            margin-bottom: 10px !important;
+            margin-top: 10px !important;
+        }
+
+        .section-head p {
+            font-size: 14px !important;
+        }
+
+        section.about-style4 {
+            padding: 20px 0 !important;
+            margin: 20px auto !important;
+            border-radius: 30px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box {
+            position: absolute !important;
+            top: 50% !important;
+            right: 5% !important;
+            transform: translateY(-50%) !important;
+            width: 260px !important;
+            height: 260px !important;
+            border-radius: 50% !important;
+            z-index: 10 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 25px !important;
+            text-align: center !important;
+            background: transparent !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box:after {
             display: block !important;
         }
 
-
-
-
-
-
-        section.about-style4 {
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.1);
-            border-radius: 60px;
-            margin: 40px auto;
-            padding: 50px 0 !important;
-            background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
-            width: calc(100% - 40px);
-            max-width: 1400px;
-            position: relative;
-            overflow: hidden;
-            /* To contain the gradient and rounded corners properly */
+        .adv-area .product-box.style-circle .sale-box .sale-name {
+            font-size: 24px !important;
+            margin-bottom: 15px !important;
         }
 
-        section.about-style4::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: -1;
+        .adv-area .product-box.style-circle .sale-box .badge.style-1 {
+            font-size: 12px !important;
+            margin-bottom: 5px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .btn {
+            padding: 8px 16px !important;
+            font-size: 11px !important;
+        }
+
+        /* Position images to avoid covering subject faces on mobile/tablet */
+        .adv-area .product-box.style-circle .product-media {
+            background-position: left center !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-media {
+            background-position: right center !important;
+        }
+
+        .dz-features .title {
+            font-size: 40px !important;
+        }
+
+        .dz-features li svg {
+            width: 30px !important;
+            height: 30px !important;
+        }
+
+        .about-wraper,
+        .testimonial-swiper,
+        .swiper-insta {
+            padding: 0 15px !important;
+        }
+
+        /* Banner 2 text overrides for max-width 991px */
+        .adv-area .product-box:not(.style-circle) .product-content .product-name {
+            font-size: 26px !important;
+            margin-bottom: 15px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
+            font-size: 12px !important;
+            margin-bottom: 10px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .btn {
+            padding: 8px 16px !important;
+            font-size: 11px !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .adv-area .product-box.style-circle .sale-box .sale-name {
+            font-size: 24px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .product-name {
+            font-size: 22px !important;
+        }
+    }
+
+    @media (max-width: 575px) {
+        .adv-area .product-box.style-circle .sale-box {
+            width: 220px !important;
+            height: 220px !important;
+            right: 3% !important;
+            padding: 20px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .sale-name {
+            font-size: 20px !important;
+            margin-bottom: 10px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .badge.style-1 {
+            font-size: 11px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .btn {
+            padding: 6px 12px !important;
+            font-size: 10px !important;
+        }
+
+        /* Banner 2 text overrides for max-width 575px */
+        .adv-area .product-box:not(.style-circle) .product-content .product-name {
+            font-size: 18px !important;
+            margin-bottom: 10px !important;
+            max-width: 180px !important;
+            /* Keep it narrow so it doesn't wrap over family faces */
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
+            font-size: 11px !important;
+            margin-bottom: 5px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .btn {
+            padding: 6px 12px !important;
+            font-size: 10px !important;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .adv-area .product-box.style-circle .sale-box {
+            width: 190px !important;
+            height: 190px !important;
+            right: 2% !important;
+            padding: 12px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .sale-name {
+            font-size: 14px !important;
+            margin-bottom: 8px !important;
+            letter-spacing: 1px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .badge.style-1 {
+            font-size: 9px !important;
+            margin-bottom: 4px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .btn {
+            padding: 8px 14px !important;
+            font-size: 9px !important;
+            letter-spacing: 1px !important;
+        }
+
+        /* Banner 2 text overrides for max-width 360px */
+        .adv-area .product-box:not(.style-circle) .product-content {
+            padding: 25px 15px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .product-name {
+            font-size: 14px !important;
+            margin-bottom: 8px !important;
+            max-width: 125px !important;
+            /* Extremely narrow to keep clear of subject faces */
+            letter-spacing: 1px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
+            font-size: 10px !important;
+            margin-bottom: 5px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .btn {
+            padding: 8px 14px !important;
+            font-size: 9px !important;
+            letter-spacing: 1px !important;
+            margin-left: 20px;
+        }
+    }
+
+    .container-fluid {
+        background: white !important;
+    }
+
+    .adv-area .product-box.style-circle {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .swiper-backface-hidden .swiper-slide {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    @media (min-width: 992px) {
+        .adv-area .product-box.style-circle .sale-box {
+            position: absolute !important;
+            top: 50% !important;
+            right: 8% !important;
+            transform: translateY(-50%) !important;
+            width: 380px !important;
+            height: 380px !important;
+            /* background: rgb(255 255 255 / 85%) !important; */
+            border-radius: 50% !important;
+            /* border: 1.5px solid #1a1a1a !important; */
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .adv-area .product-box.style-circle .sale-box .badge.style-1 {
+            background: transparent !important;
+            color: #000 !important;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .sale-name {
+            font-family: 'Inter', sans-serif !important;
+            font-size: clamp(32px, 5vw, 48px) !important;
+            font-weight: 700 !important;
+            color: #000 !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 25px 0 !important;
+            line-height: 1;
+        }
+    }
+
+    /* Prevent Swiper image alignment shift on page restore */
+    .main-swiper-thumb .banner-media {
+        width: 100% !important;
+        height: 100% !important;
+        /* overflow: hidden removed — was clipping DARTE ::after watermark */
+    }
+
+    .main-swiper-thumb .banner-media .img-preview {
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .main-swiper-thumb .banner-media .img-preview img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        display: block !important;
+    }
+
+
+
+
+
+
+    section.about-style4 {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.1);
+        border-radius: 60px;
+        margin: 40px auto;
+        padding: 20px 0 !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+        width: calc(100% - 40px);
+        max-width: 1400px;
+        position: relative;
+        overflow: hidden;
+        /* To contain the gradient and rounded corners properly */
+    }
+
+    .about-style4 .side-content .about-thumb {
+        margin-top: 0 !important;
+    }
+
+    .about-style4 .side-content .about-thumb img {
+        max-height: 420px !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        border-radius: 30px 0px !important;
+    }
+
+    section.about-style4::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    section.about-style4 .about-content {
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        padding: 40px !important;
+        border-radius: 30px !important;
+        background: #fff !important;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03) !important;
+        margin: 10px;
+        /* Space for shadow */
+        height: auto !important;
+    }
+
+    .swiper-five .swiper-slide {
+        display: flex !important;
+        height: auto !important;
+    }
+
+    .swiper-five .swiper-slide .about-content {
+        flex: 1 !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+    }
+
+    .swiper-five .swiper-slide .about-bx-detail {
+        margin-top: auto !important;
+    }
+
+    @media (max-width: 768px) {
+        section.about-style4 {
+            border-radius: 30px;
+            margin: 40px auto;
+            padding: 20px 0 !important;
+            width: calc(100% - 20px);
+        }
+
+        .about-style4 .side-content .about-thumb img {
+            max-height: 300px !important;
         }
 
         section.about-style4 .about-content {
-            border: 1px solid rgba(0, 0, 0, 0.08) !important;
-            padding: 40px !important;
-            border-radius: 30px !important;
-            background: #fff !important;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.03) !important;
-            margin: 10px;
-            /* Space for shadow */
-            height: 100%;
+            padding: 25px 25px 65px 25px !important;
+            border-radius: 20px !important;
         }
 
-        @media (max-width: 768px) {
-            section.about-style4 {
-                border-radius: 30px;
-                margin: 40px auto;
-                padding: 0px 0 !important;
-                width: calc(100% - 20px);
-            }
-
-            section.about-style4 .about-content {
-                padding: 25px 25px 85px 25px !important;
-                border-radius: 20px !important;
-            }
-            .swiper-five .pagination-align {
-                right: 25px !important;
-                bottom: 20px !important;
-            }
+        .swiper-five .pagination-align {
+            right: 25px !important;
+            bottom: 15px !important;
         }
 
-        @media screen and (max-width: 860px) {
-            .swiper-backface-hidden .swiper-slide {
-                transform: translateZ(0);
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-                margin-left: 0px !important;
-            }
+        .swiper-five {
+            margin-bottom: 0px !important;
+        }
+    }
 
-            .content-inner-1 {
-                text-align: center
-            }
+    @media screen and (max-width: 860px) {
+        .swiper-backface-hidden .swiper-slide {
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            margin-left: 0px !important;
         }
 
-        /* Banner Slider Responsive Fixes */
-        @media (max-width: 991px) {
-            .main-slider.style-1 .banner-content {
-                padding-top: 100px !important;
-                padding-bottom: 40px !important;
-                height: auto !important;
-                min-height: 500px !important;
-                /* Ensure enough height to see all content */
-            }
+        .content-inner-1 {
+            text-align: center
+        }
+    }
 
-            .main-slider.style-1 .swiper-content {
-                padding-top: 0px !important;
-                padding-left: 15px !important;
-                height: 100% !important;
-                justify-content: flex-start !important;
-                background-color: transparent !important;
-            }
-
-            .main-slider.style-1 .main-swiper-thumb {
-                width: 100% !important;
-                margin-top: 20px !important;
-                padding-left: 0 !important;
-                overflow: visible !important;
-            }
-
-            .main-slider.style-1 .content-info .title {
-                font-size: 26px !important;
-                line-height: 1.1 !important;
-                margin-bottom: 20px !important;
-                display: block !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-                color: #000 !important;
-            }
-
-            .main-slider.style-1 .content-btn {
-                margin-bottom: 25px !important;
-                display: block !important;
-            }
-
-            .main-slider.style-1 .btn {
-                padding: 10px 20px !important;
-                font-size: 12px !important;
-            }
-
-            .main-slider.style-1 .bottom-content {
-                margin-top: 30px !important;
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center !important;
-                gap: 10px;
-                width: 200%;
-                z-index: 10;
-            }
-
-            .main-slider.style-1 .bottom-content .star-icon {
-                width: 30px !important;
-                height: 30px !important;
-                flex-shrink: 0;
-            }
-
-            .main-slider.style-1 .bottom-content .sub-title {
-                font-size: 8px !important;
-                display: block !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                white-space: nowrap;
-            }
-
-            .main-slider.style-1 .bottom-content .title {
-                font-size: 10px !important;
-                display: block !important;
-                opacity: 1 !important;
-                visibility: visible !important;
-                line-height: 1 !important;
-                white-space: nowrap;
-                margin-top: 2px;
-            }
-
-            .main-slider.style-1 .banner-media img {
-                border-radius: 15px !important;
-            }
-
-            .main-slider.style-1 .banner-media:after {
-                display: none !important;
-            }
-
-            /* Ensure WOW animations don't hide content on mobile */
-            .main-slider .wow {
-                visibility: visible !important;
-                opacity: 1 !important;
-                animation-name: none !important;
-            }
+    /* Banner Slider Responsive Fixes */
+    @media (max-width: 991px) {
+        .main-slider.style-1 .banner-content {
+            padding-top: 100px !important;
+            padding-bottom: 40px !important;
+            height: auto !important;
+            min-height: 500px !important;
+            /* Ensure enough height to see all content */
         }
 
-        /* Desktop and general alignment */
-        .main-slider.style-1 .main-swiper-thumb {
-            margin-left: 0 !important;
-            margin-right: auto !important;
-        }
-
-        .content-info {
-            background: #fff !important;
-        }
-
-        /* Consolidated repetitive content-inner classes to reduce CSS bloat */
-        [class*="content-inner-"],
-        section,
-        .adv-area,
-        .dz-features-wrapper,
-        .main-slider.style-1,
-        .swiper-btn-center-lr,
-        .about-wraper,
-        .about-content,
-        .about-box,
-        .dz-card,
-        .dz-media,
-        .shop-card,
-        .swiper-container {
-            background: #fff !important;
-        }
-
-        /* LCP Optimization: Ensure first slide is visible before JS init */
-        .noberoSwiper .swiper-slide:first-child {
-            visibility: visible !important;
-            opacity: 1 !important;
-            display: block !important;
-        }
-
-        .banner-content {
-            position: relative;
-        }
-
-        /* Right-side design preserved: next slide + DARTE watermark intentionally visible */
-
-        .dz-features-wrapper {
-            background: #FFFFFF !important;
-        }
-
-        .star-2 {
-            position: absolute !important;
-            right: 2rem !important;
-            bottom: 2rem !important;
-            z-index: 1 !important;
-            pointer-events: none !important;
-        }
-
-        @media screen and (max-width: 860px) {
-            .class1 {
-                padding-top: 25px;
-                text-align: center;
-            }
-        }
-
-        @media screen and (min-width: 850px) and (max-width: 1024px) {
-            .class2 {
-                padding-left: 247px !important;
-            }
-        }
-
-        /* --- Discover New Arrivals — Marquee Infinite Scroll --- */
-
-        /* Swiper container: no overflow clip so cards peek in from sides */
-        .testimonial-swiper {
-            overflow: visible !important;
-        }
-        .testimonial-swiper .swiper-wrapper {
-            transition-timing-function: linear !important;
-        }
-        /* But clip the outer column so cards don't bleed out of bounds */
-        .col-lg-8.col-md-12.m-b30 {
-            overflow: hidden;
-        }
-
-        .premium-product-card-v2 {
-            position: relative;
-            background: #ffffff;
-            border-radius: 14px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            /* No overflow:hidden here — let the img-wrapper handle clipping */
-            transition: box-shadow 0.35s ease;
-        }
-        .premium-product-card-v2:hover {
-            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
-        }
-
-        .premium-img-wrapper-v2 {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 3 / 4;
-            overflow: hidden;
-            border-radius: 14px;
-            background: #f2f2f2;
-        }
-
-        .premium-img-wrapper-v2 img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            display: block;
-        }
-
-        .premium-product-card-v2:hover .premium-img-wrapper-v2 img {
-            transform: scale(1.05);
-        }
-
-        /* Quick View — slides up from bottom of image */
-        .premium-quick-add {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 12px 0;
-            background: rgba(255,255,255,0.92);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translateY(100%);
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 2;
-            border-radius: 0 0 14px 14px;
-            backdrop-filter: blur(4px);
-        }
-        .premium-quick-add span {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: #111;
-        }
-        .premium-product-card-v2:hover .premium-quick-add {
-            transform: translateY(0);
-        }
-
-        /* Product info below card */
-        .premium-details-v2 {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 0 4px 8px;
-            text-align: left;
-        }
-
-        .premium-name-v2 {
-            font-size: 13px;
-            font-weight: 600;
-            color: #111;
-            margin: 0;
-            letter-spacing: 0.2px;
-            line-height: 1.4;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .premium-price-row-v2 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .premium-price-v2 {
-            font-size: 14px;
-            font-weight: 800;
-            color: #111;
-        }
-
-        .premium-mrp-v2 {
-            font-size: 12px;
-            color: #aaa;
-            text-decoration: line-through;
-            font-weight: 400;
-        }
-
-        .premium-discount-v2 {
-            font-size: 11px;
-            font-weight: 700;
-            color: #ffffff;
-            background: #16a34a;
-            padding: 2px 7px;
-            border-radius: 4px;
-            letter-spacing: 0.3px;
-        }
-
-        /* Mobile */
-        @media (max-width: 991px) {
-            .premium-img-wrapper-v2 { border-radius: 10px; }
-            .premium-product-card-v2 { border-radius: 10px; }
-            .premium-name-v2 { font-size: 12px; }
-            .premium-price-v2 { font-size: 13px; }
-            .premium-mrp-v2 { font-size: 11px; }
-            .premium-quick-add { display: none !important; }
-        }
-
-        /* Spacing optimizations to reduce white space */
-        .adv-area {
-            padding: 0 !important;
-        }
-        .content-inner-3 {
-            padding-top: 20px !important;
-            padding-bottom: 20px !important;
-        }
-
-        /* Off-white background style for alternating sections */
-        .bg-off-white,
-        section.bg-off-white,
-        .bg-off-white .shop-card,
-        .bg-off-white .swiper-btn-center-lr,
-        .bg-off-white .dz-media {
-            background: #FAF9F6 !important;
-        }
-
-        /* Premium Banner Spacings and Background */
-        section.banner-section {
-            padding-top: 60px !important;
-            padding-bottom: 60px !important;
-            background-color: #F5EFEB !important;
-        }
-
-        section.banner-section .swiper-slide,
-        section.banner-section .container-fluid {
-            background-color: #F5EFEB !important;
-        }
-
-        /* Option 2: Classic Editorial Style overrides */
-        @media (min-width: 992px) {
-            .banner-content {
-                max-width: 600px !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-            }
-        }
-
-        @media (max-width: 991px) {
-            .banner-content {
-                text-align: center !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-            .banner-content p {
-                margin-left: auto !important;
-                margin-right: auto !important;
-                text-align: center !important;
-                max-width: 90% !important;
-            }
-            .banner-content .content-btn {
-                text-align: center !important;
-            }
-            .banner-content .content-btn a {
-                display: inline-block !important;
-            }
-        }
-
-        .banner-content .luxury-heading {
-            font-family: 'Poppins', sans-serif !important;
-            font-weight: 700 !important;
-            font-size: clamp(34px, 4.8vw, 54px) !important;
-            letter-spacing: 2px !important;
-            line-height: 1.15 !important;
-            margin-bottom: 20px !important;
-            text-transform: uppercase !important;
-        }
-
-        .banner-content p {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 16px !important;
-            font-weight: 400 !important;
-            color: #444 !important;
-            letter-spacing: 0.5px !important;
-            line-height: 1.7 !important;
-            max-width: 95% !important;
-            margin-bottom: 30px !important;
-        }
-
-        /* Luxury Solid Rectangular Button with sharp corners */
-        .banner-content .content-btn a {
-            border-radius: 0px !important; /* Sharp corners */
-            font-family: 'Inter', sans-serif !important;
-            font-weight: 600 !important;
-            font-size: 13px !important;
-            letter-spacing: 2px !important;
-            background-color: #111 !important;
-            border-color: #111 !important;
-            color: #ffffff !important;
-            padding: 14px 40px !important;
-            text-transform: uppercase !important;
-            transition: all 0.3s ease !important;
-        }
-
-        .banner-content .content-btn a:hover {
-            background-color: #000000 !important;
-            border-color: #000000 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
-        }
-
-        /* Image padding and spacing to prevent top/bottom clipping */
-        .banner-media {
-            padding: 20px !important;
-            margin-top: 30px !important;
-            margin-bottom: 30px !important;
-            border: none !important; /* Remove border frame so the rounded image floats cleanly */
+        .main-slider.style-1 .swiper-content {
+            padding-top: 0px !important;
+            padding-left: 15px !important;
+            height: 100% !important;
+            justify-content: flex-start !important;
             background-color: transparent !important;
         }
 
-        .banner-media img {
-            width: auto !important;
-            max-height: 460px !important; /* Constrained height to prevent top overlap/clipping */
-            border-radius: 20px !important; /* Keep the beautiful rounded corners of the image */
-            filter: contrast(1.02) brightness(0.98) !important;
+        .main-slider.style-1 .main-swiper-thumb {
+            width: 100% !important;
+            margin-top: 20px !important;
+            padding-left: 0 !important;
+            overflow: visible !important;
         }
 
-        /* --- Promo Split Section overrides (.adv-area) --- */
-        
-        /* General fonts for both cards */
+        .main-slider.style-1 .content-info .title {
+            font-size: 26px !important;
+            line-height: 1.1 !important;
+            margin-bottom: 20px !important;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            color: #000 !important;
+        }
+
+        .main-slider.style-1 .content-btn {
+            margin-bottom: 25px !important;
+            display: block !important;
+        }
+
+        .main-slider.style-1 .btn {
+            padding: 10px 20px !important;
+            font-size: 12px !important;
+        }
+
+        .main-slider.style-1 .bottom-content {
+            margin-top: 30px !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 10px;
+            width: 200%;
+            z-index: 10;
+        }
+
+        .main-slider.style-1 .bottom-content .star-icon {
+            width: 30px !important;
+            height: 30px !important;
+            flex-shrink: 0;
+        }
+
+        .main-slider.style-1 .bottom-content .sub-title {
+            font-size: 8px !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            white-space: nowrap;
+        }
+
+        .main-slider.style-1 .bottom-content .title {
+            font-size: 10px !important;
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            line-height: 1 !important;
+            white-space: nowrap;
+            margin-top: 2px;
+        }
+
+        .main-slider.style-1 .banner-media img {
+            border-radius: 15px !important;
+        }
+
+        .main-slider.style-1 .banner-media:after {
+            display: none !important;
+        }
+
+        /* Ensure WOW animations don't hide content on mobile */
+        .main-slider .wow {
+            visibility: visible !important;
+            opacity: 1 !important;
+            animation-name: none !important;
+        }
+    }
+
+    /* Desktop and general alignment */
+    .main-slider.style-1 .main-swiper-thumb {
+        margin-left: 0 !important;
+        margin-right: auto !important;
+    }
+
+    .content-info {
+        background: #fff !important;
+    }
+
+    /* Consolidated repetitive content-inner classes to reduce CSS bloat */
+    [class*="content-inner-"],
+    section,
+    .adv-area,
+    .dz-features-wrapper,
+    .main-slider.style-1,
+    .swiper-btn-center-lr,
+    .about-wraper,
+    .about-content,
+    .about-box,
+    .dz-card,
+    .dz-media,
+    .shop-card,
+    .swiper-container {
+        background: #fff !important;
+    }
+
+    /* LCP Optimization: Ensure first slide is visible before JS init */
+    .noberoSwiper .swiper-slide:first-child {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+
+    .banner-content {
+        position: relative;
+    }
+
+    /* Right-side design preserved: next slide + DARTE watermark intentionally visible */
+
+    .dz-features-wrapper {
+        background: #FFFFFF !important;
+    }
+
+    .star-2 {
+        position: absolute !important;
+        right: 2rem !important;
+        bottom: 2rem !important;
+        z-index: 1 !important;
+        pointer-events: none !important;
+    }
+
+    @media screen and (max-width: 860px) {
+        .class1 {
+            padding-top: 25px;
+            text-align: center;
+        }
+    }
+
+    @media screen and (min-width: 850px) and (max-width: 1024px) {
+        .class2 {
+            padding-left: 247px !important;
+        }
+    }
+
+    /* --- Discover New Arrivals Premium Editorial Showcase --- */
+    .new-arrivals-editorial-card {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        aspect-ratio: 3/4;
+        cursor: pointer;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        background: #F5EFEB;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    }
+
+    .new-arrivals-editorial-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    }
+
+    .new-arrivals-editorial-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .new-arrivals-editorial-card:hover img {
+        transform: scale(1.04);
+    }
+
+    /* Tag at top-left */
+    .editorial-tag {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #000000;
+        z-index: 10;
+        text-transform: uppercase;
+    }
+
+    /* Glassmorphic Drawer at bottom */
+    .editorial-drawer {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        padding: 16px 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        z-index: 10;
+        transition: all 0.4s ease;
+    }
+
+    .editorial-title {
+        font-family: 'Poppins', 'Inter', sans-serif !important;
+        font-size: 14px;
+        font-weight: 800;
+        color: #000000 !important;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.2px;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .editorial-btn {
+        background: #000000 !important;
+        color: #ffffff !important;
+        font-size: 11px !important;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none !important;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+    }
+
+    .editorial-btn:hover {
+        background: #333333 !important;
+    }
+
+    /* Carousel Navigation arrows */
+    .carousel-nav-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 1px solid rgba(0,0,0,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-nav-btn:hover {
+        background: #000000;
+        border-color: #000000;
+    }
+
+    .carousel-nav-btn:hover svg path {
+        stroke: #ffffff;
+    }
+
+    /* Custom progress bar pagination style */
+    .swiper-progress-bar-wrap {
+        height: 3px;
+        background: rgba(0,0,0,0.06);
+        border-radius: 2px;
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .swiper-progress-bar-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        background: #000000;
+        border-radius: 2px;
+        transition: width 0.3s ease;
+    }
+
+    /* Mobile overrides */
+    @media (max-width: 991px) {
+        .carousel-nav-btn {
+            width: 38px;
+            height: 38px;
+        }
+        .new-arrivals-editorial-card {
+            border-radius: 16px;
+        }
+        .editorial-drawer {
+            border-radius: 12px;
+            padding: 12px 14px;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+        }
+        .editorial-title {
+            font-size: 13px !important;
+        }
+        .editorial-btn {
+            font-size: 10px !important;
+            padding: 8px 14px;
+        }
+    }
+
+    /* Spacing optimizations to reduce white space */
+    .adv-area {
+        padding: 0 !important;
+    }
+
+    .content-inner-3 {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }
+
+    /* Off-white background style for alternating sections */
+    .bg-off-white,
+    section.bg-off-white,
+    .bg-off-white .shop-card,
+    .bg-off-white .swiper-btn-center-lr,
+    .bg-off-white .dz-media {
+        background: #FAF9F6 !important;
+    }
+
+    /* Premium Banner Spacings and Background */
+    section.banner-section {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+        background-color: #F5EFEB !important;
+    }
+
+    section.banner-section .swiper-slide,
+    section.banner-section .container-fluid {
+        background-color: #F5EFEB !important;
+    }
+
+    /* Option 2: Classic Editorial Style overrides */
+    @media (min-width: 992px) {
+        .banner-content {
+            max-width: 600px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .banner-content {
+            text-align: center !important;
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+        }
+
+        .banner-content p {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: center !important;
+            max-width: 90% !important;
+        }
+
+        .banner-content .content-btn {
+            text-align: center !important;
+        }
+
+        .banner-content .content-btn a {
+            display: inline-block !important;
+        }
+    }
+
+    .banner-content .luxury-heading {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: clamp(34px, 4.8vw, 54px) !important;
+        letter-spacing: 2px !important;
+        line-height: 1.15 !important;
+        margin-bottom: 20px !important;
+        text-transform: uppercase !important;
+    }
+
+    .banner-content p {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        color: #444 !important;
+        letter-spacing: 0.5px !important;
+        line-height: 1.7 !important;
+        max-width: 95% !important;
+        margin-bottom: 30px !important;
+    }
+
+    /* Luxury Solid Rectangular Button with sharp corners */
+    .banner-content .content-btn a {
+        border-radius: 0px !important;
+        /* Sharp corners */
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 13px !important;
+        letter-spacing: 2px !important;
+        background-color: #111 !important;
+        border-color: #111 !important;
+        color: #ffffff !important;
+        padding: 14px 40px !important;
+        text-transform: uppercase !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .banner-content .content-btn a:hover {
+        background-color: #000000 !important;
+        border-color: #000000 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    /* Image padding and spacing to prevent top/bottom clipping */
+    .banner-media {
+        padding: 20px !important;
+        margin-top: 30px !important;
+        margin-bottom: 30px !important;
+        border: none !important;
+        /* Remove border frame so the rounded image floats cleanly */
+        background-color: transparent !important;
+    }
+
+    .banner-media img {
+        width: auto !important;
+        max-height: 460px !important;
+        /* Constrained height to prevent top overlap/clipping */
+        border-radius: 20px !important;
+        /* Keep the beautiful rounded corners of the image */
+        filter: contrast(1.02) brightness(0.98) !important;
+    }
+
+    /* --- Promo Split Section overrides (.adv-area) --- */
+
+    /* General fonts for both cards */
+    .adv-area .badge.style-1 {
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+    }
+
+    .adv-area .sale-name,
+    .adv-area .product-name {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        line-height: 1.15 !important;
+    }
+
+    /* Left side circular badge vertical centering & style */
+    @media (min-width: 992px) {
+        .adv-area .product-box.style-circle .sale-box {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 40px !important;
+            background-color: #ffffff !important;
+            border-radius: 50% !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .badge.style-1 {
+            font-size: 14px !important;
+            margin-top: 0 !important;
+            margin-bottom: 12px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .sale-name {
+            font-size: clamp(28px, 4vw, 38px) !important;
+            margin-top: 0 !important;
+            margin-bottom: 20px !important;
+        }
+
+        .adv-area .product-box.style-circle .sale-box .btn {
+            margin: 0 !important;
+        }
+    }
+
+    /* Right side content position and padding */
+    @media (min-width: 992px) {
+        .adv-area .product-box:not(.style-circle) .product-content {
+            padding: 60px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            height: 100% !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
+            font-size: 14px !important;
+            margin-bottom: 12px !important;
+        }
+
+        .adv-area .product-box:not(.style-circle) .product-content .product-name {
+            font-size: clamp(28px, 4vw, 38px) !important;
+            margin-bottom: 25px !important;
+        }
+    }
+
+    /* CTA Buttons matching hero banner style */
+    .adv-area .btn {
+        border-radius: 0px !important;
+        /* Sharp corners */
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 13px !important;
+        letter-spacing: 2px !important;
+        text-transform: uppercase !important;
+        padding: 14px 35px !important;
+        transition: all 0.3s ease !important;
+        display: inline-block !important;
+    }
+
+    /* Outlined Button (Left Circle Card) */
+    .adv-area .btn-outline-secondary {
+        border: 2px solid #111 !important;
+        background-color: transparent !important;
+        color: #111 !important;
+    }
+
+    .adv-area .btn-outline-secondary:hover {
+        background-color: #111 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    /* Solid Button (Right Card) */
+    .adv-area .btn-secondary {
+        background-color: #111 !important;
+        border-color: #111 !important;
+        color: #ffffff !important;
+    }
+
+    .adv-area .btn-secondary:hover {
+        background-color: #000000 !important;
+        border-color: #000000 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    /* Responsive spacing/sizes for mobile & tablet */
+    @media (max-width: 991px) {
         .adv-area .badge.style-1 {
-            font-family: 'Inter', sans-serif !important;
-            font-weight: 600 !important;
-            letter-spacing: 1px !important;
-            text-transform: uppercase !important;
+            font-size: 12px !important;
+            margin-bottom: 8px !important;
         }
 
         .adv-area .sale-name,
         .adv-area .product-name {
-            font-family: 'Poppins', sans-serif !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 2px !important;
-            line-height: 1.15 !important;
+            font-size: 24px !important;
+            margin-bottom: 15px !important;
         }
 
-        /* Left side circular badge vertical centering & style */
-        @media (min-width: 992px) {
-            .adv-area .product-box.style-circle .sale-box {
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                align-items: center !important;
-                padding: 40px !important;
-                background-color: #ffffff !important;
-                border-radius: 50% !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .badge.style-1 {
-                font-size: 14px !important;
-                margin-top: 0 !important;
-                margin-bottom: 12px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .sale-name {
-                font-size: clamp(28px, 4vw, 38px) !important;
-                margin-top: 0 !important;
-                margin-bottom: 20px !important;
-            }
-            .adv-area .product-box.style-circle .sale-box .btn {
-                margin: 0 !important;
-            }
-        }
-
-        /* Right side content position and padding */
-        @media (min-width: 992px) {
-            .adv-area .product-box:not(.style-circle) .product-content {
-                padding: 60px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                height: 100% !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .badge.style-1 {
-                font-size: 14px !important;
-                margin-bottom: 12px !important;
-            }
-            .adv-area .product-box:not(.style-circle) .product-content .product-name {
-                font-size: clamp(28px, 4vw, 38px) !important;
-                margin-bottom: 25px !important;
-            }
-        }
-
-        /* CTA Buttons matching hero banner style */
         .adv-area .btn {
-            border-radius: 0px !important; /* Sharp corners */
-            font-family: 'Inter', sans-serif !important;
-            font-weight: 600 !important;
-            font-size: 13px !important;
-            letter-spacing: 2px !important;
-            text-transform: uppercase !important;
-            padding: 14px 35px !important;
-            transition: all 0.3s ease !important;
-            display: inline-block !important;
+            padding: 10px 24px !important;
+            font-size: 11px !important;
         }
+    }
 
-        /* Outlined Button (Left Circle Card) */
-        .adv-area .btn-outline-secondary {
-            border: 2px solid #111 !important;
-            background-color: transparent !important;
-            color: #111 !important;
+    /* Custom side-by-side price format */
+    .shop-card .price {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        white-space: nowrap !important;
+    }
+
+    .shop-card .price del {
+        display: inline-block !important;
+        margin: 0 !important;
+        font-size: 0.85em !important;
+        color: #777 !important;
+    }
+    @media only screen and (max-width: 860px) {
+        .nobero-banner-section {
+            margin-top: 100px !important;
         }
-        .adv-area .btn-outline-secondary:hover {
-            background-color: #111 !important;
-            color: #ffffff !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .nobero-banner-section {
+            margin-top: 100px !important;
         }
-
-        /* Solid Button (Right Card) */
-        .adv-area .btn-secondary {
-            background-color: #111 !important;
-            border-color: #111 !important;
-            color: #ffffff !important;
-        }
-        .adv-area .btn-secondary:hover {
-            background-color: #000000 !important;
-            border-color: #000000 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
-        }
-
-        /* Responsive spacing/sizes for mobile & tablet */
-        @media (max-width: 991px) {
-            .adv-area .badge.style-1 {
-                font-size: 12px !important;
-                margin-bottom: 8px !important;
-            }
-            .adv-area .sale-name,
-            .adv-area .product-name {
-                font-size: 24px !important;
-                margin-bottom: 15px !important;
-            }
-            .adv-area .btn {
-                padding: 10px 24px !important;
-                font-size: 11px !important;
-            }
-        }
-
-        /* Custom side-by-side price format */
-        .shop-card .price {
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            white-space: nowrap !important;
-        }
-
-        .shop-card .price del {
-            display: inline-block !important;
-            margin: 0 !important;
-            font-size: 0.85em !important;
-            color: #777 !important;
-        }
-    </style>
-    <div class="page-content bg-white">
+    }
+</style>
+<div class="page-content bg-white">
 
 
 
 
-        <section class="full-banner-section" style="position:relative; overflow:hidden;">
-            <div class="swiper noberoSwiper">
-                <div class="swiper-wrapper">
-                    @foreach ($bannerImages as $banner)
+    <section class="nobero-banner-section">
+        <div class="container">
+            <div class="position-relative">
+                <div class="swiper noberoSwiper">
+                    <div class="swiper-wrapper">
+                        @foreach ($bannerImages as $banner)
                         @php
-                            $bannerImageUrl = env('MAIN_URL') . 'images/' . $banner->image;
+                        $bannerImageUrl = env('MAIN_URL') . 'images/' . $banner->image;
                         @endphp
                         <div class="swiper-slide">
-                            <div class="full-banner-slide" style="background-image: url('{{ $bannerImageUrl }}');">
-                                {{-- Gradient overlay for text legibility --}}
-                                <div class="full-banner-overlay"></div>
-                                {{-- Text content --}}
-                                <div class="container h-100">
-                                    <div class="full-banner-content">
-                                        <h1 class="full-banner-title wow fadeInUp" data-wow-delay="0.2s">
-                                            {{ $banner->title }}
-                                        </h1>
-                                        <p class="full-banner-desc wow fadeInUp" data-wow-delay="0.4s">
-                                            {{ $banner->content }}
-                                        </p>
-                                        <div class="wow fadeInUp" data-wow-delay="0.6s">
-                                            <a href="/shop" class="full-banner-btn">{{ $banner->subtitle }}</a>
-                                        </div>
+                            <div class="nobero-banner-card">
+                                <!-- The full landscape image (shows entirely without crop) -->
+                                <img src="{{ $bannerImageUrl }}" alt="{{ $banner->title }}" class="nobero-banner-img">
+
+                                <!-- Text content overlaid on top -->
+                                <div class="nobero-banner-overlay-content">
+                                    <h1 class="nobero-banner-title wow fadeInUp" data-wow-delay="0.2s">
+                                        {{ $banner->title }}
+                                    </h1>
+                                    <p class="nobero-banner-desc wow fadeInUp" data-wow-delay="0.4s">
+                                        {{ $banner->content }}
+                                    </p>
+                                    <div class="wow fadeInUp" data-wow-delay="0.6s">
+                                        <a href="/shop" class="nobero-banner-btn">{{ $banner->subtitle }}</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                    <!-- Pagination dots at the bottom -->
+                    <div class="nobero-pagination"></div>
                 </div>
-                <div class="nobero-pagination"></div>
+
+                <!-- Navigation Arrows -->
+                <div class="nobero-nav-btn nobero-nav-prev nobero-prev-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </div>
+                <div class="nobero-nav-btn nobero-nav-next nobero-next-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <style>
-            /* ========================================
-               FULL-WIDTH HERO BANNER
-            ======================================== */
-            .full-banner-section {
-                width: 100%;
+    <style>
+        /* --- Nobero-Style Absolute-Overlay Banner --- */
+        .nobero-banner-section {
+            padding: 0;
+            background: #ffffff;
+            margin-top: 60px ;
+            margin-bottom: 0px !important;
+        }
+
+        .nobero-banner-card {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #F5EFEB;
+            aspect-ratio: 1920/900;
+            /* Maintains perfect aspect ratio of the landscape image */
+        }
+
+        .nobero-banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .nobero-banner-overlay-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 100px;
+            z-index: 2;
+            max-width: 50%;
+            /* Text occupies only the left 50% */
+        }
+
+        .nobero-banner-title {
+            font-family: 'Poppins', 'Inter', sans-serif !important;
+            font-size: clamp(1.6rem, 3.2vw, 2.8rem) !important;
+            font-weight: 800 !important;
+            color: #000000 !important;
+            line-height: 1.25 !important;
+            margin-bottom: 20px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+
+        .nobero-banner-desc {
+            font-family: 'Inter', sans-serif !important;
+            font-size: clamp(13px, 1.2vw, 15px) !important;
+            color: #4b5563 !important;
+            line-height: 1.6 !important;
+            margin-bottom: 30px !important;
+        }
+
+        .nobero-banner-btn {
+            display: inline-block !important;
+            background: #000000 !important;
+            color: #ffffff !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            letter-spacing: 2px !important;
+            text-transform: uppercase !important;
+            padding: 12px 30px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+            border: 1px solid #000000 !important;
+        }
+
+        .nobero-banner-btn:hover {
+            background: transparent !important;
+            color: #000000 !important;
+        }
+
+        /* Swiper wrapper */
+        .noberoSwiper {
+            position: relative;
+            padding: 0;
+            border-radius: 16px;
+        }
+
+        /* Navigation Arrows */
+        .nobero-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #000000;
+        }
+
+        .nobero-nav-btn:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .nobero-nav-prev {
+            left: -22px;
+        }
+
+        .nobero-nav-next {
+            right: -22px;
+        }
+
+        /* Pagination */
+        .nobero-pagination {
+            position: absolute;
+            bottom: 24px !important;
+            left: 85px !important;
+            right: auto !important;
+            width: auto !important;
+            z-index: 99;
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .nobero-pagination .swiper-pagination-bullet {
+            width: 15px;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .nobero-pagination .swiper-pagination-bullet-active {
+            width: 40px;
+            background: #000000 !important;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .nobero-banner-card {
+                aspect-ratio: auto;
+                min-height: 480px;
             }
 
-            .full-banner-slide {
-                position: relative;
-                width: 100%;
-                min-height: 90vh;
-                background-size: cover;
-                background-position: center top;
-                background-repeat: no-repeat;
-                display: flex;
-                align-items: center;
-            }
-
-            /* Stronger gradient — handles both dark & light photo backgrounds */
-            .full-banner-overlay {
+            .nobero-banner-img {
                 position: absolute;
-                inset: 0;
-                background: linear-gradient(
-                    to right,
-                    rgba(0, 0, 0, 0.70) 0%,
-                    rgba(0, 0, 0, 0.45) 45%,
-                    rgba(0, 0, 0, 0.10) 75%,
-                    rgba(0, 0, 0, 0.00) 100%
-                );
-                z-index: 1;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
 
-            .full-banner-section .container {
+            .nobero-banner-card::after {
+                display: none !important;
+            }
+
+            .nobero-banner-overlay-content {
                 position: relative;
+                width: 100%;
+                max-width: 100%;
+                padding: 30px 20px 50px;
+                background: #F5EFEB;
+                /* Solid matching background below image */
+                text-align: center;
+                justify-content: center;
+                align-items: center;
                 z-index: 2;
             }
 
-            .full-banner-content {
-                max-width: 560px;
-                padding: 80px 0;
+            .nobero-nav-btn {
+                display: none !important;
             }
 
-            .full-banner-title {
-                font-size: clamp(2rem, 4vw, 3.6rem);
-                font-weight: 800;
-                color: #ffffff !important;
-                line-height: 1.15;
-                margin-bottom: 20px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                text-shadow: 0 2px 15px rgba(0, 0, 0, 0.45);
-            }
-
-            .full-banner-desc {
-                font-size: 16px;
-                color: rgba(255,255,255,0.9) !important;
-                line-height: 1.7;
-                margin-bottom: 32px;
-                max-width: 420px;
-                text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
-            }
-
-            .full-banner-btn {
-                display: inline-block;
-                background: #ffffff;
-                color: #000000;
-                font-size: 12px;
-                font-weight: 700;
-                letter-spacing: 2.5px;
-                text-transform: uppercase;
-                padding: 15px 36px;
-                border-radius: 4px;
-                text-decoration: none;
-                transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
-            }
-
-            .full-banner-btn:hover {
-                background: #000000;
-                color: #ffffff;
-                transform: translateY(-2px);
-            }
-
-            /* Pagination */
             .nobero-pagination {
-                position: absolute;
-                bottom: 30px;
-                left: 0;
-                right: 0;
-                z-index: 99;
+                left: 0 !important;
+                right: 0 !important;
+                justify-content: center !important;
+                bottom: 15px !important;
+            }
+
+            .nobero-banner-title {
+                font-size: 1.6rem !important;
+                margin-bottom: 15px !important;
+            }
+
+            .nobero-banner-desc {
+                font-size: 13px !important;
+                margin-bottom: 25px !important;
+            }
+
+            .nobero-banner-btn {
+                padding: 10px 24px !important;
+                font-size: 10px !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .nobero-banner-card {
                 display: flex;
-                justify-content: center;
-                gap: 8px;
-                cursor: pointer;
+                flex-direction: column;
+                aspect-ratio: auto;
+                min-height: auto;
+                border-radius: 12px;
             }
 
-            .nobero-pagination .swiper-pagination-bullet {
-                width: 15px;
-                height: 6px;
-                background: rgba(255,255,255,0.5);
-                border-radius: 10px;
-                transition: all 0.3s ease;
-                opacity: 1;
-                cursor: pointer;
+            .nobero-banner-img {
+                position: relative;
+                width: 100%;
+                height: auto;
+                aspect-ratio: 1920/900;
+                object-fit: cover;
+                display: block;
             }
+        }
 
-            .nobero-pagination .swiper-pagination-bullet-active {
-                width: 40px;
-                background: #ffffff !important;
+        @media screen and (max-width: 400px) {
+            .adv-area .product-box.style-circle .sale-box .badge.style-1 {
+                font-size: 11px !important;
             }
+        }
+    </style>
 
-            /* Mobile */
-            @media (max-width: 991px) {
-                .full-banner-slide {
-                    min-height: 75vh;
-                    background-position: center top;
-                }
-                .full-banner-content {
-                    padding: 50px 0 90px;
-                    max-width: 90%;
-                }
-                .full-banner-overlay {
-                    background: linear-gradient(
-                        to bottom,
-                        rgba(0,0,0,0.25) 0%,
-                        rgba(0,0,0,0.60) 40%,
-                        rgba(0,0,0,0.75) 100%
-                    );
-                }
-                .full-banner-content {
-                    margin-top: auto;
-                }
-                .full-banner-section .container {
-                    display: flex;
-                    align-items: flex-end;
-                    padding-bottom: 60px;
-                }
-                .full-banner-slide {
-                    align-items: flex-end;
-                }
-                .full-banner-title {
-                    font-size: clamp(1.6rem, 6vw, 2.4rem);
-                }
-                .full-banner-desc {
-                    font-size: 14px;
-                    max-width: 100%;
-                }
-            }
-
-            @media (max-width: 480px) {
-                .full-banner-slide {
-                    min-height: 70vh;
-                }
-                .full-banner-title {
-                    font-size: clamp(1.4rem, 7vw, 2rem);
-                }
-            }
-
-            @media screen and (max-width: 400px) {
-                .adv-area .product-box.style-circle .sale-box .badge.style-1 {
-                    font-size: 11px !important;
-                }
-            }
-        </style>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const noberoSwiper = new Swiper('.noberoSwiper', {
-                    loop: true,
-                    autoplay: {
-                        delay: 5000,
-                        disableOnInteraction: false,
-                    },
-                    speed: 1000,
-                    pagination: {
-                        el: '.nobero-pagination',
-                        clickable: true,
-                    },
-                    watchSlidesProgress: true,
-                    observer: true,
-                    observeParents: true,
-                });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const noberoSwiper = new Swiper('.noberoSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                speed: 1000,
+                pagination: {
+                    el: '.nobero-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.nobero-next-btn',
+                    prevEl: '.nobero-prev-btn',
+                },
+                watchSlidesProgress: true,
+                observer: true,
+                observeParents: true,
             });
-        </script>
+        });
+    </script>
 
 
 
-        <!-- Category Structure Start -->
-        <section class="content-inner" style="background: #ffffff; border-top: 1px solid #F5F5F5;">
-            <div class="container">
-                <div class="section-head style-1 text-center wow fadeInUp" data-wow-delay="0.2s">
-                    <h2 class="title">Discover our collections</h2>
-                    <p class="para-text">Curated selections for every style and occasion.</p>
+    <!-- Category Structure Start -->
+    <section class="content-inner" style="background: #ffffff; border-top: 1px solid #F5F5F5;">
+        <div class="container">
+            <div class="section-head style-1 text-center wow fadeInUp" data-wow-delay="0.2s">
+                <h2 class="title">Discover our collections</h2>
+                <p class="para-text">Curated selections for every style and occasion.</p>
+            </div>
+
+            <div class="swiper category-carousel-v2 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="swiper-wrapper">
+                    @if (isset($homeCategories))
+                    @foreach ($homeCategories as $category)
+                    @php
+                    $categoryImageUrl = !empty($category->category_image)
+                    ? (str_starts_with($category->category_image, 'http')
+                    ? $category->category_image
+                    : rtrim(env('MAIN_URL'), '/') . '/images/' . ltrim($category->category_image, '/'))
+                    : asset('assets/images/shop/product/medium/1.webp');
+                    @endphp
+                    <div class="swiper-slide">
+                        <div class="category-card text-center px-2">
+                            <a href="{{ route('shop', ['category' => $category->id]) }}"
+                                class="d-block mb-3 overflow-hidden rounded-0">
+                                <div class="dz-media" style="aspect-ratio: 4/5; transition: all 0.5s ease;">
+                                    <img src="{{ $categoryImageUrl }}" alt="{{ $category->category_name }}"
+                                        style="width: 100%; height: 100%; object-fit: cover;"
+                                        class="img-fluid transform-hover" loading="lazy" width="280" height="350">
+                                </div>
+                            </a>
+                            <div class="category-info">
+                                <h4 class="title mb-0">
+                                    <a href="{{ route('shop', ['category' => $category->id]) }}"
+                                        class="text-uppercase small fw-bold letter-spacing-1 text-dark">
+                                        {{ $category->category_name }}
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    @endif
                 </div>
+                <!-- No pagination dots as requested -->
+            </div>
+        </div>
+    </section>
+    <!-- Category Structure End -->
 
-                <div class="swiper category-carousel-v2 wow fadeInUp" data-wow-delay="0.4s">
+
+    <section class="content-inner-1 overflow-hidden bg-off-white">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-center m-b30">
+                <div class="section-head style-1 mb-3 mb-md-0 wow fadeInUp text-center text-md-start" data-wow-delay="0.2s">
+                    <div class="left-content">
+                        <h2 class="title">Our best sellers</h2>
+                        <p class="text-black mb-0">Discover the most popular products in Darte</p>
+                    </div>
+                </div>
+                <div class="text-center text-md-end">
+                    <a class="btn btn-secondary" href="/shop">View All</a>
+                </div>
+            </div>
+
+            <div class="swiper-btn-center-lr">
+                <div class="swiper swiper-four">
                     <div class="swiper-wrapper">
-                        @if (isset($homeCategories))
-                            @foreach ($homeCategories as $category)
-                                @php
-                                    $categoryImageUrl = !empty($category->category_image)
-                                        ? (str_starts_with($category->category_image, 'http')
-                                            ? $category->category_image
-                                            : rtrim(env('MAIN_URL'), '/') . '/images/' . ltrim($category->category_image, '/'))
-                                        : asset('assets/images/shop/product/medium/1.webp');
-                                @endphp
-                                <div class="swiper-slide">
-                                    <div class="category-card text-center px-2">
-                                        <a href="{{ route('shop', ['category' => $category->id]) }}"
-                                            class="d-block mb-3 overflow-hidden rounded-0">
-                                            <div class="dz-media" style="aspect-ratio: 4/5; transition: all 0.5s ease;">
-                                                <img src="{{ $categoryImageUrl }}" alt="{{ $category->category_name }}"
-                                                    style="width: 100%; height: 100%; object-fit: cover;"
-                                                    class="img-fluid transform-hover" loading="lazy" width="280" height="350">
-                                            </div>
+                        @foreach ($trendingProducts as $variant)
+                        @php $product = $variant->product; @endphp
+                        <div class="swiper-slide">
+                            <div class="shop-card wow fadeInUp" data-wow-delay="0.2s">
+                                <div class="dz-media">
+                                    <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}" alt="image" loading="lazy" width="300" height="375">
+                                    <div class="shop-meta">
+                                        <a href="{{ route('shop.details', $product->slug) }}"
+                                            class="btn btn-secondary btn-md btn-rounded">
+                                            <i class="fa-solid fa-eye d-md-none d-block"></i>
+                                            <span class="d-md-block d-none">Quick View</span>
                                         </a>
-                                        <div class="category-info">
-                                            <h4 class="title mb-0">
-                                                <a href="{{ route('shop', ['category' => $category->id]) }}"
-                                                    class="text-uppercase small fw-bold letter-spacing-1 text-dark">
-                                                    {{ $category->category_name }}
-                                                </a>
-                                            </h4>
+                                        <div class="btn btn-primary meta-icon dz-wishicon"
+                                            data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}">
+                                            <i class="icon feather icon-heart dz-heart"></i>
+                                            <i class="icon feather icon-heart-on dz-heart-fill"></i>
+                                        </div>
+                                        <div class="btn btn-primary meta-icon dz-carticon"
+                                            data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}"
+                                            onclick="addToCart({{ $product->id }}, {{ $variant->id }})">
+                                            <i class="flaticon flaticon-basket"></i>
+                                            <i class="flaticon flaticon-basket-on dz-heart-fill"></i>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        @endif
-                    </div>
-                    <!-- No pagination dots as requested -->
-                </div>
-            </div>
-        </section>
-        <!-- Category Structure End -->
-
-
-        <section class="content-inner-1 overflow-hidden bg-off-white">
-            <div class="container">
-                <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-center m-b30">
-                    <div class="section-head style-1 mb-3 mb-md-0 wow fadeInUp text-center text-md-start" data-wow-delay="0.2s">
-                        <div class="left-content">
-                            <h2 class="title">Our best sellers</h2>
-                            <p class="text-black mb-0">Discover the most popular products in Darte</p>
-                        </div>
-                    </div>
-                    <div class="text-center text-md-end">
-                        <a class="btn btn-secondary" href="/shop">View All</a>
-                    </div>
-                </div>
-
-                <div class="swiper-btn-center-lr">
-                    <div class="swiper swiper-four">
-                        <div class="swiper-wrapper">
-                            @foreach ($trendingProducts as $variant)
-                                @php $product = $variant->product; @endphp
-                                <div class="swiper-slide">
-                                    <div class="shop-card wow fadeInUp" data-wow-delay="0.2s">
-                                        <div class="dz-media">
-                                            <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}" alt="image" loading="lazy" width="300" height="375">
-                                            <div class="shop-meta">
-                                                <a href="{{ route('shop.details', $product->slug) }}"
-                                                    class="btn btn-secondary btn-md btn-rounded">
-                                                    <i class="fa-solid fa-eye d-md-none d-block"></i>
-                                                    <span class="d-md-block d-none">Quick View</span>
-                                                </a>
-                                                <div class="btn btn-primary meta-icon dz-wishicon"
-                                                    data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}">
-                                                    <i class="icon feather icon-heart dz-heart"></i>
-                                                    <i class="icon feather icon-heart-on dz-heart-fill"></i>
-                                                </div>
-                                                <div class="btn btn-primary meta-icon dz-carticon"
-                                                    data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}"
-                                                    onclick="addToCart({{ $product->id }}, {{ $variant->id }})">
-                                                    <i class="flaticon flaticon-basket"></i>
-                                                    <i class="flaticon flaticon-basket-on dz-heart-fill"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="dz-content">
-                                            <h5 class="title"><a href="{{ route('shop.details', $product->slug) }}">{{ $variant->varient_name ?? $product->product_name }}</a>
-                                            </h5>
-                                            <h5 class="price">₹{{ $variant->offer_price }}
-                                                @if($variant->mrp_price > $variant->offer_price)
-                                                    <del>₹{{ $variant->mrp_price }}</del>
-                                                @endif
-                                            </h5>
-                                        </div>
-                                        @if ($variant->mrp_price > $variant->offer_price)
-                                            <div class="product-tag">
-                                                @php
-                                                    $discount = round(
-                                                        (($variant->mrp_price - $variant->offer_price) /
-                                                            $variant->mrp_price) *
-                                                        100,
-                                                    );
-                                                @endphp
-                                                <span class="badge ">Get {{ $discount }}% Off</span>
-                                            </div>
+                                <div class="dz-content">
+                                    <h5 class="title"><a href="{{ route('shop.details', $product->slug) }}">{{ $variant->varient_name ?? $product->product_name }}</a>
+                                    </h5>
+                                    <h5 class="price">₹{{ $variant->offer_price }}
+                                        @if($variant->mrp_price > $variant->offer_price)
+                                        <del>₹{{ $variant->mrp_price }}</del>
                                         @endif
-                                    </div>
+                                    </h5>
                                 </div>
-                            @endforeach
+                                @if ($variant->mrp_price > $variant->offer_price)
+                                <div class="product-tag">
+                                    @php
+                                    $discount = round(
+                                    (($variant->mrp_price - $variant->offer_price) /
+                                    $variant->mrp_price) *
+                                    100,
+                                    );
+                                    @endphp
+                                    <span class="badge ">Get {{ $discount }}% Off</span>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="adv-area overflow-hidden">
+
+        <div class="container-fluid px-0">
+            <div class="row product-style2 g-0">
+                @if (isset($giftCategories))
+                @foreach ($giftCategories as $index => $cat)
+                @if ($index == 0)
+                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="product-box style-4 style-circle">
+                        <div class="product-media"
+                            style="background-image: url('{{ env('MAIN_URL') . 'images/' . $cat->category_image }}');">
+                        </div>
+                        <div class="sale-box">
+                            <div class="badge style-1 mb-1">{{ $cat->banner_title }}</div>
+                            <h2 class="sale-name">{{ $cat->banner_description }}</h2>
+                            <a href="/shop" class="btn btn-outline-secondary btn-lg text-uppercase">Shop
+                                Now</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="adv-area overflow-hidden">
-
-            <div class="container-fluid px-0">
-                <div class="row product-style2 g-0">
-                    @if (isset($giftCategories))
-                        @foreach ($giftCategories as $index => $cat)
-                            @if ($index == 0)
-                                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
-                                    <div class="product-box style-4 style-circle">
-                                        <div class="product-media"
-                                            style="background-image: url('{{ env('MAIN_URL') . 'images/' . $cat->category_image }}');">
-                                        </div>
-                                        <div class="sale-box">
-                                            <div class="badge style-1 mb-1">{{ $cat->banner_title }}</div>
-                                            <h2 class="sale-name">{{ $cat->banner_description }}</h2>
-                                            <a href="/shop" class="btn btn-outline-secondary btn-lg text-uppercase">Shop
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @elseif($index == 1)
-                                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.2s">
-                                    <div class="product-box style-4">
-                                        <div class="product-media"
-                                            style="background-image: url('{{ env('MAIN_URL') . 'images/' . $cat->category_image }}');">
-                                        </div>
-                                        <div class="product-content">
-                                            <div class="main-content">
-                                                <div class="badge style-1 mb-3">{{ $cat->banner_title }}</div>
-                                                <h2 class="product-name">{{ $cat->banner_description }}</h2>
-                                            </div>
-                                            <a href="/shop" class="btn btn-secondary btn-lg text-uppercase">Shop
-                                                Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    @endif
-                </div>
-            </div>
-        </section>
-
-
-
-        <section class="content-inner-3 overflow-hidden">
-            <!-- Dz Silder Start-->
-            <div class="dz-features-wrapper overflow-hidden">
-                <ul class="dz-features text-wrapper">
-                    @if (isset($allProducts))
-                        @foreach ($allProducts as $product)
-                            <li class="item">
-                                <h2 class="title">{{ $product->product_name }}</h2>
-                            </li>
-                            <li class="item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="61" height="60" viewBox="0 0 61 60" fill="none">
-                                    <path opacity="0.3"
-                                        d="M29.302 -0.00499268L38.533 21.2005L60.3307 28.9297L39.1253 38.1607L31.396 59.9585L22.165 38.753L0.367297 31.0237L21.5728 21.7928L29.302 -0.00499268Z"
-                                        fill="black" />
-                                </svg>
-                            </li>
-                        @endforeach
-                        {{-- Repeat for smooth scrolling --}}
-                        @foreach ($allProducts as $product)
-                            <li class="item">
-                                <h2 class="title">{{ $product->product_name }}</h2>
-                            </li>
-                            <li class="item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="61" height="60" viewBox="0 0 61 60" fill="none">
-                                    <path opacity="0.3"
-                                        d="M29.302 -0.00499268L38.533 21.2005L60.3307 28.9297L39.1253 38.1607L31.396 59.9585L22.165 38.753L0.367297 31.0237L21.5728 21.7928L29.302 -0.00499268Z"
-                                        fill="black" />
-                                </svg>
-                            </li>
-                        @endforeach
-                    @endif
-                </ul>
-            </div>
-        </section>
-
-
-        <section class="content-inner new-arrivals-marquee-section" style="overflow:hidden;">
-            <div class="container">
-                <div class="section-head style-1 wow fadeInUp d-flex flex-column flex-sm-row justify-content-between align-items-sm-center mb-4" data-wow-delay="0.2s">
-                    <h3 class="title mb-0">Discover New Arrivals</h3>
-                    <a href="/shop" class="service-btn-2 wow fadeInUp position-relative light d-flex mt-3 mt-sm-0" data-wow-delay="0.4s">
-                        <span class="icon-wrapper">
-                            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.832 31.1663L31.1654 12.833" stroke="var(--title)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M12.832 12.833H31.1654V31.1663" stroke="var(--title)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </span>
-                    </a>
-                </div>
-            </div>
-
-            {{-- Full-width marquee swiper (no container, bleeds to edges) --}}
-            <div class="marquee-swiper-wrap" style="position:relative;">
-                {{-- Edge fade gradients --}}
-                <div class="marquee-edge marquee-edge-left"></div>
-                <div class="marquee-edge marquee-edge-right"></div>
-
-                <div class="swiper testimonial-swiper about-swiper">
-                    <div class="swiper-wrapper">
-                        @foreach ($popularProducts as $variant)
-                            @php $product = $variant->product; @endphp
-                            <div class="swiper-slide">
-                                <div class="premium-product-card-v2" onclick="location.href='{{ route('shop.details', $product->slug) }}'">
-                                    <div class="premium-img-wrapper-v2">
-                                        <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}"
-                                            alt="{{ $variant->varient_name ?? $product->product_name }}" loading="lazy">
-                                        <div class="premium-quick-add">
-                                            <span>Quick View</span>
-                                        </div>
-                                    </div>
-                                    @php
-                                        $price    = $variant->offer_price  ?? $product->product_price;
-                                        $mrp      = $variant->mrp_price    ?? $product->product_mrp_price;
-                                        $discount = ($mrp > $price) ? round((($mrp - $price) / $mrp) * 100) : 0;
-                                    @endphp
-                                    <div class="premium-details-v2">
-                                        <h5 class="premium-name-v2" title="{{ $variant->varient_name ?? $product->product_name }}">
-                                            {{ $variant->varient_name ?? $product->product_name }}
-                                        </h5>
-                                        <div class="premium-price-row-v2">
-                                            <span class="premium-price-v2">₹{{ $price }}</span>
-                                            @if($discount > 0)
-                                                <del class="premium-mrp-v2">₹{{ $mrp }}</del>
-                                                <span class="premium-discount-v2">{{ $discount }}% OFF</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
+                @elseif($index == 1)
+                <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-box style-4">
+                        <div class="product-media"
+                            style="background-image: url('{{ env('MAIN_URL') . 'images/' . $cat->category_image }}');">
+                        </div>
+                        <div class="product-content">
+                            <div class="main-content">
+                                <div class="badge style-1 mb-3">{{ $cat->banner_title }}</div>
+                                <h2 class="product-name">{{ $cat->banner_description }}</h2>
                             </div>
-                        @endforeach
-
-                        {{-- Duplicate slides for seamless infinite loop --}}
-                        @foreach ($popularProducts as $variant)
-                            @php $product = $variant->product; @endphp
-                            <div class="swiper-slide">
-                                <div class="premium-product-card-v2" onclick="location.href='{{ route('shop.details', $product->slug) }}'">
-                                    <div class="premium-img-wrapper-v2">
-                                        <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}"
-                                            alt="{{ $variant->varient_name ?? $product->product_name }}" loading="lazy">
-                                        <div class="premium-quick-add">
-                                            <span>Quick View</span>
-                                        </div>
-                                    </div>
-                                    @php
-                                        $price    = $variant->offer_price  ?? $product->product_price;
-                                        $mrp      = $variant->mrp_price    ?? $product->product_mrp_price;
-                                        $discount = ($mrp > $price) ? round((($mrp - $price) / $mrp) * 100) : 0;
-                                    @endphp
-                                    <div class="premium-details-v2">
-                                        <h5 class="premium-name-v2" title="{{ $variant->varient_name ?? $product->product_name }}">
-                                            {{ $variant->varient_name ?? $product->product_name }}
-                                        </h5>
-                                        <div class="premium-price-row-v2">
-                                            <span class="premium-price-v2">₹{{ $price }}</span>
-                                            @if($discount > 0)
-                                                <del class="premium-mrp-v2">₹{{ $mrp }}</del>
-                                                <span class="premium-discount-v2">{{ $discount }}% OFF</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
+                            <a href="/shop" class="btn btn-secondary btn-lg text-uppercase">Shop
+                                Now</a>
+                        </div>
                     </div>
                 </div>
+                @endif
+                @endforeach
+                @endif
             </div>
-        </section>
+        </div>
+    </section>
+
+
+
+    <section class="content-inner-3 overflow-hidden">
+        <!-- Dz Silder Start-->
+        <div class="dz-features-wrapper overflow-hidden">
+            <ul class="dz-features text-wrapper">
+                @if (isset($allProducts))
+                @foreach ($allProducts as $product)
+                <li class="item">
+                    <h2 class="title">{{ $product->product_name }}</h2>
+                </li>
+                <li class="item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="61" height="60" viewBox="0 0 61 60" fill="none">
+                        <path opacity="0.3"
+                            d="M29.302 -0.00499268L38.533 21.2005L60.3307 28.9297L39.1253 38.1607L31.396 59.9585L22.165 38.753L0.367297 31.0237L21.5728 21.7928L29.302 -0.00499268Z"
+                            fill="black" />
+                    </svg>
+                </li>
+                @endforeach
+                {{-- Repeat for smooth scrolling --}}
+                @foreach ($allProducts as $product)
+                <li class="item">
+                    <h2 class="title">{{ $product->product_name }}</h2>
+                </li>
+                <li class="item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="61" height="60" viewBox="0 0 61 60" fill="none">
+                        <path opacity="0.3"
+                            d="M29.302 -0.00499268L38.533 21.2005L60.3307 28.9297L39.1253 38.1607L31.396 59.9585L22.165 38.753L0.367297 31.0237L21.5728 21.7928L29.302 -0.00499268Z"
+                            fill="black" />
+                    </svg>
+                </li>
+                @endforeach
+                @endif
+            </ul>
+        </div>
+    </section>
+
+
+    <section class="content-inner overflow-hidden" style="background: #ffffff;">
+        <div class="container">
+            <div class="row align-items-center">
+                
+                <!-- Left Column: Editorial Card -->
+                <div class="col-lg-4 col-md-12 m-b30 d-none d-lg-block">
+                    @if ($popularProducts->isNotEmpty())
+                        @php $mainProduct = $popularProducts->last(); @endphp
+                        <div class="new-arrivals-editorial-card" onclick="location.href='{{ route('shop.details', $mainProduct->product->slug) }}'">
+                            <span class="editorial-tag">New In</span>
+                            <img src="{{ env('MAIN_URL') . 'images/' . $mainProduct->varient_img }}" alt="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
+                            <div class="editorial-drawer">
+                                <h5 class="editorial-title" title="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
+                                    {{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}
+                                </h5>
+                                <button class="editorial-btn">Shop Now ↗</button>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Right Column: Swiper Carousel -->
+                <div class="col-lg-8 col-12 m-b30">
+                    <div class="about-wraper position-relative">
+                        
+                        <!-- Header with Title and arrow link -->
+                        <div class="section-head style-1 wow fadeInUp d-flex flex-column flex-md-row justify-content-md-between align-items-center mb-4" data-wow-delay="0.4s">
+                            <h3 class="title mb-3 mb-md-0 text-center text-md-start">Discover New Arrivals</h3>
+                            <a class="service-btn-2 wow fadeInUp position-relative light d-flex" data-wow-delay="0.6s" href="/shop">
+                                <span class="icon-wrapper">
+                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12.832 31.1663L31.1654 12.833" stroke="var(--title)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <path d="M12.832 12.833H31.1654V31.1663" stroke="var(--title)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                </span>
+                            </a>
+                        </div>
+
+                        <!-- Swiper container -->
+                        <div class="swiper newArrivalsSwiper m-b30">
+                            <div class="swiper-wrapper">
+                                @foreach ($popularProducts as $variant)
+                                    @php 
+                                        $product = $variant->product;
+                                        $price = $variant->offer_price ?? $product->product_price;
+                                        $mrp = $variant->mrp_price ?? $product->product_mrp_price;
+                                    @endphp
+                                    <div class="swiper-slide">
+                                        <div class="shop-card wow fadeInUp" data-wow-delay="0.2s">
+                                            <div class="dz-media">
+                                                <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}" alt="image" loading="lazy" width="300" height="375">
+                                                <div class="shop-meta">
+                                                    <a href="{{ route('shop.details', $product->slug) }}"
+                                                        class="btn btn-secondary btn-md btn-rounded">
+                                                        <i class="fa-solid fa-eye d-md-none d-block"></i>
+                                                        <span class="d-md-block d-none">Quick View</span>
+                                                    </a>
+                                                    <div class="btn btn-primary meta-icon dz-wishicon"
+                                                        data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}">
+                                                        <i class="icon feather icon-heart dz-heart"></i>
+                                                        <i class="icon feather icon-heart-on dz-heart-fill"></i>
+                                                    </div>
+                                                    <div class="btn btn-primary meta-icon dz-carticon"
+                                                        data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}"
+                                                        onclick="addToCart({{ $product->id }}, {{ $variant->id }})">
+                                                        <i class="flaticon flaticon-basket"></i>
+                                                        <i class="flaticon flaticon-basket-on dz-heart-fill"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="dz-content">
+                                                <h5 class="title">
+                                                    <a href="{{ route('shop.details', $product->slug) }}" title="{{ $variant->varient_name ?? $product->product_name }}">
+                                                        {{ $variant->varient_name ?? $product->product_name }}
+                                                    </a>
+                                                </h5>
+                                                <h5 class="price">₹{{ $price }}
+                                                    @if($mrp > $price)
+                                                        <del>₹{{ $mrp }}</del>
+                                                    @endif
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Custom Controls: Navigation & Progress Bar -->
+                        <div class="d-flex align-items-center justify-content-between mt-4">
+                            <div class="d-flex gap-3">
+                                <div class="carousel-nav-btn new-arrivals-prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m15 18-6-6 6-6"/>
+                                    </svg>
+                                </div>
+                                <div class="carousel-nav-btn new-arrivals-next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m9 18 6-6-6-6"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- <div class="d-flex align-items-center gap-3 w-50 justify-content-end">
+                                <span class="small text-muted" id="new-arrivals-progress-current">01</span>
+                                <div class="swiper-progress-bar-wrap">
+                                    <div class="swiper-progress-bar-fill" id="new-arrivals-progress-fill"></div>
+                                </div>
+                                <span class="small text-muted" id="new-arrivals-progress-total">03</span>
+                            </div> -->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
 
 
@@ -1430,7 +1682,7 @@
 
 
 
-        <!-- <section class="content-inner-2">
+    <!-- <section class="content-inner-2">
                                                                                                                                                                                                                                                                                 <div class="container">
                                                                                                                                                                                                                                                                                     <div class="section-head style-1 wow fadeInUp d-flex  justify-content-between" data-wow-delay="0.2s">
                                                                                                                                                                                                                                                                                         <div class="left-content">
@@ -1524,7 +1776,7 @@
 
 
 
-        {{-- <section class="content-inner">
+    {{-- <section class="content-inner">
             <div class="container">
 
                 <!-- HEADER -->
@@ -1535,14 +1787,14 @@
                     </div>
 
                     <a class="btn btn-secondary" href="{{ route('blog.list') }}">
-                        View All
-                    </a>
-                </div>
+    View All
+    </a>
+</div>
 
-                <div class="row blog-shap"> --}}
+<div class="row blog-shap"> --}}
 
-                    {{-- ================= LEFT BIG BLOG ================= --}}
-                    {{-- @if ($blogs->count() > 0)
+    {{-- ================= LEFT BIG BLOG ================= --}}
+    {{-- @if ($blogs->count() > 0)
                     @php $mainBlog = $blogs[0]; @endphp
 
                     <div class="col-lg-6 col-md-12 m-b30">
@@ -1550,43 +1802,43 @@
 
                             <div class="dz-media">
                                 <a href="{{ route('blog.details', $mainBlog->url_name) }}">
-                                    <img src="{{ env('MAIN_URL') . 'uploads/blogs/' . $mainBlog->image }}" alt="">
-                                </a>
-                            </div>
+    <img src="{{ env('MAIN_URL') . 'uploads/blogs/' . $mainBlog->image }}" alt="">
+    </a>
+</div>
 
-                            <div class="dz-info bg-white">
+<div class="dz-info bg-white">
 
-                                <div class="dz-meta">
-                                    <ul>
-                                        <li class="post-date">
-                                            {{ \Carbon\Carbon::parse($mainBlog->date)->format('d M Y') }}
-                                        </li>
-                                    </ul>
-                                </div>
+    <div class="dz-meta">
+        <ul>
+            <li class="post-date">
+                {{ \Carbon\Carbon::parse($mainBlog->date)->format('d M Y') }}
+            </li>
+        </ul>
+    </div>
 
-                                <h3 class="dz-title">
-                                    <a href="{{ route('blog.details', $mainBlog->url_name) }}">
-                                        {{ $mainBlog->title }}
-                                    </a>
-                                </h3> --}}
+    <h3 class="dz-title">
+        <a href="{{ route('blog.details', $mainBlog->url_name) }}">
+            {{ $mainBlog->title }}
+        </a>
+    </h3> --}}
 
-                                <!-- SHORT DESCRIPTION -->
-                                {{-- <p>
+    <!-- SHORT DESCRIPTION -->
+    {{-- <p>
                                     {{ \Illuminate\Support\Str::limit(strip_tags($mainBlog->description), 120) }}
-                                </p> --}}
+    </p> --}}
 
-                                {{-- <a href="{{ route('blog.details', $mainBlog->url_name) }}" class="font-14 read-btn">
-                                    Read More <i class="icon feather icon-chevron-right"></i>
-                                </a>
+    {{-- <a href="{{ route('blog.details', $mainBlog->url_name) }}" class="font-14 read-btn">
+    Read More <i class="icon feather icon-chevron-right"></i>
+    </a>
 
-                            </div>
-                        </div>
-                    </div>
-                    @endif --}}
+</div>
+</div>
+</div>
+@endif --}}
 
 
-                    {{-- ================= RIGHT SMALL BLOGS ================= --}}
-                    {{-- <div class="col-lg-6 col-md-12">
+{{-- ================= RIGHT SMALL BLOGS ================= --}}
+{{-- <div class="col-lg-6 col-md-12">
                         <div class="row">
 
                             @foreach ($blogs->skip(1) as $blog)
@@ -1595,82 +1847,82 @@
 
                                     <div class="dz-media">
                                         <a href="{{ route('blog.details', $blog->url_name) }}">
-                                            <img src="{{ env('MAIN_URL') . 'uploads/blogs/' . $blog->image }}" alt="">
-                                        </a>
-                                    </div>
+<img src="{{ env('MAIN_URL') . 'uploads/blogs/' . $blog->image }}" alt="">
+</a>
+</div>
 
-                                    <div class="dz-info">
+<div class="dz-info">
 
-                                        <div class="dz-meta">
-                                            <ul>
-                                                <li class="post-date">
-                                                    {{ \Carbon\Carbon::parse($blog->date)->format('d M Y') }}
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <h4 class="dz-title">
-                                            <a href="{{ route('blog.details', $blog->url_name) }}">
-                                                {{ $blog->title }}
-                                            </a>
-                                        </h4> --}}
-
-                                        {{-- <p>
-                                            {{ \Illuminate\Support\Str::limit(strip_tags($blog->description), 80) }}
-                                        </p> --}}
-                                        {{--
-                                        <a href="{{ route('blog.details', $blog->url_name) }}" class="font-14 read-btn">
-                                            Read More <i class="icon feather icon-chevron-right"></i>
-                                        </a>
-
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>--}}
-
-        <div class="content-inner py-0 image-wrapper">
-            <div class="container-fluid px-0">
-                <div class="swiper-container swiper-insta" >
-                    <div class="swiper-wrapper linear-moving ">
-                        @foreach ($instaPosts as $key => $post)
-                            <div class="swiper-slide" >
-                                <div class="insta-post dz-media dz-img-effect rotate" style="margin-right:10px;">
-                                    <a href="{{ $post->link_url ?? '#' }}" target="_blank">
-                                        <img src="{{ env('MAIN_URL') . 'images/' . $post->bg_image }}" alt="Instagram Post" loading="lazy" width="200" height="200">
-                                        <div class="insta-icon">
-                                            <i class="fab fa-instagram"></i>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    {{-- Follow Button --}}
-                    <a href="{{ $instaPosts->first()->link_url ?? '#' }}" class="instagram-link" target="_blank">
-                        <div class="follow-link wow bounceIn" data-wow-delay="0.1s">
-                            {{-- <div class="follow-link-icon">
-                                <img src="{{ asset('assets/images/insta-follow.webp') }}" alt="">
-                            </div> --}}
-                            {{-- <div class="follow-link-content">
-                                <p class="m-0">Follow @Darte</p>
-                            </div> --}}
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
+    <div class="dz-meta">
+        <ul>
+            <li class="post-date">
+                {{ \Carbon\Carbon::parse($blog->date)->format('d M Y') }}
+            </li>
+        </ul>
     </div>
 
+    <h4 class="dz-title">
+        <a href="{{ route('blog.details', $blog->url_name) }}">
+            {{ $blog->title }}
+        </a>
+    </h4> --}}
 
-    {{-- <section class="content-inner-3 overflow-hidden " id="Maping" style="margin-top: 20px">
+    {{-- <p>
+                                            {{ \Illuminate\Support\Str::limit(strip_tags($blog->description), 80) }}
+    </p> --}}
+    {{--
+                                        <a href="{{ route('blog.details', $blog->url_name) }}" class="font-14 read-btn">
+    Read More <i class="icon feather icon-chevron-right"></i>
+    </a>
+
+</div>
+</div>
+</div>
+@endforeach
+
+</div>
+</div>
+
+</div>
+</div>
+</section>--}}
+
+<div class="content-inner py-0 image-wrapper">
+    <div class="container-fluid px-0">
+        <div class="swiper-container swiper-insta">
+            <div class="swiper-wrapper linear-moving ">
+                @foreach ($instaPosts as $key => $post)
+                <div class="swiper-slide">
+                    <div class="insta-post dz-media dz-img-effect rotate" style="margin-right:10px;">
+                        <a href="{{ $post->link_url ?? '#' }}" target="_blank">
+                            <img src="{{ env('MAIN_URL') . 'images/' . $post->bg_image }}" alt="Instagram Post" loading="lazy" width="200" height="200">
+                            <div class="insta-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            {{-- Follow Button --}}
+            <a href="{{ $instaPosts->first()->link_url ?? '#' }}" class="instagram-link" target="_blank">
+                <div class="follow-link wow bounceIn" data-wow-delay="0.1s">
+                    {{-- <div class="follow-link-icon">
+                                <img src="{{ asset('assets/images/insta-follow.webp') }}" alt="">
+                </div> --}}
+                {{-- <div class="follow-link-content">
+                                <p class="m-0">Follow @Darte</p>
+                            </div> --}}
+        </div>
+        </a>
+    </div>
+</div>
+</div>
+
+</div>
+
+
+{{-- <section class="content-inner-3 overflow-hidden " id="Maping" style="margin-top: 20px">
         <div class="container-fluid p-0">
             <div class="row align-items-start">
                 <div class="col-xl-7 col-lg-12 col-md-12">
@@ -1785,171 +2037,171 @@
                             <div class="shop-card style-7">
                                 <div class="dz-media">
                                     <img src="{{ $img1 }}" alt="image">
-                                </div>
-                                <div class="dz-content">
-                                    <h5 class="title"><a href="{{ route('shop.details', $prod1->slug ?? '#') }}">{{
+</div>
+<div class="dz-content">
+    <h5 class="title"><a href="{{ route('shop.details', $prod1->slug ?? '#') }}">{{
                                             $var1->varient_name ?? ($prod1->product_name ?? 'Product') }}</a>
-                                    </h5>
-                                    <div class="review-meta">
-                                        <ul class="dz-rating mb-1" style="display: flex;">
-                                            @for ($i = 1; $i <= 5; $i++) <li><i
-                                                    class="{{ $i <= $rev1->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
-                                                </li>
-                                                @endfor
-                                        </ul>
-                                        <span class="sale-title text-muted small">{{
+    </h5>
+    <div class="review-meta">
+        <ul class="dz-rating mb-1" style="display: flex;">
+            @for ($i = 1; $i <= 5; $i++) <li><i
+                    class="{{ $i <= $rev1->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
+                </li>
+                @endfor
+        </ul>
+        <span class="sale-title text-muted small">{{
                                             \Illuminate\Support\Str::limit($rev1->review, 35) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        @if ($reviews->count() > 1)
-                        @php
-                        $rev2 = $reviews[1];
-                        $prod2 = $rev2->product;
-                        $var2 = $rev2->variant;
-                        $img2 =
-                        $var2 && $var2->varient_img
-                        ? env('MAIN_URL') . 'images/' . $var2->varient_img
-                        : ($prod2 && $prod2->product_image
-                        ? env('MAIN_URL') . 'images/' . $prod2->product_image
-                        : asset('assets/images/shop/product/medium/1.webp'));
-                        @endphp
-                        <div class="area-box2 wow animated" data-wow-delay="1.6s">
-                            <div class="shop-card style-7">
-                                <div class="dz-media">
-                                    <img src="{{ $img2 }}" alt="image">
-                                </div>
-                                <div class="dz-content">
-                                    <h5 class="title"><a href="{{ route('shop.details', $prod2->slug ?? '#') }}">{{
+    </div>
+</div>
+</div>
+</div>
+@endif
+@if ($reviews->count() > 1)
+@php
+$rev2 = $reviews[1];
+$prod2 = $rev2->product;
+$var2 = $rev2->variant;
+$img2 =
+$var2 && $var2->varient_img
+? env('MAIN_URL') . 'images/' . $var2->varient_img
+: ($prod2 && $prod2->product_image
+? env('MAIN_URL') . 'images/' . $prod2->product_image
+: asset('assets/images/shop/product/medium/1.webp'));
+@endphp
+<div class="area-box2 wow animated" data-wow-delay="1.6s">
+    <div class="shop-card style-7">
+        <div class="dz-media">
+            <img src="{{ $img2 }}" alt="image">
+        </div>
+        <div class="dz-content">
+            <h5 class="title"><a href="{{ route('shop.details', $prod2->slug ?? '#') }}">{{
                                             $var2->varient_name ?? ($prod2->product_name ?? 'Product') }}</a>
-                                    </h5>
-                                    <div class="review-meta">
-                                        <ul class="dz-rating mb-1" style="display: flex;">
-                                            @for ($i = 1; $i <= 5; $i++) <li><i
-                                                    class="{{ $i <= $rev2->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
-                                                </li>
-                                                @endfor
-                                        </ul>
-                                        <span class="sale-title text-muted small">{{
+            </h5>
+            <div class="review-meta">
+                <ul class="dz-rating mb-1" style="display: flex;">
+                    @for ($i = 1; $i <= 5; $i++) <li><i
+                            class="{{ $i <= $rev2->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
+                        </li>
+                        @endfor
+                </ul>
+                <span class="sale-title text-muted small">{{
                                             \Illuminate\Support\Str::limit($rev2->review, 35) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        @if ($reviews->count() > 2)
-                        @php
-                        $rev3 = $reviews[2];
-                        $prod3 = $rev3->product;
-                        $var3 = $rev3->variant;
-                        $img3 =
-                        $var3 && $var3->varient_img
-                        ? env('MAIN_URL') . 'images/' . $var3->varient_img
-                        : ($prod3 && $prod3->product_image
-                        ? env('MAIN_URL') . 'images/' . $prod3->product_image
-                        : asset('assets/images/shop/product/medium/1.webp'));
-                        @endphp
-                        <div class="area-box3 wow animated" data-wow-delay="1.8s">
-                            <div class="shop-card style-7">
-                                <div class="dz-media">
-                                    <img src="{{ $img3 }}" alt="image">
-                                </div>
-                                <div class="dz-content">
-                                    <h5 class="title"><a href="{{ route('shop.details', $prod3->slug ?? '#') }}">{{
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@if ($reviews->count() > 2)
+@php
+$rev3 = $reviews[2];
+$prod3 = $rev3->product;
+$var3 = $rev3->variant;
+$img3 =
+$var3 && $var3->varient_img
+? env('MAIN_URL') . 'images/' . $var3->varient_img
+: ($prod3 && $prod3->product_image
+? env('MAIN_URL') . 'images/' . $prod3->product_image
+: asset('assets/images/shop/product/medium/1.webp'));
+@endphp
+<div class="area-box3 wow animated" data-wow-delay="1.8s">
+    <div class="shop-card style-7">
+        <div class="dz-media">
+            <img src="{{ $img3 }}" alt="image">
+        </div>
+        <div class="dz-content">
+            <h5 class="title"><a href="{{ route('shop.details', $prod3->slug ?? '#') }}">{{
                                             $var3->varient_name ?? ($prod3->product_name ?? 'Product') }}</a>
-                                    </h5>
-                                    <div class="review-meta">
-                                        <ul class="dz-rating mb-1" style="display: flex;">
-                                            @for ($i = 1; $i <= 5; $i++) <li><i
-                                                    class="{{ $i <= $rev3->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
-                                                </li>
-                                                @endfor
-                                        </ul>
-                                        <span class="sale-title text-muted small">{{
+            </h5>
+            <div class="review-meta">
+                <ul class="dz-rating mb-1" style="display: flex;">
+                    @for ($i = 1; $i <= 5; $i++) <li><i
+                            class="{{ $i <= $rev3->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
+                        </li>
+                        @endfor
+                </ul>
+                <span class="sale-title text-muted small">{{
                                             \Illuminate\Support\Str::limit($rev3->review, 35) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+</div>
+</div>
 
-                <div class="col-xl-5 col-lg-12 col-md-12 custom-width">
-                    <div class="section-head style-1 wow fadeInUp d-lg-flex align-items-end justify-content-between"
-                        data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                        <div class="left-content">
-                            <h2 class="title">Discovering the Hottest Nearby Destinations in Your Area</h2>
-                            <!-- <p class="text-capitalize text-secondary m-0">Up to 60% off + up to $107 cashBACK</p> -->
-                        </div>
-                        <!-- <a href="shop-list.html" class="text-primary font-14 d-flex align-items-center gap-1 m-b15">See All
+<div class="col-xl-5 col-lg-12 col-md-12 custom-width">
+    <div class="section-head style-1 wow fadeInUp d-lg-flex align-items-end justify-content-between"
+        data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+        <div class="left-content">
+            <h2 class="title">Discovering the Hottest Nearby Destinations in Your Area</h2>
+            <!-- <p class="text-capitalize text-secondary m-0">Up to 60% off + up to $107 cashBACK</p> -->
+        </div>
+        <!-- <a href="shop-list.html" class="text-primary font-14 d-flex align-items-center gap-1 m-b15">See All
                                                                                                                                                                                                                                                                                                 <i class="icon feather icon-chevron-right font-18"></i>
                                                                                                                                                                                                                                                                                             </a>			 -->
+    </div>
+
+    <div class="swiper swiper-shop2">
+        <div class="swiper-wrapper">
+
+
+
+
+
+
+            @foreach ($reviews as $review)
+            @php
+            $rp = $review->product;
+            $rv = $review->variant;
+            $ri =
+            $rv && $rv->varient_img
+            ? env('MAIN_URL') . 'images/' . $rv->varient_img
+            : ($rp && $rp->product_image
+            ? env('MAIN_URL') . 'images/' . $rp->product_image
+            : asset('assets/images/shop/product/medium/1.webp'));
+            @endphp
+            <div class="swiper-slide wow fadeInUp" data-wow-delay="0.2s">
+                <div class="shop-card style-7">
+                    <div class="dz-media">
+                        <img src="{{ $ri }}" alt="image">
                     </div>
-
-                    <div class="swiper swiper-shop2">
-                        <div class="swiper-wrapper">
-
-
-
-
-
-
-                            @foreach ($reviews as $review)
-                            @php
-                            $rp = $review->product;
-                            $rv = $review->variant;
-                            $ri =
-                            $rv && $rv->varient_img
-                            ? env('MAIN_URL') . 'images/' . $rv->varient_img
-                            : ($rp && $rp->product_image
-                            ? env('MAIN_URL') . 'images/' . $rp->product_image
-                            : asset('assets/images/shop/product/medium/1.webp'));
-                            @endphp
-                            <div class="swiper-slide wow fadeInUp" data-wow-delay="0.2s">
-                                <div class="shop-card style-7">
-                                    <div class="dz-media">
-                                        <img src="{{ $ri }}" alt="image">
-                                    </div>
-                                    <div class="dz-content">
-                                        <h5 class="title"><a href="{{ route('shop.details', $rp->slug ?? '#') }}">{{
+                    <div class="dz-content">
+                        <h5 class="title"><a href="{{ route('shop.details', $rp->slug ?? '#') }}">{{
                                                 $rv->varient_name ?? ($rp->product_name ?? 'Product') }}</a>
-                                        </h5>
-                                        <div class="review-meta">
-                                            <ul class="dz-rating mb-1" style="display: flex;">
-                                                @for ($i = 1; $i <= 5; $i++) <li><i
-                                                        class="{{ $i <= $review->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
-                                                    </li>
-                                                    @endfor
-                                            </ul>
-                                            <span class="sale-title text-black small">{{
+                        </h5>
+                        <div class="review-meta">
+                            <ul class="dz-rating mb-1" style="display: flex;">
+                                @for ($i = 1; $i <= 5; $i++) <li><i
+                                        class="{{ $i <= $review->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
+                                    </li>
+                                    @endfor
+                            </ul>
+                            <span class="sale-title text-black small">{{
                                                 \Illuminate\Support\Str::limit($review->review, 20) }}</span>
-                                            <p class="review-author mb-0 tiny text-black">-
-                                                {{ $review->name }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+                            <p class="review-author mb-0 tiny text-black">-
+                                {{ $review->name }}
+                            </p>
                         </div>
-                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-    </section> --}}
-    <section class=" about-style4">
-        <div class="container">
-            <div class="row  align-items-center ">
-                <div class="col-lg-6 order-lg-1 order-1">
-                    <div class="side-content">
-                        <div class="about-thumb">
-                            <img src="assets/images/girl.webp" alt="" style="border-radius:30px 0px;" loading="lazy" width="600" height="800">
-                        </div>
-                        {{-- <div class="our-customer wow fadeInUp" data-wow-delay="0.2s"
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    </div>
+</div>
+</div>
+</div>
+</section> --}}
+<section class=" about-style4">
+    <div class="container">
+        <div class="row  align-items-center ">
+            <div class="col-lg-6 order-lg-1 order-1">
+                <div class="side-content">
+                    <div class="about-thumb">
+                        <img src="assets/images/girl.webp" alt="" style="border-radius:30px 0px;" loading="lazy" width="600" height="800">
+                    </div>
+                    {{-- <div class="our-customer wow fadeInUp" data-wow-delay="0.2s"
                             style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                             <h6>Our Satisfied User</h6>
                             <ul>
@@ -1964,149 +2216,204 @@
                                 </li>
                             </ul>
                         </div> --}}
-                    </div>
                 </div>
-                <div class="col-lg-6  aos-item wow fadeInUp  order-lg-2 order-1 class1" data-wow-delay="0.3s"
-                    style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                    <div>
-                        <div class="section-head">
-                            <h2 class="title">What our clients say <br> about us</h2>
-                        </div>
-                        <div class="swiper swiper-five swiper-initialized swiper-horizontal swiper-backface-hidden">
-                            <div class="swiper-wrapper" id="swiper-wrapper-4359c10d9692afdfc" aria-live="polite">
-                                @foreach ($reviews as $review)
-                                    <div class="swiper-slide">
-                                        <div class="about-content">
-                                            <ul class="dz-rating mb-2"
-                                                style="display: flex; list-style: none; padding: 0; gap: 5px;">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <li><i
-                                                            class="{{ $i <= $review->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
-                                                    </li>
-                                                @endfor
-                                            </ul>
-                                            <p class="para-text">"{{ $review->review }}"</p>
-                                            <div class="about-bx-detail">
-                                                <div>
-                                                    <h6 class="name">- {{ $review->name }}</h6>
-                                                    {{-- <span class="position">Verified Customer</span> --}}
-                                                </div>
-                                            </div>
+            </div>
+            <div class="col-lg-6  aos-item wow fadeInUp  order-lg-2 order-1 class1" data-wow-delay="0.3s"
+                style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                <div>
+                    <div class="section-head">
+                        <h2 class="title">What our clients say <br> about us</h2>
+                    </div>
+                    <div class="swiper swiper-five swiper-initialized swiper-horizontal swiper-backface-hidden">
+                        <div class="swiper-wrapper" id="swiper-wrapper-4359c10d9692afdfc" aria-live="polite">
+                            @foreach ($reviews as $review)
+                            <div class="swiper-slide">
+                                <div class="about-content">
+                                    <ul class="dz-rating mb-2"
+                                        style="display: flex; list-style: none; padding: 0; gap: 5px;">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <li><i
+                                                class="{{ $i <= $review->ratings ? 'fas' : 'far' }} fa-star text-warning"></i>
+                                            </li>
+                                            @endfor
+                                    </ul>
+                                    <p class="para-text">"{{ $review->review }}"</p>
+                                    <div class="about-bx-detail">
+                                        <div>
+                                            <h6 class="name">- {{ $review->name }}</h6>
+                                            {{-- <span class="position">Verified Customer</span> --}}
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
-                            <div class="pagination-align">
-                                <div class="about-button-prev btn-prev" tabindex="0" role="button"
-                                    aria-label="Previous slide" aria-controls="swiper-wrapper-4359c10d9692afdfc">
-                                    <i class="flaticon flaticon-left-chevron"></i>
-                                </div>
-                                <div class="about-button-next btn-next" tabindex="0" role="button" aria-label="Next slide"
-                                    aria-controls="swiper-wrapper-4359c10d9692afdfc">
-                                    <i class="flaticon flaticon-chevron"></i>
                                 </div>
                             </div>
-                            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                            @endforeach
                         </div>
+                        <div class="pagination-align">
+                            <div class="about-button-prev btn-prev" tabindex="0" role="button"
+                                aria-label="Previous slide" aria-controls="swiper-wrapper-4359c10d9692afdfc">
+                                <i class="flaticon flaticon-left-chevron"></i>
+                            </div>
+                            <div class="about-button-next btn-next" tabindex="0" role="button" aria-label="Next slide"
+                                aria-controls="swiper-wrapper-4359c10d9692afdfc">
+                                <i class="flaticon flaticon-chevron"></i>
+                            </div>
+                        </div>
+                        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                     </div>
                 </div>
             </div>
         </div>
-        <img src="assets/images/line-shap.webp" alt="" class="line">
-    </section>
+    </div>
+    <img src="assets/images/line-shap.webp" alt="" class="line">
+</section>
 
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const titleEl = document.getElementById('about-category-title');
-            const descEl = document.getElementById('about-category-description');
-            const linkEl = document.getElementById('about-category-link');
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const titleEl = document.getElementById('about-category-title');
+        const descEl = document.getElementById('about-category-description');
+        const linkEl = document.getElementById('about-category-link');
 
-            if (document.querySelector('.category-carousel-v2')) {
-                const categoryCarouselV2 = new Swiper('.category-carousel-v2', {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                    loop: document.querySelectorAll('.category-carousel-v2 .swiper-slide').length > 3,
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
+        if (document.querySelector('.category-carousel-v2')) {
+            const categoryCarouselV2 = new Swiper('.category-carousel-v2', {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                loop: document.querySelectorAll('.category-carousel-v2 .swiper-slide').length > 3,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 15,
                     },
-                    breakpoints: {
-                        0: {
-                            slidesPerView: 1,
-                            spaceBetween: 15,
-                        },
-                        576: {
-                            slidesPerView: 2,
-                            spaceBetween: 20,
-                        },
-                        991: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
-                        }
+                    576: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    991: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
                     }
-                });
-            }
+                }
+            });
+        }
 
-            if (document.querySelector('.category-thumb-swiper') && document.querySelector(
+        if (document.querySelector('.category-thumb-swiper') && document.querySelector(
                 '.category-main-swiper')) {
-                const categoryThumbSwiper = new Swiper('.category-thumb-swiper', {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                    loop: document.querySelectorAll('.category-thumb-swiper .swiper-slide').length > 2,
-                    watchSlidesProgress: true,
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
+            const categoryThumbSwiper = new Swiper('.category-thumb-swiper', {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                loop: document.querySelectorAll('.category-thumb-swiper .swiper-slide').length > 2,
+                watchSlidesProgress: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1
                     },
-                    breakpoints: {
-                        0: {
-                            slidesPerView: 1
-                        },
-                        576: {
-                            slidesPerView: 2
-                        },
-                    }
-                });
+                    576: {
+                        slidesPerView: 2
+                    },
+                }
+            });
 
-                const categoryMainSwiper = new Swiper('.category-main-swiper', {
-                    slidesPerView: 1,
-                    spaceBetween: 20,
-                    loop: document.querySelectorAll('.category-main-swiper .swiper-slide').length > 2,
-                    effect: 'fade',
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false,
-                    },
-                    thumbs: {
-                        swiper: categoryThumbSwiper,
-                    },
-                    on: {
-                        slideChangeTransitionStart: function () {
-                            const activeSlide = this.slides[this.activeIndex];
-                            if (activeSlide) {
-                                const name = activeSlide.getAttribute('data-category-name');
-                                const title = activeSlide.getAttribute('data-banner-title');
-                                const link = activeSlide.getAttribute('data-shop-link');
+            const categoryMainSwiper = new Swiper('.category-main-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                loop: document.querySelectorAll('.category-main-swiper .swiper-slide').length > 2,
+                effect: 'fade',
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                thumbs: {
+                    swiper: categoryThumbSwiper,
+                },
+                on: {
+                    slideChangeTransitionStart: function() {
+                        const activeSlide = this.slides[this.activeIndex];
+                        if (activeSlide) {
+                            const name = activeSlide.getAttribute('data-category-name');
+                            const title = activeSlide.getAttribute('data-banner-title');
+                            const link = activeSlide.getAttribute('data-shop-link');
 
-                                if (titleEl && name) {
-                                    titleEl.textContent = name;
-                                }
-                                if (descEl && title) {
-                                    descEl.textContent = title;
-                                }
-                                if (linkEl && link) {
-                                    linkEl.href = link;
-                                }
+                            if (titleEl && name) {
+                                titleEl.textContent = name;
+                            }
+                            if (descEl && title) {
+                                descEl.textContent = title;
+                            }
+                            if (linkEl && link) {
+                                linkEl.href = link;
                             }
                         }
                     }
-                });
+                }
+            });
+        }
+
+        if (document.querySelector('.newArrivalsSwiper')) {
+            const newArrivalsSwiper = new Swiper('.newArrivalsSwiper', {
+                slidesPerView: 3,
+                spaceBetween: 24,
+                loop: false,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                navigation: {
+                    nextEl: '.new-arrivals-next',
+                    prevEl: '.new-arrivals-prev',
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 15,
+                    },
+                    591: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    991: {
+                        slidesPerView: 3,
+                        spaceBetween: 24,
+                    }
+                },
+                on: {
+                    init: function () {
+                        updateProgress(this);
+                    },
+                    slideChange: function () {
+                        updateProgress(this);
+                    }
+                }
+            });
+
+            function updateProgress(swiper) {
+                const currentEl = document.getElementById('new-arrivals-progress-current');
+                const totalEl = document.getElementById('new-arrivals-progress-total');
+                const fillEl = document.getElementById('new-arrivals-progress-fill');
+                
+                if (currentEl && totalEl && fillEl) {
+                    const current = swiper.activeIndex + 1;
+                    const total = swiper.slides.length;
+                    
+                    currentEl.textContent = String(current).padStart(2, '0');
+                    totalEl.textContent = String(total).padStart(2, '0');
+                    
+                    const progress = (current / total) * 100;
+                    fillEl.style.width = progress + '%';
+                }
             }
-        });
-    </script>
-    {{--
+        }
+    });
+</script>
+{{--
     <script>
         // ─── Helper: reset banner swipers to slide 0 ──────────────────
         function resetBannerSwipers() {

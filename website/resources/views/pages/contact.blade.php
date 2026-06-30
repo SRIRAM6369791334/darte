@@ -47,7 +47,7 @@
 }
     </style>
 
-    <div class="page-content bg-light  mt-5">
+    <div class="page-content bg-light  mt-7">
         <div class="dz-bnr-inr bg-secondary overlay-black-light dz-bnr-inr-md" style="position: relative;min-height: 251px;display: flex;align-items: center;overflow: hidden;z-index: 1;">
             <img src="{{ asset('assets/images/cropped_contact.png') }}" alt="Contact Us Banner" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;object-fit: revert;object-position: center 15%;z-index: -1;">
             <div class="container" style="position: relative; z-index: 2;">
@@ -156,7 +156,7 @@
                                             style="color: #555!important; font-weight: 500; margin-bottom: 6px; display: block;">Phone
                                             Number *</label>
                                         <input type="tel" name="phone_number" class="form-control custom-input"
-                                            placeholder="Your Phone">
+                                            placeholder="Your Phone" oninput="this.value=this.value.replace(/\D/g,'')">
                                         <small class="error-text text-danger"></small>
                                     </div>
 

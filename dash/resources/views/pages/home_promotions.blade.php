@@ -81,7 +81,7 @@
                             <div class="col-md-12 mb-3">
                                 <label class="form-label" for="add_bg_image">Background Image <span
                                         class="text-danger">*</span></label>
-                                <span class="dark-asterisk">*(Rec: 480x480)</span>
+                                <span class="dark-asterisk">*(Rec: 480x600)</span>
                                 <input type="file" class="form-control" id="add_bg_image" name="bg_image"
                                     accept=".png, .jpg, .jpeg, .webp" required>
                             </div>
@@ -128,7 +128,7 @@
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="form-label" for="edit_bg_image">Background Image</label>
-                                <span class="dark-asterisk">*(Rec: 480x480)</span>
+                                <span class="dark-asterisk">*(Rec: 480x600)</span>
                                 <input type="file" class="form-control" id="edit_bg_image" name="bg_image"
                                     accept=".png, .jpg, .jpeg, .webp">
                             </div>

@@ -11,6 +11,10 @@
                 min-height: 130px !important;
                 height: 173px !important;
             }}
+     .content-inner p,
+     .content-inner li {
+         text-align: justify !important;
+     }
 </style>
     <div class="page-content bg-light">
         <!-- Banner Start -->

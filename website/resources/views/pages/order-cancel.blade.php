@@ -1,6 +1,21 @@
 @extends('layouts.app')
 @section('content')
-    <div class="page-content bg-light">
+    <style>
+    /* Banner Overrides for this page */
+    .dz-bnr-inr {
+        padding-top: 200px !important;
+    }
+
+    @media (max-width: 767px) {
+        .dz-bnr-inr {
+            padding-top: 80px !important;
+            padding-bottom: 20px !important;
+            height: auto !important;
+            min-height: 140px !important;
+        }
+    }
+</style>
+<div class="page-content bg-light">
         <div class="dz-bnr-inr bg-secondary overlay-black-light"
             style="background-image:url(assets/images/background/bg1.webp);">
             <div class="container">
