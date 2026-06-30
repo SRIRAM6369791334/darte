@@ -218,7 +218,7 @@ var Pixio = function () {
 				},
 				body: JSON.stringify({ 
 					product_id: productId,
-					product_varient_id: variantId
+					variant_id: variantId
 				})
 			})
 			.then(response => response.json())

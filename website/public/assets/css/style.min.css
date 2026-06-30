@@ -40016,10 +40016,13 @@ video#video-background {
 
 @media only screen and (max-width:575px) {
     .shop-card .shop-meta .meta-icon {
-        width: 30px;
-        min-width: 30px;
-        height: 30px;
-        line-height: 32px
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        line-height: 40px
+    }
+    .shop-card .shop-meta .meta-icon i {
+            font-size: 26px;
     }
 }
 

@@ -100,8 +100,15 @@
     }
 
     .badge-circle {
-        width: 10px !important;
-        height: 10px !important;
+        width: 18px !important;
+        height: 18px !important;
+        min-width: 18px !important;
+        min-height: 18px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
     }
 
     /* Logo & Header Polish */
@@ -848,15 +855,18 @@
             color: #222 !important;
         }
 
-        .site-header .extra-nav .extra-cell ul.header-right li .badge {
+        .site-header .extra-nav .extra-cell ul.header-right li.wishlist-link a .badge,
+        .site-header .extra-nav .extra-cell ul.header-right li.cart-link a .badge {
             position: absolute !important;
-            top: 2px !important;
-            right: 2px !important;
+            top: -4px !important;
+            right: -2px !important;
             background: #000000 !important;
             color: #ffffff !important;
             border-radius: 50% !important;
-            min-width: 16px !important;
+            width: 16px !important;
             height: 16px !important;
+            min-width: 16px !important;
+            min-height: 16px !important;
             font-size: 9px !important;
             font-weight: 700 !important;
             display: flex !important;
@@ -865,6 +875,7 @@
             padding: 0 !important;
             line-height: 1 !important;
             box-shadow: 0 0 0 2px #fff !important;
+            z-index: 99 !important;
         }
     }
 </style>

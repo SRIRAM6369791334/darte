@@ -65,6 +65,7 @@
                     </div>
                     <div class="sticky-top account-sidebar-wrapper">
                         <div class="account-sidebar" id="accountSidebar">
+                            <button class="btn-close sidebar-close-btn d-xl-none" type="button" onclick="document.getElementById('accountSidebar').classList.remove('show')" aria-label="Close" style="position: absolute; top: 15px; right: 15px; z-index: 999;"></button>
                             <div class="profile-head">
                                 <div class="user-thumb d-flex flex-column align-items-center">
                                     @if ($user->profile_image)

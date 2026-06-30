@@ -614,6 +614,13 @@
         display: none !important;
     }
 }
+@media only screen and (max-width: 575px) {
+    .shop-card .shop-meta .meta-icon {
+        width: 50px;
+        min-width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
 </style>
 <div class="page-content bg-light">
 

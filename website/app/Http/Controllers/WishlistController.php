@@ -44,10 +44,21 @@ class WishlistController extends Controller
 
         $userId = Auth::id();
         $productId = $request->input('product_id');
-        $variantId = $request->input('product_varient_id');
+        $variantId = $request->input('variant_id');
 
+        // Resolve variant when none provided (mirror cart logic)
+        if (!$variantId) {
+            $product = Product::with('variants')->find($productId);
+            if (!$product) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Product not found.'
+                ], 404);
+            }
+            $variantId = $product->variants->first()->id ?? null;
+        }
 
-        // 2. Check if item already exists in wishlist
+        // Check if item already exists in wishlist
         $existingWish = Wishlist::where('user_id', $userId)
             ->where('product_id', $productId)
             ->where('product_varient_id', $variantId)
@@ -60,7 +71,7 @@ class WishlistController extends Controller
             ]);
         } 
 
-        // 3. Create new wishlist entry
+        // Create new wishlist entry
         Wishlist::create([
             'user_id' => $userId,
             'product_id' => $productId,

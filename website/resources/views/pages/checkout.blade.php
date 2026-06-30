@@ -102,6 +102,37 @@
             border-top: 2px dashed #e2e8f0;
             padding-top: 20px;
         }
+         .content-inner {
+        background: white !important;
+    }
+.content-inner-1 {
+        background: white !important;
+        /* padding-top: 30px !important;
+            padding-bottom: 30px !important; */
+    }
+
+    /* Banner Overrides for this page */
+    /* .dz-bnr-inr {
+            padding-top: 240px !important;
+        } */
+
+  @media only screen and (max-width: 1480px) {
+    .content-inner {
+        padding-top: 187px;
+        padding-bottom: 117px;
+    }
+}
+    @media (max-width: 767px) {
+        .dz-bnr-inr {
+            min-height: 172px !important;
+            height: 130px !important;
+        }
+        .dz-bnr-inr .dz-bnr-inr-entry {
+            padding: 0px;
+            text-align: center;
+            display: table-cell;
+        }
+    }
     </style>
 
     <div class="dz-bnr-inr bg-secondary overlay-black-light" style="background-image:url(assets/images/background/bg1.webp);">

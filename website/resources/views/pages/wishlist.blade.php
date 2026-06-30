@@ -1,12 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <style>
-    .page-content.bg-light {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
+    .content-inner {
+        background: white !important;
     }
-
-    .content-inner-1 {
+.content-inner-1 {
         background: white !important;
         /* padding-top: 30px !important;
             padding-bottom: 30px !important; */
@@ -17,24 +15,21 @@
             padding-top: 240px !important;
         } */
 
-    @media only screen and (max-width: 1480px) {
-        .content-inner-1 {
-            padding-top: 224px;
-            padding-bottom: 211px;
-        }
+  @media only screen and (max-width: 1480px) {
+    .content-inner {
+        padding-top: 187px;
+        padding-bottom: 117px;
     }
-
+}
     @media (max-width: 767px) {
         .dz-bnr-inr {
-            padding-top: 80px !important;
-            padding-bottom: 20px !important;
-            height: auto !important;
-            min-height: 140px !important;
+            min-height: 172px !important;
+            height: 130px !important;
         }
-
-        .content-inner-1 {
-            padding-top: 20px !important;
-            padding-bottom: 20px !important;
+        .dz-bnr-inr .dz-bnr-inr-entry {
+            padding: 0px;
+            text-align: center;
+            display: table-cell;
         }
     }
 </style>

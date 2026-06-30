@@ -408,7 +408,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    body: JSON.stringify({ product_id: productId, product_varient_id: variantId })
+                    body: JSON.stringify({ product_id: productId, variant_id: variantId })
                 })
                     .then(response => response.json())
                     .then(data => {
