@@ -112,7 +112,7 @@ function gridjsReRender(coupons) {
                         data-couponvalue="${coupons.discount}"
                         data-couponstart="${coupons.start_date}"
                         data-couponend="${coupons.end_date}"
-                        data-bs-target="#editcouponModal data"  class="btn btn-secondary edit_btn1 ">Edit</button>  
+                        data-bs-target="#editcouponModal"  class="btn btn-secondary edit_btn1 ">Edit</button>  
                         <button 
                         data-couponid ="${coupons.id}" class="btn btn-secondary delete_btn ">Delete</button>
                         </div>`

@@ -31,3 +31,29 @@
 - **Root Cause**: Specificity calculations (`element.class.class` beats `.class` even with `!important` if the theme also uses `!important` or if the theme sets padding/margins that alter the custom layout).
 - **Solution**: Always match or exceed theme selector specificity (e.g. use `.cart-btn #add-to-cart-btn` and `.qty-stepper .qty-btn` instead of just `#add-to-cart-btn` or `.qty-btn`) and reset theme properties like margins and padding (`margin: 0 !important;` or `padding: 0 !important;`) to ensure the custom design renders correctly on all screen resolutions.
 
+## [UI_Bug] Coupon Edit Modal Fails to Open After GridJS Table Re-render
+- **Context**: On the coupons page, after updating or creating a coupon, clicking the edit button failed to open the edit modal unless the page was refreshed.
+- **Root Cause**: In the dynamic table re-render function `gridjsReRender` in `CouponsPage.js`, the edit button had a typo in the `data-bs-target` attribute: `data-bs-target="#editcouponModal data"`. The trailing `" data"` caused Bootstrap modal initialization to fail since it couldn't find a matching element.
+- **Solution**: Removed `" data"` from `data-bs-target` inside the re-render HTML template, mapping it correctly to `#editcouponModal`.
+- **Preventions**: Double-check target attributes (IDs/selectors) when duplicating HTML template strings in JavaScript dynamic renders.
+
+## [Input_Filtering] Restricting Input Fields to Digits Only
+- **Context**: A text input field representing a phone number needed to strictly allow only numbers (no spaces, letters, plus signs, or special symbols).
+- **Root Cause**: Standard HTML `<input type="text">` or `<input type="tel">` allows all character keystrokes by default, and `<input type="number">` has browser spinner arrows and sometimes allows characters like 'e', '+', or '-'.
+- **Solution**: Added an inline event handler `oninput="this.value = this.value.replace(/[^0-9]/g, '')"` to dynamically strip any non-digit character as the user types, ensuring absolute input sanitization.
+- **Preventions**: For fields requiring absolute numeric sanitization (like phone numbers, minimum amounts, pin codes) without native spinner UI, use inline regex cleaning on the `input` event.
+
+## [Logic_Flaw] Razorpay Payment Initialized Before Shipping/Courier Selection Validation
+- **Context**: On the checkout page, when selecting Razorpay (Online Payment), the user could pay and get a success confirmation, but the backend order creation failed/returned early because the shipping courier was not selected (e.g. due to Shiprocket API downtime).
+- **Root Cause**: The JS form submit handler initialized the Razorpay payment modal *before* validating that the `selected_courier_id` was filled. The courier selection validation was only checked inside `finalizeOrder` which is called *after* payment completion.
+- **Solution**: Moved the courier selection check to the very beginning of the form submit event handler, preventing the payment modal from initiating if the courier is not selected.
+- **Preventions**: Always perform all client-side validation (including shipping options, address, coupon checks) *before* invoking third-party payment gateways.
+
+## [UI_Sync_Issue] Wishlist and Cart Icon/Text Not Syncing States on Dynamic Addition
+- **Context**: When products were dynamically added to the cart or wishlist, the corresponding UI elements (heart colors, cart basket state, and buttons) did not show active visual feedback. Furthermore, adding an already carted item simply increased its quantity in the DB instead of warning the user.
+- **Root Cause**: The client-side success callbacks did not dynamically add active classes/check checkboxes for the added item. On the backend, `CartController@addToCart` did not have an "already in cart" check, but rather automatically updated product quantity.
+- **Solution**:
+  1. Updated `CartController@getCounts` to return `cart_product_ids` and `wishlist_product_ids`.
+  2. Enhanced `updateHeaderCounts` in `app.blade.php` to query all corresponding checkboxes and icon buttons by product ID, marking them active, and updating text elements.
+  3. Modified `CartController@addToCart` to return a message `This item is already in your cart!` without changing database quantity if the item already exists in the cart.
+- **Preventions**: Keep API responses informative of state presence, and use centralized UI update functions to sync views dynamically based on user state lists.

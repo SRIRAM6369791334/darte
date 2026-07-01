@@ -136,6 +136,7 @@
                 width: auto !important;
                 object-fit: contain !important;
                 margin: 0 auto !important;
+                padding-right: 97px;
             }
         }
 
@@ -223,7 +224,8 @@
 
                             <div class="m-b10">
                                 <label>Phone</label>
-                                <input name="phone_number" value="{{ old('phone_number') }}" class="form-control">
+                                <input name="phone_number" value="{{ old('phone_number') }}" class="form-control"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
                                 @error('phone_number')
                                     <small class="text-danger">{{ $message }}</small>

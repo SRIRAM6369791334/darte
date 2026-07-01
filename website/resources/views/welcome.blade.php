@@ -979,6 +979,7 @@
                                                                     data-variant-id="{{ $variant->id ?? 'null' }}"
                                                                     onclick="addToCart({{ $product->id }}, {{ $variant->id ?? 'null' }})">
                                                                     <i class="flaticon flaticon-basket"></i>
+                                                                    <i class="flaticon flaticon-shopping-basket-on dz-heart-fill"></i>
                                                                 </div>
 
                                                             </div>

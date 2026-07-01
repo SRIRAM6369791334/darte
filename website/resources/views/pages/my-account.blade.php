@@ -157,6 +157,7 @@
                 width: auto !important;
                 object-fit: contain !important;
                 margin: 0 auto !important;
+                padding-right: 97px;
             }
         }
 

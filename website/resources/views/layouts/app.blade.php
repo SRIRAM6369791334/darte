@@ -333,12 +333,84 @@
                         document.querySelectorAll('.cart-link .badge, #shopping-cart .badge').forEach(el => el.textContent = data.cart_count);
                         document.querySelectorAll('.wishlist-link .badge, #wishlist .badge').forEach(el => el.textContent = data.wishlist_count);
 
+                        window.cartProductIds = data.cart_product_ids || [];
+                        window.wishlistProductIds = data.wishlist_product_ids || [];
+                        window.cartVariantIds = data.cart_variant_ids || [];
+                        window.wishlistVariantIds = data.wishlist_variant_ids || [];
+                        window.dispatchEvent(new CustomEvent('cartCountsUpdated', { detail: data }));
+
                         const sidebar = document.getElementById('dz-shopcart-sidebar');
                         if (sidebar && data.html) {
                             sidebar.innerHTML = data.html;
                         }
+
+                        // Sync Wishlist UI States
+                        const wishlistIds = data.wishlist_product_ids || [];
+                        document.querySelectorAll('[id^="favoriteCheck1_"]').forEach(cb => {
+                            cb.checked = false;
+                        });
+                        document.querySelectorAll('.dz-wishicon').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        wishlistIds.forEach(id => {
+                            document.querySelectorAll(`[id^="favoriteCheck1_${id}"]`).forEach(cb => {
+                                cb.checked = true;
+                            });
+                            document.querySelectorAll('.dz-wishicon').forEach(btn => {
+                                const dataId = btn.getAttribute('data-product-id');
+                                if (dataId && parseInt(dataId) === parseInt(id)) {
+                                    btn.classList.add('active');
+                                } else {
+                                    const onclickStr = btn.getAttribute('onclick');
+                                    if (onclickStr && new RegExp(`addToWishlist\\(\\s*${id}\\s*[\\),]`).test(onclickStr)) {
+                                        btn.classList.add('active');
+                                    }
+                                }
+                            });
+                        });
+
+                        // Sync Cart UI States
+                        const cartIds = data.cart_product_ids || [];
+                        document.querySelectorAll('.dz-carticon').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        document.querySelectorAll('[onclick^="addToCart("]').forEach(btn => {
+                            btn.classList.remove('active');
+                            const textSpan = btn.querySelector('span');
+                            if (textSpan && textSpan.textContent.trim() === 'Added to cart') {
+                                textSpan.textContent = 'Add to cart';
+                            }
+                        });
+                        cartIds.forEach(id => {
+                            document.querySelectorAll('.dz-carticon').forEach(btn => {
+                                const dataId = btn.getAttribute('data-product-id');
+                                if (dataId && parseInt(dataId) === parseInt(id)) {
+                                    btn.classList.add('active');
+                                } else {
+                                    const onclickStr = btn.getAttribute('onclick');
+                                    if (onclickStr && new RegExp(`addToCart\\(\\s*${id}\\s*[\\),]`).test(onclickStr)) {
+                                        btn.classList.add('active');
+                                    }
+                                }
+                            });
+                            document.querySelectorAll('[onclick^="addToCart("]').forEach(btn => {
+                                const onclickStr = btn.getAttribute('onclick');
+                                if (onclickStr && new RegExp(`addToCart\\(\\s*${id}\\s*[\\),]`).test(onclickStr)) {
+                                    btn.classList.add('active');
+                                    const textSpan = btn.querySelector('span');
+                                    if (textSpan) {
+                                        textSpan.textContent = 'Added to cart';
+                                    }
+                                }
+                            });
+                        });
                     })
                     .catch(() => { }); // silently fail
+            }
+
+            // Initial sync on page load if user is logged in
+            if (window.isAuthenticated) {
+                updateHeaderCounts();
             }
 
             /**
@@ -372,15 +444,29 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
+                            updateHeaderCounts(); // ← update badge
+                            
+                            let timerInterval;
                             Swal.fire({
                                 title: 'Success!',
-                                text: data.message,
+                                html: `${data.message}<br><br>Redirecting to cart in <b>3</b> seconds...`,
                                 icon: 'success',
-                                timer: 2000,
+                                timer: 3000,
+                                timerProgressBar: true,
                                 showConfirmButton: false,
-                                position: 'center'
+                                position: 'center',
+                                didOpen: () => {
+                                    const timer = Swal.getPopup().querySelector('b');
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
+                                    }, 100);
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval);
+                                }
+                            }).then(() => {
+                                window.location.href = "{{ route('cart') }}";
                             });
-                            updateHeaderCounts(); // ← update badge
                         } else {
                             Swal.fire({
                                 title: 'Error!',
@@ -842,6 +928,20 @@
     <style>
         .account-info-list li a.active {
             color: #000000 !important;
+        }
+        /* Ensure active wishlist and cart icons get the pink background */
+        .meta-icon.active,
+        .btn.active[onclick^="addToCart"],
+        .btn.active[onclick^="addToWishlist"] {
+            background-color: var(--primary) !important;
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #ffffff !important;
+        }
+        .meta-icon.active i,
+        .btn.active[onclick^="addToCart"] i,
+        .btn.active[onclick^="addToWishlist"] i {
+            color: #a25334 !important;
         }
     </style>
     {{-- Footer Newsletter AJAX Handler --}}

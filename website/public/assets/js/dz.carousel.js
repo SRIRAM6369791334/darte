@@ -220,7 +220,7 @@ var PixioCarousel = function(){
 						spaceBetween: 20,
 					},
 					0: {
-						slidesPerView: 1,
+						slidesPerView: 2,
 						spaceBetween: 15,
 					},
 				}

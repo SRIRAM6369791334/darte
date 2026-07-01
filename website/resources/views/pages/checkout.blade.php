@@ -177,7 +177,8 @@
                                     <div class="modern-input-group">
                                         <label for="shipping_phone">Phone Number <span style="color:#ef4444">*</span></label>
                                         <input id="shipping_phone" name="shipping_phone" type="text"
-                                            class="form-control" required value="{{ $addr->phone }}" placeholder="+91 0000000000">
+                                            class="form-control" required value="{{ $addr->phone }}" placeholder="+91 0000000000"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     </div>
                                 </div>
                                 <div class="col-md-6 m-b20">
@@ -612,6 +613,14 @@
             // Form Submit
             checkoutForm.addEventListener('submit', function(e) {
                 e.preventDefault();
+
+                // Ensure courier is selected before proceeding with payment or order finalization
+                const courierId = document.getElementById('selected_courier_id').value;
+                if (!courierId) {
+                    Swal.fire({ icon: 'warning', title: 'Selection Required', text: 'Please select a shipping courier first.' });
+                    return;
+                }
+
                 const btn = document.getElementById('placeOrderBtn');
                 const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
 

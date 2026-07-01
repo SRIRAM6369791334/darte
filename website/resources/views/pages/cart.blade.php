@@ -15,12 +15,12 @@
             padding-top: 240px !important;
         } */
 
-  /* @media only screen and (max-width: 1480px) {
-    .content-inner {
-        padding-top: 187px;
-        padding-bottom: 117px;
+  @media only screen and (max-width: 1480px) {
+        .content-inner {
+        padding-top: 170px;
+        padding-bottom: 80px;
     }
-} */
+}
     @media (max-width: 767px) {
         .dz-bnr-inr {
             min-height: 172px !important;

@@ -91,19 +91,10 @@ class CartController extends Controller
             ->first();
 
         if ($existingCart) {
-            // Update quantity
-            $newQty = $existingCart->product_quantity + $quantity;
-            
-            // Re-check stock for the new total quantity
-            $checkQty = $variantId ? ProductVarient::find($variantId)->product_qty : Product::find($productId)->product_quantity;
-            if ($checkQty < $newQty) {
-                 return response()->json([
-                    'success' => false,
-                    'message' => 'Cannot add more. Stock limit reached.'
-                ], 400);
-            }
-            
-            $existingCart->update(['product_quantity' => $newQty]);
+            return response()->json([
+                'success' => true,
+                'message' => 'This item is already in your cart!'
+            ]);
         } else {
             // Create new cart entry
             Cart::create([
@@ -309,19 +300,36 @@ class CartController extends Controller
     public function getCounts()
     {
         if (!Auth::check()) {
-            return response()->json(['cart_count' => 0, 'wishlist_count' => 0, 'html' => '']);
+            return response()->json([
+                'cart_count' => 0,
+                'wishlist_count' => 0,
+                'cart_product_ids' => [],
+                'wishlist_product_ids' => [],
+                'cart_variant_ids' => [],
+                'wishlist_variant_ids' => [],
+                'html' => ''
+            ]);
         }
 
         $userId = Auth::id();
         $cartCount = Cart::where('user_id', $userId)->count();
-
         $wishlistCount = \App\Models\Wishlist::where('user_id', $userId)->count();
+
+        $cartProductIds = Cart::where('user_id', $userId)->pluck('product_id')->unique()->toArray();
+        $wishlistProductIds = \App\Models\Wishlist::where('user_id', $userId)->pluck('product_id')->unique()->toArray();
+
+        $cartVariantIds = Cart::where('user_id', $userId)->pluck('product_varient_id')->unique()->toArray();
+        $wishlistVariantIds = \App\Models\Wishlist::where('user_id', $userId)->pluck('product_varient_id')->unique()->toArray();
 
         $html = view('partials.sidebar-cart')->render();
 
         return response()->json([
             'cart_count'     => $cartCount,
             'wishlist_count' => $wishlistCount,
+            'cart_product_ids' => $cartProductIds,
+            'wishlist_product_ids' => $wishlistProductIds,
+            'cart_variant_ids' => $cartVariantIds,
+            'wishlist_variant_ids' => $wishlistVariantIds,
             'html'           => $html
         ]);
     }

@@ -112,7 +112,7 @@ editValidator1
             errorMessage: "*Unsupported format or file too large (Max 5MB)",
         },
         {
-            validator: (value, fields) => {
+            validator: (value, fields) => () => {
                 return new Promise((resolve) => {
                     const fileInput = fields["#edit_webImageImage"].elem;
                     const file = fileInput?.files?.[0];
@@ -237,7 +237,7 @@ addValidator1
             errorMessage: "*Unsupported format or file too large (Max 5MB)",
         },
         {
-            validator: (value, fields) => {
+            validator: (value, fields) => () => {
                 return new Promise((resolve) => {
                     const fileInput = fields["#add_webImageImage"].elem;
                     const file = fileInput?.files?.[0];

@@ -111,6 +111,69 @@
         padding: 0 !important;
     }
 
+    /* Active Navigation Underline for Desktop (Home, About, Shop, Contact) */
+    @media only screen and (min-width: 992px) {
+        .header-nav .nav > li.active > a {
+            color: #a25334 !important;
+            position: relative;
+        }
+        .header-nav .nav > li.active > a span {
+            color: #a25334 !important;
+        }
+        .header-nav .nav > li.active > a::after {
+            content: '';
+            position: absolute;
+            bottom: 9px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background-color: #a25334;
+            transition: all 0.3s ease;
+        }
+    }
+    @media only screen and (min-width: 1200px) {
+        .header-nav .nav > li.active > a {
+            color: #a25334 !important;
+            position: relative;
+        }
+        .header-nav .nav > li.active > a span {
+            color: #a25334 !important;
+        }
+        .header-nav .nav > li.active > a::after {
+            content: '';
+            position: absolute;
+            bottom: 22px;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background-color: #a25334;
+            transition: all 0.3s ease;
+        }
+    }
+    
+
+    /* Active Navigation Underline for Desktop (Login/My Account, Wishlist, Cart) */
+    @media only screen and (min-width: 992px) {
+        .extra-nav .extra-cell ul.header-right li.active > a {
+            color: #a25334 !important;
+            position: relative;
+        }
+        .extra-nav .extra-cell ul.header-right li.active > a i,
+        .extra-nav .extra-cell ul.header-right li.active > a span:not(.badge) {
+            color: #a25334 !important;
+        }
+        .extra-nav .extra-cell ul.header-right li.active > a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px !important;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background-color: #a25334;
+            transition: all 0.3s ease;
+        }
+    }
+
     /* Logo & Header Polish */
     .main-bar {
         padding: 4px 0;
@@ -365,7 +428,7 @@
             opacity: 1;
             transform: scaleY(1) translateY(0);
             pointer-events: auto;
-            justify-items: center;
+            justify-items: start;
         }
 
         .custom-dropdown-menu.mobile-category-menu li a {
@@ -720,7 +783,7 @@
 
         .dz-search-area .shop-card .dz-content .title {
             font-size: 13px !important;
-            font-weight: 600 !important;
+            font-weight: 400 !important;
             margin-bottom: 4px !important;
             line-height: 1.3 !important;
         }
@@ -933,16 +996,16 @@
                     </button>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="has-mega-menu sub-menu-down auto-width menu-left">
+                    <li class="has-mega-menu auto-width menu-left {{ request()->is('/') ? 'active' : '' }}">
                         <a href="/"><span>Home</span></a>
                     </li>
-                    <li class="has-mega-menu sub-menu-down">
+                    <li class="has-mega-menu {{ request()->is('about') ? 'active' : '' }}">
                         <a href="/about"><span>About</span></a>
                     </li>
-                    <li class="has-mega-menu sub-menu-down">
+                    <li class="has-mega-menu {{ (request()->is('shop') || request()->is('shop-details*') || request()->is('shop/*') || request()->routeIs('shop*')) ? 'active' : '' }}">
                         <a href="/shop"><span>Shop</span></a>
                     </li>
-                    <li class="has-mega-menu sub-menu-down">
+                    <li class="has-mega-menu {{ request()->is('contact') ? 'active' : '' }}">
                         <a href="/contact"><span>Contact</span></a>
                     </li>
                     <li class="custom-dropdown-container">
@@ -1031,7 +1094,7 @@
                         </a>
                         @endif
                         </li> --}}
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {{ (request()->is('my-account') || request()->is('account-*') || request()->is('order-*')) ? 'active' : '' }}">
                             @if (auth()->check())
                             <a class="" href="#" data-bs-toggle="dropdown">
                                 <i class="fa fa-user me-2"></i>
@@ -1082,7 +1145,7 @@
                                 <i class="iconly-Light-Search"></i>
                             </a>
                         </li>
-                        <li class="nav-item wishlist-link">
+                        <li class="nav-item wishlist-link {{ request()->is('wishlist') ? 'active' : '' }}">
                             <a class="nav-link"
                                 href="{{ auth()->check() ? 'javascript:void(0);' : url('/my-account') }}"
                                 @if (auth()->check()) data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -1091,7 +1154,7 @@
                                 <span class="badge badge-circle">{{ $wishlistCount }}</span>
                             </a>
                         </li>
-                        <li class="nav-item cart-link">
+                        <li class="nav-item cart-link {{ request()->is('cart') ? 'active' : '' }}">
                             <a class="nav-link cart-btn"
                                 href="{{ auth()->check() ? 'javascript:void(0);' : url('/my-account') }}"
                                 @if (auth()->check()) data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -1100,7 +1163,7 @@
                                 <span class="badge badge-circle">{{ $cartCount }}</span>
                             </a>
                         </li>
-                        <li class="nav-item filte-link">
+                        <li class="nav-item filte-link" style="display: none !important;">
                             <a href="javascript:void(0);" class="nav-link filte-btn" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft" aria-label="Open Filter Menu">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"

@@ -39,17 +39,37 @@
             clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             z-index: 20;
+            display: none;
         }
         .filter-wrapper .filter-right-area .form-group .btn{
             color: #111;
         }
         @media only screen and (max-width: 575px) {
-    .dz-bnr-inr .dz-bnr-inr-entry {
-        padding: 0px 0 0px 0;
-        text-align: center;
-        display: table-cell;
-    }
-}
+            .dz-bnr-inr .dz-bnr-inr-entry {
+                padding: 0px 0 0px 0;
+                text-align: center;
+                display: table-cell;
+            }
+        }
+
+        /* Stack product card content (title and price) vertically */
+        .shop-card .dz-content {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            text-align: left !important;
+            padding: 12px 4px 6px 4px !important;
+        }
+        .shop-card .dz-content .title {
+            width: 100% !important;
+            margin-bottom: 4px !important;
+            line-height: 1.3 !important;
+        }
+        .shop-card .dz-content .price {
+            width: 100% !important;
+            margin-top: 2px !important;
+            font-size: 14px;
+        }
     </style>
     <div class="page-content bg-light">
 
@@ -329,10 +349,10 @@
                                         style="width: 150px !important;">
                                         <option value="latest"
                                             {{ request('sort', 'latest') == 'latest' ? 'selected' : '' }}>Latest</option>
-                                        <option value="popularity"
+                                        <!-- <option value="popularity"
                                             {{ request('sort') == 'popularity' ? 'selected' : '' }}>Popularity</option>
                                         <option value="rating" {{ request('sort') == 'rating' ? 'selected' : '' }}>Average
-                                            rating</option>
+                                            rating</option> -->
                                         <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>
                                             Low to high</option>
                                         <option value="price_high"
@@ -576,7 +596,7 @@
                                                 $mrpPrice = $variant?->mrp_price ?? ($product->product_mrp_price ?? 0);
                                                 $currentStock = $variant?->product_qty ?? ($product->product_qty ?? 0);
                                             @endphp
-                                            <div class="col-12 col-sm-6 col-xl-4 col-lg-6 col-md-6 m-md-b15 m-sm-b0 m-b30">
+                                            <div class="col-6 col-sm-6 col-xl-4 col-lg-6 col-md-6 m-md-b15 m-sm-b0 m-b30">
 
                                                 <div class="shop-card style-1">
                                                     <div class="dz-media">
@@ -618,7 +638,7 @@
                                                         <h5 class="title"><a
                                                                 href="{{ route('shop.details', $product->slug) }}">{{ Str::limit($product->product_name ?? $product->name, 50) }}</a>
                                                         </h5>
-                                                        <h5 class="price">₹{{ $offerPrice }}@if($mrpPrice > $offerPrice) <del class="text-muted ms-2" style="font-size: 0.85em; font-weight: 400;">₹{{ $mrpPrice }}</del>@endif</h5>
+                                                        <h5 class="price">₹{{ $offerPrice }}@if($mrpPrice > $offerPrice) <del class="text-muted ms-2" style="font-size: 0.85em; font-weight: 400;">₹{{ $mrpPrice }}</del> <span class="ms-2" style="font-size: 14px; font-weight: 400; color: #008000;">{{ round((($mrpPrice - $offerPrice) / $mrpPrice) * 100) }}% OFF</span>@endif</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -644,7 +664,7 @@
                                                 $mrpPrice = $variant?->mrp_price ?? ($product->product_mrp_price ?? 0);
                                                 $currentStock = $variant?->product_qty ?? ($product->product_qty ?? 0);
                                             @endphp
-                                            <div class="col-11 col-sm-6 col-xl-3 col-lg-4 col-md-4 m-md-b15 m-b30 mx-auto mx-sm-0 ">
+                                            <div class="col-6 col-sm-6 col-xl-3 col-lg-4 col-md-4 m-md-b15 m-b30 mx-sm-0">
 
                                                 <div class="shop-card style-1">
                                                     <div class="dz-media">
@@ -686,7 +706,7 @@
                                                         <h5 class="title"><a
                                                                 href="{{ route('shop.details', $product->slug) }}">{{ Str::limit($product->product_name ?? $product->name, 50) }}</a>
                                                         </h5>
-                                                        <h5 class="price">₹{{ $offerPrice }}@if($mrpPrice > $offerPrice) <del class="text-muted ms-2" style="font-size: 0.85em; font-weight: 400;">₹{{ $mrpPrice }}</del>@endif</h5>
+                                                        <h5 class="price">₹{{ $offerPrice }}@if($mrpPrice > $offerPrice) <del class="text-muted ms-2" style="font-size: 0.85em; font-weight: 400;">₹{{ $mrpPrice }}</del> <span class="ms-2" style="font-size: 14px; font-weight: 400; color: #008000;">{{ round((($mrpPrice - $offerPrice) / $mrpPrice) * 100) }}% OFF</span>@endif</h5>
                                                     </div>
                                                 </div>
                                             </div>

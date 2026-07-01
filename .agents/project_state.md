@@ -41,6 +41,12 @@
 - [x] Fix mobile banner content overflow and breadcrumb overlap bugs globally across all views by dynamically managing `.dz-bnr-inr` padding and heights on mobile viewports.
 - [x] Fix banner breadcrumb overlap specifically on the account profile page by removing inline padding and adding custom media queries directly in `account-profile.blade.php`.
 - [x] Apply the same banner fix (remove inline `padding-top: 200px`, add local `@media (max-width: 767px)` overrides) to all remaining account/order pages: `account-address.blade.php`, `account-order.blade.php`, `account-order-details.blade.php`, `order-cancel.blade.php`, and `order-return.blade.php`.
+- [x] Fix coupon edit modal failing to open after a dynamic update by removing trailing " data" from data-bs-target in `CouponsPage.js`.
+- [x] Restrict phone number input on the account profile page to digits only using an inline JavaScript regex filter on input.
+- [x] Check all other phone number input fields in the `website/resources` views directory and add numeric-only filters (in `account-address.blade.php`, `checkout.blade.php`, and `registration.blade.php`).
+
+
+
 
 
 - [x] Justify text layout across five policy/info pages: `tracking-returns.blade.php`, `thankyou.blade.php`, `terms-conditions.blade.php`, `privacy-policy.blade.php`, and `cookies-policy.blade.php`.
@@ -64,14 +70,9 @@
 - [x] Implement centered Dual-Pane Card Layout (Option 1) on both login (my-account) and registration pages for desktop to balance page height and remove whitespace.
 - [x] Reduce SweetAlert2 title font-size to 22px to improve readability of error/success alert messages.
 - [x] Adjust padding and margins on the my-account and registration sections, specifically increasing the top padding (100px on mobile, 140px on desktop) to prevent the transparent absolute header from overlapping and cutting off the top of the cards.
-
-
-
-
-
-
-
-
-
-
+- [x] Fix checkout page critical logic bug by validating courier selection before Razorpay payment initialization in `checkout.blade.php`.
+- [x] Return 'already in cart' response from `CartController.php` instead of updating quantity when item is clicked again.
+- [x] Sync wishlist and cart icon colors/active states dynamically on the frontend via `updateHeaderCounts` in `app.blade.php`.
+- [x] Redirect user to the cart page after a 3-second delay upon successful cart addition or 'already in cart' alert.
+- [x] Update details page buttons text dynamically on variant/size selection (ADD TO CART -> ALLREDY CART, ADD TO WISHLIST -> ALLREDY WISHLIST).
 

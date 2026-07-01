@@ -192,9 +192,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group m-b25">
                                         <label class="label-title">Phone</label>
-                                        <input type="text" name="phone_number"
+                                        <input type="text" name="phone_number" id="phone_number"
                                             value="{{ old('phone_number', $user->phone_number) }}" required
-                                            class="form-control">
+                                            class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         @error('phone_number')
                                         <small class="text-danger">{{ $message }}</small>
                                         @enderror

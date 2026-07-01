@@ -1,6 +1,27 @@
 @extends('layouts.app')
 @section('content')
 <style>
+    /* Stack product card content (title and price) vertically */
+    .shop-card .dz-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        padding: 12px 4px 6px 4px !important;
+    }
+
+    .shop-card .dz-content .title {
+        width: 100% !important;
+        margin-bottom: 4px !important;
+        line-height: 1.3 !important;
+    }
+
+    .shop-card .dz-content .price {
+        width: 100% !important;
+        margin-top: 2px !important;
+        font-size: 14px;
+    }
+
     @media (min-width: 992px) {
         section {
             padding-top: 45px !important;
@@ -147,12 +168,16 @@
 
     @media (max-width: 575px) {
         .adv-area .product-box.style-circle .sale-box {
-            width: 220px !important;
-            height: 220px !important;
-            right: 3% !important;
-            padding: 20px !important;
-        }
-
+        width: 220px !important;
+        height: 220px !important;
+        right: -10% !important;
+        padding: 20px !important;
+        font-size: 13px;
+        top: 161px !important;
+    }
+    .product-box.style-4 .sale-box::after {
+        background-image: none !important;
+    }
         .adv-area .product-box.style-circle .sale-box .sale-name {
             font-size: 20px !important;
             margin-bottom: 10px !important;
@@ -186,7 +211,7 @@
         }
     }
 
-    @media (max-width: 360px) {
+    @media (max-width: 359px) {
         .adv-area .product-box.style-circle .sale-box {
             width: 190px !important;
             height: 190px !important;
@@ -594,14 +619,14 @@
         overflow: hidden;
         aspect-ratio: 3/4;
         cursor: pointer;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
         background: #F5EFEB;
         transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     }
 
     .new-arrivals-editorial-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
     }
 
     .new-arrivals-editorial-card img {
@@ -647,7 +672,7 @@
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-radius: 16px;
         padding: 16px 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -694,7 +719,7 @@
         height: 44px;
         border-radius: 50%;
         background: #ffffff;
-        border: 1px solid rgba(0,0,0,0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -714,7 +739,7 @@
     /* Custom progress bar pagination style */
     .swiper-progress-bar-wrap {
         height: 3px;
-        background: rgba(0,0,0,0.06);
+        background: rgba(0, 0, 0, 0.06);
         border-radius: 2px;
         flex: 1;
         position: relative;
@@ -738,9 +763,11 @@
             width: 38px;
             height: 38px;
         }
+
         .new-arrivals-editorial-card {
             border-radius: 16px;
         }
+
         .editorial-drawer {
             border-radius: 12px;
             padding: 12px 14px;
@@ -748,9 +775,11 @@
             left: 12px;
             right: 12px;
         }
+
         .editorial-title {
             font-size: 13px !important;
         }
+
         .editorial-btn {
             font-size: 10px !important;
             padding: 8px 14px;
@@ -1029,6 +1058,7 @@
         font-size: 0.85em !important;
         color: #777 !important;
     }
+
     @media only screen and (max-width: 860px) {
         .nobero-banner-section {
             margin-top: 100px !important;
@@ -1100,7 +1130,7 @@
         .nobero-banner-section {
             padding: 0;
             background: #ffffff;
-            margin-top: 60px ;
+            margin-top: 60px;
             margin-bottom: 0px !important;
         }
 
@@ -1449,9 +1479,11 @@
                                 <div class="dz-content">
                                     <h5 class="title"><a href="{{ route('shop.details', $product->slug) }}">{{ $variant->varient_name ?? $product->product_name }}</a>
                                     </h5>
-                                    <h5 class="price">₹{{ $variant->offer_price }}
+                                    <h5 class="price">
+                                        ₹{{ $variant->offer_price }}
                                         @if($variant->mrp_price > $variant->offer_price)
-                                        <del>₹{{ $variant->mrp_price }}</del>
+                                        <del class="text-muted ms-2" style="font-size: 0.85em; font-weight: 400;">₹{{ $variant->mrp_price }}</del>
+                                        <span class="ms-2" style="font-size: 14px; font-weight: 400; color: #008000;">{{ round((($variant->mrp_price - $variant->offer_price) / $variant->mrp_price) * 100) }}% OFF</span>
                                         @endif
                                     </h5>
                                 </div>
@@ -1560,28 +1592,28 @@
     <section class="content-inner overflow-hidden" style="background: #ffffff;">
         <div class="container">
             <div class="row align-items-center">
-                
+
                 <!-- Left Column: Editorial Card -->
                 <div class="col-lg-4 col-md-12 m-b30 d-none d-lg-block">
                     @if ($popularProducts->isNotEmpty())
-                        @php $mainProduct = $popularProducts->last(); @endphp
-                        <div class="new-arrivals-editorial-card" onclick="location.href='{{ route('shop.details', $mainProduct->product->slug) }}'">
-                            <span class="editorial-tag">New In</span>
-                            <img src="{{ env('MAIN_URL') . 'images/' . $mainProduct->varient_img }}" alt="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
-                            <div class="editorial-drawer">
-                                <h5 class="editorial-title" title="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
-                                    {{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}
-                                </h5>
-                                <button class="editorial-btn">Shop Now ↗</button>
-                            </div>
+                    @php $mainProduct = $popularProducts->last(); @endphp
+                    <div class="new-arrivals-editorial-card" onclick="location.href='{{ route('shop.details', $mainProduct->product->slug) }}'">
+                        <span class="editorial-tag">New In</span>
+                        <img src="{{ env('MAIN_URL') . 'images/' . $mainProduct->varient_img }}" alt="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
+                        <div class="editorial-drawer">
+                            <h5 class="editorial-title" title="{{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}">
+                                {{ $mainProduct->varient_name ?? $mainProduct->product->product_name }}
+                            </h5>
+                            <button class="editorial-btn">Shop Now ↗</button>
                         </div>
+                    </div>
                     @endif
                 </div>
 
                 <!-- Right Column: Swiper Carousel -->
                 <div class="col-lg-8 col-12 m-b30">
                     <div class="about-wraper position-relative">
-                        
+
                         <!-- Header with Title and arrow link -->
                         <div class="section-head style-1 wow fadeInUp d-flex flex-column flex-md-row justify-content-md-between align-items-center mb-4" data-wow-delay="0.4s">
                             <h3 class="title mb-3 mb-md-0 text-center text-md-start">Discover New Arrivals</h3>
@@ -1599,48 +1631,50 @@
                         <div class="swiper newArrivalsSwiper m-b30">
                             <div class="swiper-wrapper">
                                 @foreach ($popularProducts as $variant)
-                                    @php 
-                                        $product = $variant->product;
-                                        $price = $variant->offer_price ?? $product->product_price;
-                                        $mrp = $variant->mrp_price ?? $product->product_mrp_price;
-                                    @endphp
-                                    <div class="swiper-slide">
-                                        <div class="shop-card wow fadeInUp" data-wow-delay="0.2s">
-                                            <div class="dz-media">
-                                                <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}" alt="image" loading="lazy" width="300" height="375">
-                                                <div class="shop-meta">
-                                                    <a href="{{ route('shop.details', $product->slug) }}"
-                                                        class="btn btn-secondary btn-md btn-rounded">
-                                                        <i class="fa-solid fa-eye d-md-none d-block"></i>
-                                                        <span class="d-md-block d-none">Quick View</span>
-                                                    </a>
-                                                    <div class="btn btn-primary meta-icon dz-wishicon"
-                                                        data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}">
-                                                        <i class="icon feather icon-heart dz-heart"></i>
-                                                        <i class="icon feather icon-heart-on dz-heart-fill"></i>
-                                                    </div>
-                                                    <div class="btn btn-primary meta-icon dz-carticon"
-                                                        data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}"
-                                                        onclick="addToCart({{ $product->id }}, {{ $variant->id }})">
-                                                        <i class="flaticon flaticon-basket"></i>
-                                                        <i class="flaticon flaticon-basket-on dz-heart-fill"></i>
-                                                    </div>
+                                @php
+                                $product = $variant->product;
+                                $price = $variant->offer_price ?? $product->product_price;
+                                $mrp = $variant->mrp_price ?? $product->product_mrp_price;
+                                @endphp
+                                <div class="swiper-slide">
+                                    <div class="shop-card wow fadeInUp" data-wow-delay="0.2s">
+                                        <div class="dz-media">
+                                            <img src="{{ env('MAIN_URL') . 'images/' . $variant->varient_img }}" alt="image" loading="lazy" width="300" height="375">
+                                            <div class="shop-meta">
+                                                <a href="{{ route('shop.details', $product->slug) }}"
+                                                    class="btn btn-secondary btn-md btn-rounded">
+                                                    <i class="fa-solid fa-eye d-md-none d-block"></i>
+                                                    <span class="d-md-block d-none">Quick View</span>
+                                                </a>
+                                                <div class="btn btn-primary meta-icon dz-wishicon"
+                                                    data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}">
+                                                    <i class="icon feather icon-heart dz-heart"></i>
+                                                    <i class="icon feather icon-heart-on dz-heart-fill"></i>
+                                                </div>
+                                                <div class="btn btn-primary meta-icon dz-carticon"
+                                                    data-product-id="{{ $product->id }}" data-variant-id="{{ $variant->id }}"
+                                                    onclick="addToCart({{ $product->id }}, {{ $variant->id }})">
+                                                    <i class="flaticon flaticon-basket"></i>
+                                                    <i class="flaticon flaticon-basket-on dz-heart-fill"></i>
                                                 </div>
                                             </div>
-                                            <div class="dz-content">
-                                                <h5 class="title">
-                                                    <a href="{{ route('shop.details', $product->slug) }}" title="{{ $variant->varient_name ?? $product->product_name }}">
-                                                        {{ $variant->varient_name ?? $product->product_name }}
-                                                    </a>
-                                                </h5>
-                                                <h5 class="price">₹{{ $price }}
-                                                    @if($mrp > $price)
-                                                        <del>₹{{ $mrp }}</del>
-                                                    @endif
-                                                </h5>
-                                            </div>
+                                        </div>
+                                        <div class="dz-content">
+                                            <h5 class="title">
+                                                <a href="{{ route('shop.details', $product->slug) }}" title="{{ $variant->varient_name ?? $product->product_name }}">
+                                                    {{ $variant->varient_name ?? $product->product_name }}
+                                                </a>
+                                            </h5>
+                                            <h5 class="price">
+                                                ₹{{ $price }}
+                                                @if($mrp > $price)
+                                                <del class="text-muted ms-2" style="font-size: 0.85em; font-weight: 400;">₹{{ $mrp }}</del>
+                                                <span class="ms-2" style="font-size: 14px; font-weight: 400; color: #008000;">{{ round((($mrp - $price) / $mrp) * 100) }}% OFF</span>
+                                                @endif
+                                            </h5>
                                         </div>
                                     </div>
+                                </div>
                                 @endforeach
                             </div>
                         </div>
@@ -1650,12 +1684,12 @@
                             <div class="d-flex gap-3">
                                 <div class="carousel-nav-btn new-arrivals-prev">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m15 18-6-6 6-6"/>
+                                        <path d="m15 18-6-6 6-6" />
                                     </svg>
                                 </div>
                                 <div class="carousel-nav-btn new-arrivals-next">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="m9 18 6-6-6-6"/>
+                                        <path d="m9 18 6-6-6-6" />
                                     </svg>
                                 </div>
                             </div>
@@ -2372,7 +2406,7 @@ $var3 && $var3->varient_img
                 },
                 breakpoints: {
                     0: {
-                        slidesPerView: 1,
+                        slidesPerView: 2,
                         spaceBetween: 15,
                     },
                     591: {
@@ -2385,10 +2419,10 @@ $var3 && $var3->varient_img
                     }
                 },
                 on: {
-                    init: function () {
+                    init: function() {
                         updateProgress(this);
                     },
-                    slideChange: function () {
+                    slideChange: function() {
                         updateProgress(this);
                     }
                 }
@@ -2398,14 +2432,14 @@ $var3 && $var3->varient_img
                 const currentEl = document.getElementById('new-arrivals-progress-current');
                 const totalEl = document.getElementById('new-arrivals-progress-total');
                 const fillEl = document.getElementById('new-arrivals-progress-fill');
-                
+
                 if (currentEl && totalEl && fillEl) {
                     const current = swiper.activeIndex + 1;
                     const total = swiper.slides.length;
-                    
+
                     currentEl.textContent = String(current).padStart(2, '0');
                     totalEl.textContent = String(total).padStart(2, '0');
-                    
+
                     const progress = (current / total) * 100;
                     fillEl.style.width = progress + '%';
                 }

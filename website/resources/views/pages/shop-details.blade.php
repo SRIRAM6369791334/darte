@@ -100,7 +100,7 @@
     #details-price {
         font-size: 1.85rem !important;
         font-weight: 800 !important;
-        color: #000000 !important;
+        color: #14bd04 !important;
         line-height: 1.1 !important;
     }
 
@@ -595,6 +595,7 @@
     .shop-card .dz-content .price {
         align-self: center !important;
         margin: 0 !important;
+        font-size: 14px;
     }
 
     @media (max-width: 991.98px) {
@@ -862,10 +863,10 @@
                                 <i class="icon feather icon-shopping-bag me-2"></i>
                                 {{ $currentStock <= 0 ? 'Out of Stock' : 'Add To Cart' }}
                             </button>
-                            <button onclick="addToWishlist({{ $product->id }}, currentDetailsVariantId)"
+                            <button id="add-to-wishlist-btn" onclick="addToWishlist({{ $product->id }}, currentDetailsVariantId)"
                                 class="btn btn-outline-secondary btn-icon" title="Add To Wishlist">
-                                <i class="iconly-Light-Heart2"></i>
-                                <span class="d-none d-md-inline">Add To Wishlist</span>
+                                <i class="iconly-Light-Heart2 me-2"></i>
+                                <span class="d-none d-md-inline" id="add-to-wishlist-text">Add To Wishlist</span>
                             </button>
                         </div>
 
@@ -1177,10 +1178,12 @@
                                     <div class="btn btn-primary meta-icon dz-wishicon"
                                         onclick="addToWishlist({{ $related->id }})">
                                         <i class="icon feather icon-heart dz-heart"></i>
+                                        <i class="icon feather icon-heart-on dz-heart-fill"></i>
                                     </div>
                                     <div class="btn btn-primary meta-icon dz-carticon"
                                         onclick="addToCart({{ $related->id }})">
                                         <i class="flaticon flaticon-basket"></i>
+                                        <i class="flaticon flaticon-shopping-basket-on dz-heart-fill"></i>
                                     </div>
                                 </div>
                             </div>
@@ -1288,8 +1291,51 @@
 </div>
 
 <script>
-    let currentDetailsVariantId = '{{ $variant->id ?? '
-    ' }}';
+    let currentDetailsVariantId = '{{ $variant->id ?? '' }}';
+
+    function syncDetailsButtonsState() {
+        const cartBtn = document.getElementById('add-to-cart-btn');
+        const wishlistBtn = document.getElementById('add-to-wishlist-btn');
+        const wishlistText = document.getElementById('add-to-wishlist-text');
+
+        if (!cartBtn || !wishlistBtn) return;
+
+        const currentVarId = parseInt(currentDetailsVariantId);
+        if (!currentVarId) return;
+
+        // 1. Check Cart State
+        const isInCart = window.cartVariantIds && window.cartVariantIds.map(Number).includes(currentVarId);
+        if (isInCart) {
+            const cartIconHtml = '<i class="icon feather icon-shopping-bag me-2"></i>';
+            cartBtn.innerHTML = cartIconHtml + 'ALLREDY CART';
+        } else {
+            const isOutOfStock = cartBtn.hasAttribute('disabled') && cartBtn.innerText.trim() === 'Out of Stock';
+            if (!isOutOfStock) {
+                const cartIconHtml = '<i class="icon feather icon-shopping-bag me-2"></i>';
+                cartBtn.innerHTML = cartIconHtml + 'Add To Cart';
+            }
+        }
+
+        // 2. Check Wishlist State
+        const isInWishlist = window.wishlistVariantIds && window.wishlistVariantIds.map(Number).includes(currentVarId);
+        if (isInWishlist) {
+            if (wishlistText) wishlistText.innerText = 'ALLREDY WISHLIST';
+            const heartIcon = wishlistBtn.querySelector('i');
+            if (heartIcon) {
+                heartIcon.className = 'fa-solid fa-heart me-2';
+            }
+        } else {
+            if (wishlistText) wishlistText.innerText = 'Add To Wishlist';
+            const heartIcon = wishlistBtn.querySelector('i');
+            if (heartIcon) {
+                heartIcon.className = 'iconly-Light-Heart2 me-2';
+            }
+        }
+    }
+
+    // Event listeners to sync buttons state dynamically
+    window.addEventListener('cartCountsUpdated', syncDetailsButtonsState);
+    document.addEventListener('DOMContentLoaded', syncDetailsButtonsState);
 
     function changeMainImage(imageUrl) {
         const mainImg = document.getElementById('detailsMainImg');
@@ -1405,6 +1451,9 @@
             if (minusBtn) minusBtn.disabled = false;
             if (plusBtn) plusBtn.disabled = false;
         }
+
+        // Sync buttons state (Already in Cart / Wishlist)
+        syncDetailsButtonsState();
     }
 
     function addToCartFromDetails(productId, defaultVariantId) {
@@ -1428,15 +1477,27 @@
             .then(r => r.json())
             .then(data => {
                 if (data.success) {
+                    updateHeaderCounts();
+                    let timerInterval;
                     Swal.fire({
                         icon: 'success',
                         title: 'Added to Cart!',
-                        text: data.message,
-                        timer: 2000,
+                        html: `${data.message}<br><br>Redirecting to cart in <b>3</b> seconds...`,
+                        timer: 3000,
                         timerProgressBar: true,
                         showConfirmButton: false,
-                    }).then(() => location.reload());
-                    updateHeaderCounts();
+                        didOpen: () => {
+                            const timer = Swal.getPopup().querySelector('b');
+                            timerInterval = setInterval(() => {
+                                timer.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                        }
+                    }).then(() => {
+                        window.location.href = "{{ route('cart') }}";
+                    });
                 } else {
                     Swal.fire({
                         icon: 'error',

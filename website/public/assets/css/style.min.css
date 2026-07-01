@@ -212,6 +212,9 @@ body {
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
+.noUi-touch-area {
+    background-color: #a25334;
+}
 
 hr {
     margin: 1rem 0;
@@ -10753,7 +10756,8 @@ fieldset:disabled .wp-block-button__link {
 }
 
 .ms-2 {
-    margin-left: 0.5rem !important
+    margin-left: 0.5rem !important;
+    font-size: 12px !important;
 }
 
 .ms-3 {
@@ -32383,7 +32387,7 @@ select {
 }
 
 .inquiry-modal .modal-content .custom-checkbox .form-check-input:checked {
-    background-color: var(--secondary);
+    background-color: #000000;
     border-color: var(--secondary)
 }
 
@@ -39129,9 +39133,10 @@ video#video-background {
 
 .shop-card .dz-content .title {
     margin-bottom: 0;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: capitalize;
-    width: 70%
+    width: 70%;
+    font-size: 12px !important;
 }
 
 @media only screen and (max-width:1199px) {
@@ -39188,7 +39193,8 @@ video#video-background {
     text-align: center;
     font-weight: 600;
     border-radius: 30px;
-    transition: 0.5s
+    transition: 0.5s;
+    display: none;
 }
 
 @media only screen and (max-width:575px) {
@@ -39968,7 +39974,8 @@ video#video-background {
 .shop-card .price {
     margin-bottom: 0;
     color: var(--title);
-    font-weight: 600
+    font-weight: 600;
+    color:#a25334;
 }
 
 .shop-card .price del {
@@ -52384,7 +52391,7 @@ body .working-location img {
     background-color: transparent !important;
     justify-content: center;
     background: transparent;
-    border: 1px solid var(--secondary);
+    border: 1px solid var(--primary-dark);
     color: var(--title);
     margin-right: 10px !important;
     flex: unset;
@@ -52439,7 +52446,7 @@ body .working-location img {
 .product-size .woocommerce.widget_shopping_cart .buttons .btn-check:checked+a,
 .woocommerce.widget_shopping_cart .buttons .product-size .btn-check:checked+a,
 .product-size .btn-check:checked+.wp-block-button__link {
-    background: var(--secondary) !important;
+    background: var(--primary-dark) !important;
     color: #fff;
     border-color: var(--secondary)
 }
@@ -56216,7 +56223,7 @@ table.wishlist_table {
     }
 
     .toggle-btn.active:after {
-        width: 100vw;
+        width: 0vw;
         left: 0
     }
 }
@@ -57807,9 +57814,7 @@ table.wishlist_table {
         display: none
     }
 
-    .swiper-pagination-bullets.swiper-pagination-horizontal {
-        display: none
-    }
+    
 
     .site-header .extra-nav.bottom-end {
         bottom: -80px
@@ -62305,7 +62310,7 @@ footer .footer-top .widget {
 footer .footer-bottom span,
 footer .footer-bottom p {
     margin-bottom: 0;
-    font-weight: 600
+    font-weight: 400
 }
 
 footer .footer-bottom .text-start,

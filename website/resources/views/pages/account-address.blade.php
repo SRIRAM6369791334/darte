@@ -323,7 +323,7 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Phone</label>
                             <input type="text" name="billing_phone" class="form-control"
-                                value="{{ old('billing_phone', $fallbackBillingPhone) }}" required>
+                                value="{{ old('billing_phone', $fallbackBillingPhone) }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Door No</label>
@@ -425,7 +425,7 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Phone</label>
                             <input type="text" name="shipping_phone" class="form-control"
-                                value="{{ old('shipping_phone', $fallbackShippingPhone) }}" required>
+                                value="{{ old('shipping_phone', $fallbackShippingPhone) }}" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Door No</label>

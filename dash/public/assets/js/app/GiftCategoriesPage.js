@@ -125,7 +125,7 @@ const gridNew = new gridjs.Grid({
                         data-bannertitle="${cat.banner_title || ''}" 
                         data-bannerdescription="${cat.banner_description || ''}" 
                         data-bs-target="#editCategoriesModal" class="btn btn-secondary edit_btn ">Edit</button>
-                    <button class="btn btn-danger delete_btn" data-categoriesid="${cat.id}">Delete</button>
+                    <button class="btn btn-danger delete_btn d-none" data-categoriesid="${cat.id}">Delete</button>
                 </div>
             `),
         ];
@@ -158,7 +158,7 @@ function gridjsReRender(categories) {
                                 data-bannertitle="${cat.banner_title || ''}" 
                                 data-bannerdescription="${cat.banner_description || ''}" 
                                 data-bs-target="#editCategoriesModal" class="btn btn-secondary edit_btn ">Edit</button>
-                            <button class="btn btn-danger delete_btn" data-categoriesid="${cat.id}">Delete</button>
+                            <button class="btn btn-danger delete_btn d-none" data-categoriesid="${cat.id}">Delete</button>
                         </div>
                     `),
                 ];

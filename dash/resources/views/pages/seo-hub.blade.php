@@ -91,7 +91,7 @@
                                 <table class="table table-bordered align-middle">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
+                                            <!-- <th>Image</th> -->
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th>Alt Tag</th>
@@ -101,13 +101,13 @@
                                     <tbody>
                                         @foreach($metatags as $meta)
                                         <tr>
-                                            <td>
+                                            <!-- <td>
                                                 @if($meta->image)
                                                 <img src="{{ asset('uploads/seo/'.$meta->image) }}" width="50" height="50" style="object-fit: cover;">
                                                 @else
                                                 N/A
                                                 @endif
-                                            </td>
+                                            </td> -->
                                             <td>{{ $meta->title }}</td>
                                             <td>{{ \Illuminate\Support\Str::limit($meta->description, 50) }}</td>
                                             <td>{{ $meta->alttag }}</td>
@@ -251,7 +251,7 @@
     <div class="modal fade" id="addMetaTagModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" >
                     <h5 class="modal-title">Add General Meta Tag</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
@@ -269,11 +269,11 @@
                             <label class="form-label">Description</label>
                             <textarea name="description" class="form-control" rows="3"></textarea>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" style="display: none;">
                             <label class="form-label">Alt Tag (for image)</label>
                             <input type="text" name="alttag" class="form-control">
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" style="display: none;">
                             <label class="form-label">Meta Image</label>
                             <input type="file" name="image" class="form-control">
                         </div>
@@ -310,12 +310,12 @@
                             <label class="form-label">Description</label>
                             <textarea name="description" id="edit_m_description" class="form-control" rows="3"></textarea>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Alt Tag (for image)</label>
+                        <div class="mb-3"style="display: none;">
+                            <label class="form-label" >Alt Tag (for image)</label>
                             <input type="text" name="alttag" id="edit_m_alttag" class="form-control">
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Change Meta Image</label>
+                        <div class="mb-3" style="display: none;">
+                            <label class="form-label" >Change Meta Image</label>
                             <input type="file" name="image" class="form-control">
                             <div id="m_image_preview" class="mt-2"></div>
                         </div>
