@@ -233,7 +233,7 @@
                                             <h6 class="widget-title">Size</h6>
                                             <div class="btn-group product-size">
                                                 @foreach ($sizes as $index => $size)
-                                                    <input type="radio" class="btn-check" name="size"
+                                                    <input type="checkbox" class="btn-check" name="size[]"
                                                         value="{{ $size }}" id="size{{ $index }}"
                                                         {{ in_array($size, (array) request('size', [])) ? 'checked' : '' }}
                                                         onclick="applySizeFilter()">
@@ -253,7 +253,7 @@
                                                 @foreach ($categories as $cat)
                                                     <li
                                                         class="cat-item {{ $activeCategoryId == $cat->id ? 'active' : '' }}">
-                                                        <a href="{{ route('shop.category', $cat->slug) }}">
+                                                        <a href="{{ route('shop.category', $cat->slug) . '?' . http_build_query(request()->query()) }}">
                                                             {{ $cat->category_name ?? ($cat->name ?? $cat->cate_name) }}
                                                         </a>
                                                         @if (isset($cat->products_count))
@@ -263,7 +263,7 @@
                                                 @endforeach
                                             </ul>
                                             @if ($activeCategoryId)
-                                                <a href="{{ route('shop') }}"
+                                                <a href="{{ route('shop') . '?' . http_build_query(request()->except(['category'])) }}"
                                                     class="btn btn-sm btn-outline-secondary mt-2 w-100">Clear Category</a>
                                             @endif
                                         </div>
@@ -292,10 +292,15 @@
                                     @endif
 
                                     @if (request('size'))
+                                        @php
+                                            $selectedSizeInput = request('size');
+                                            $selectedSizeArray = is_array($selectedSizeInput) ? $selectedSizeInput : [$selectedSizeInput];
+                                            $sizeDisplay = implode(', ', array_map('strtoupper', array_map('trim', $selectedSizeArray)));
+                                        @endphp
                                         <li>
                                             <a href="{{ $shopBase . '?' . http_build_query(request()->except('size')) }}"
                                                 class="tag-btn">
-                                                Size: {{ strtoupper(trim(request('size'))) }}
+                                                Size: {{ $sizeDisplay }}
                                                 <i class="icon feather icon-x tag-close"></i>
                                             </a>
                                         </li>
@@ -303,7 +308,7 @@
 
                                     @if ($activeCategoryId && $activeCategory)
                                         <li>
-                                            <a href="{{ route('shop') }}" class="tag-btn">
+                                            <a href="{{ route('shop') . '?' . http_build_query(request()->except(['category'])) }}" class="tag-btn">
                                                 Category: {{ $activeCategory->category_name ?? $activeCategory->name }}
                                                 <i class="icon feather icon-x tag-close"></i>
                                             </a>
@@ -545,14 +550,15 @@
                                                                 <div class="d-flex">
                                                                     @if($currentStock <= 0)
                                                                     <a href="javascript:void(0);"
-                                                                        class="btn btn-secondary btn-md btn-icon disabled" title="Out of Stock" style="pointer-events: none; opacity: 0.6;">
+                                                                        onclick="showOutOfStockAlert()"
+                                                                        class="btn btn-secondary btn-md btn-icon" title="Out of Stock" style="opacity: 0.6;">
                                                                         <i
                                                                             class="icon feather icon-shopping-cart d-md-none d-block"></i>
                                                                         <span class="d-md-block d-none">Out of Stock</span>
                                                                     </a>
                                                                     @else
                                                                     <a href="javascript:void(0);"
-                                                                        onclick="addToCart({{ $product->id }})"
+                                                                        onclick="addToCart({{ $product->id }}, {{ $variant->id ?? 'null' }})"
                                                                         class="btn btn-secondary btn-md btn-icon">
                                                                         <i
                                                                             class="icon feather icon-shopping-cart d-md-none d-block"></i>
@@ -560,7 +566,7 @@
                                                                     </a>
                                                                     @endif
                                                                     <div class="bookmark-btn style-1"
-                                                                        onclick="addToWishlist({{ $product->id }})">
+                                                                        onclick="addToWishlist({{ $product->id }}, {{ $variant->id ?? 'null' }})">
                                                                         <input class="form-check-input" type="checkbox"
                                                                             id="favoriteCheck1_{{ $product->id }}">
                                                                         <label class="form-check-label"
@@ -610,19 +616,19 @@
                                                                 <span class="d-md-block d-none">Quick View</span>
                                                             </a>
                                                             <div class="btn btn-primary meta-icon dz-wishicon"
-                                                                onclick="addToWishlist({{ $product->id }})">
+                                                                onclick="addToWishlist({{ $product->id }}, {{ $variant->id ?? 'null' }})">
                                                                 <i class="icon feather icon-heart dz-heart"></i>
                                                                 <i class="icon feather icon-heart-on dz-heart-fill"></i>
                                                             </div>
                                                             @if($currentStock <= 0)
-                                                            <div class="btn btn-primary meta-icon dz-carticon disabled" title="Out of Stock" style="pointer-events: none; opacity: 0.5;">
+                                                            <div class="btn btn-primary meta-icon dz-carticon"
+                                                                onclick="showOutOfStockAlert()"
+                                                                title="Out of Stock" style="opacity: 0.5;">
                                                                 <i class="flaticon flaticon-basket"></i>
-                                                                <i
-                                                                    class="flaticon flaticon-shopping-basket-on dz-heart-fill"></i>
                                                             </div>
                                                             @else
                                                             <div class="btn btn-primary meta-icon dz-carticon"
-                                                                onclick="addToCart({{ $product->id }})">
+                                                                onclick="addToCart({{ $product->id }}, {{ $variant->id ?? 'null' }})">
                                                                 <i class="flaticon flaticon-basket"></i>
                                                                 <i
                                                                     class="flaticon flaticon-shopping-basket-on dz-heart-fill"></i>
@@ -678,19 +684,19 @@
                                                                 <span class="d-md-block d-none">Quick View</span>
                                                             </a>
                                                             <div class="btn btn-primary meta-icon dz-wishicon"
-                                                                onclick="addToWishlist({{ $product->id }})">
+                                                                onclick="addToWishlist({{ $product->id }}, {{ $variant->id ?? 'null' }})">
                                                                 <i class="icon feather icon-heart dz-heart"></i>
                                                                 <i class="icon feather icon-heart-on dz-heart-fill"></i>
                                                             </div>
                                                             @if($currentStock <= 0)
-                                                            <div class="btn btn-primary meta-icon dz-carticon disabled" title="Out of Stock" style="pointer-events: none; opacity: 0.5;">
+                                                            <div class="btn btn-primary meta-icon dz-carticon"
+                                                                onclick="showOutOfStockAlert()"
+                                                                title="Out of Stock" style="opacity: 0.5;">
                                                                 <i class="flaticon flaticon-basket"></i>
-                                                                <i
-                                                                    class="flaticon flaticon-shopping-basket-on dz-heart-fill"></i>
                                                             </div>
                                                             @else
                                                             <div class="btn btn-primary meta-icon dz-carticon"
-                                                                onclick="addToCart({{ $product->id }})">
+                                                                onclick="addToCart({{ $product->id }}, {{ $variant->id ?? 'null' }})">
                                                                 <i class="flaticon flaticon-basket"></i>
                                                                 <i
                                                                     class="flaticon flaticon-shopping-basket-on dz-heart-fill"></i>
@@ -757,7 +763,7 @@
         }
 
         function clearSizeFilter() {
-            var inputs = document.querySelectorAll('input[name="size"]');
+            var inputs = document.querySelectorAll('input[name="size[]"]');
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].checked = false;
                 inputs[i].disabled = true;

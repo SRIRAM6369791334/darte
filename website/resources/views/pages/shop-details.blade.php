@@ -859,8 +859,8 @@
                             <button id="add-to-cart-btn"
                                 onclick="addToCartFromDetails({{ $product->id }}, '{{ $variant->id ?? '' }}')"
                                 class="btn btn-secondary text-uppercase fw-bold"
-                                {{ $currentStock <= 0 ? 'disabled' : '' }}>
-                                <i class="icon feather icon-shopping-bag me-2"></i>
+                                {!! $currentStock <= 0 ? 'data-out-of-stock="true"' : '' !!}>
+                                <i class="icon feather {{ $currentStock <= 0 ? 'icon-slash' : 'icon-shopping-bag' }} me-2"></i>
                                 {{ $currentStock <= 0 ? 'Out of Stock' : 'Add To Cart' }}
                             </button>
                             <button id="add-to-wishlist-btn" onclick="addToWishlist({{ $product->id }}, currentDetailsVariantId)"
@@ -1304,13 +1304,15 @@
         if (!currentVarId) return;
 
         // 1. Check Cart State
-        const isInCart = window.cartVariantIds && window.cartVariantIds.map(Number).includes(currentVarId);
-        if (isInCart) {
-            const cartIconHtml = '<i class="icon feather icon-shopping-bag me-2"></i>';
-            cartBtn.innerHTML = cartIconHtml + 'ALLREDY CART';
+        const isOutOfStock = cartBtn.hasAttribute('data-out-of-stock');
+        if (isOutOfStock) {
+            // Keep the "Out of Stock" state as is.
         } else {
-            const isOutOfStock = cartBtn.hasAttribute('disabled') && cartBtn.innerText.trim() === 'Out of Stock';
-            if (!isOutOfStock) {
+            const isInCart = window.cartVariantIds && window.cartVariantIds.map(Number).includes(currentVarId);
+            if (isInCart) {
+                const cartIconHtml = '<i class="icon feather icon-shopping-bag me-2"></i>';
+                cartBtn.innerHTML = cartIconHtml + 'ALLREDY CART';
+            } else {
                 const cartIconHtml = '<i class="icon feather icon-shopping-bag me-2"></i>';
                 cartBtn.innerHTML = cartIconHtml + 'Add To Cart';
             }
@@ -1438,15 +1440,17 @@
 
         if (productQty <= 0) {
             if (addToCartBtn) {
-                addToCartBtn.disabled = true;
-                addToCartBtn.innerText = 'Out of Stock';
+                addToCartBtn.disabled = false;
+                addToCartBtn.setAttribute('data-out-of-stock', 'true');
+                addToCartBtn.innerHTML = '<i class="icon feather icon-slash me-2"></i>Out of Stock';
             }
             if (minusBtn) minusBtn.disabled = true;
             if (plusBtn) plusBtn.disabled = true;
         } else {
             if (addToCartBtn) {
                 addToCartBtn.disabled = false;
-                addToCartBtn.innerText = 'Add To Cart';
+                addToCartBtn.removeAttribute('data-out-of-stock');
+                addToCartBtn.innerHTML = '<i class="icon feather icon-shopping-bag me-2"></i>Add To Cart';
             }
             if (minusBtn) minusBtn.disabled = false;
             if (plusBtn) plusBtn.disabled = false;
@@ -1457,6 +1461,18 @@
     }
 
     function addToCartFromDetails(productId, defaultVariantId) {
+        const cartBtn = document.getElementById('add-to-cart-btn');
+        if (cartBtn && cartBtn.getAttribute('data-out-of-stock') === 'true') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Out of Stock',
+                text: 'This item is currently out of stock!',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#000000'
+            });
+            return;
+        }
+
         const variantId = currentDetailsVariantId || defaultVariantId;
         const quantity = document.getElementById('details-qty').value;
 

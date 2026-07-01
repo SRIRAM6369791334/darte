@@ -414,6 +414,19 @@
             }
 
             /**
+             * Global alert for out of stock products.
+             */
+            window.showOutOfStockAlert = function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Out of Stock',
+                    text: 'This item is currently out of stock!',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#000000'
+                });
+            }
+
+            /**
              * Helper function to check for authentication and redirect.
              */
             window.checkUserAuth = function() {

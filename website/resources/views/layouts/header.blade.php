@@ -273,6 +273,7 @@
         height: 44px;
         display: flex;
         align-items: center;
+        display: none !important;
     }
 
     .dz-topbar .marquee-container {
@@ -999,15 +1000,6 @@
                     <li class="has-mega-menu auto-width menu-left {{ request()->is('/') ? 'active' : '' }}">
                         <a href="/"><span>Home</span></a>
                     </li>
-                    <li class="has-mega-menu {{ request()->is('about') ? 'active' : '' }}">
-                        <a href="/about"><span>About</span></a>
-                    </li>
-                    <li class="has-mega-menu {{ (request()->is('shop') || request()->is('shop-details*') || request()->is('shop/*') || request()->routeIs('shop*')) ? 'active' : '' }}">
-                        <a href="/shop"><span>Shop</span></a>
-                    </li>
-                    <li class="has-mega-menu {{ request()->is('contact') ? 'active' : '' }}">
-                        <a href="/contact"><span>Contact</span></a>
-                    </li>
                     <li class="custom-dropdown-container">
                         <a href="javascript:void(0);" class="nav-link custom-dropdown-toggle">
                             <span>Categories</span>
@@ -1023,6 +1015,17 @@
                             @endforeach
                         </ul>
                     </li>
+                    <li class="has-mega-menu {{ (request()->is('shop') || request()->is('shop-details*') || request()->is('shop/*') || request()->routeIs('shop*')) ? 'active' : '' }}">
+                        <a href="/shop"><span>Shop</span></a>
+                    </li>
+                    <li class="has-mega-menu {{ request()->is('about') ? 'active' : '' }}">
+                        <a href="/about"><span>About</span></a>
+                    </li>
+                    
+                    <li class="has-mega-menu {{ request()->is('contact') ? 'active' : '' }}">
+                        <a href="/contact"><span>Contact</span></a>
+                    </li>
+                    
                     <li class="has-mega-menu sub-menu-down d-lg-none">
                         <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" onclick="openSidebar('wishlist')"><span>Wishlist</span></a>
                     </li>

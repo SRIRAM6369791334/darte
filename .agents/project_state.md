@@ -75,4 +75,8 @@
 - [x] Sync wishlist and cart icon colors/active states dynamically on the frontend via `updateHeaderCounts` in `app.blade.php`.
 - [x] Redirect user to the cart page after a 3-second delay upon successful cart addition or 'already in cart' alert.
 - [x] Update details page buttons text dynamically on variant/size selection (ADD TO CART -> ALLREDY CART, ADD TO WISHLIST -> ALLREDY WISHLIST).
+- [x] Fix category filter tags, sidebar category links to preserve query params, convert size filter to checkboxes, and pass variant ID to addToCart/addToWishlist in `shop.blade.php`.
+- [x] Fix active size tag rendering crash when size is an array on the shop page.
+- [x] Allow out of stock button interaction and trigger SweetAlert 'Out of Stock' alert instead of disabling on the details page.
+- [x] Allow out of stock button interaction and trigger SweetAlert 'Out of Stock' alert on shop listing page product cards.
 

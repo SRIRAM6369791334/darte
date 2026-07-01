@@ -52387,7 +52387,7 @@ body .working-location img {
 .widget_search .form-group .woocommerce #review_form #respond input[type=email],
 .woocommerce #review_form #respond .widget_search .form-group input[type=email] {
     background-color: var(--light);
-    border: 1px solid var(--secondary);
+    border: 1px solid var(--primary-dark);
     border-radius: 10px !important;
 }
 
