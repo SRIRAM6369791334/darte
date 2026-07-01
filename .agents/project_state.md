@@ -79,4 +79,5 @@
 - [x] Fix active size tag rendering crash when size is an array on the shop page.
 - [x] Allow out of stock button interaction and trigger SweetAlert 'Out of Stock' alert instead of disabling on the details page.
 - [x] Allow out of stock button interaction and trigger SweetAlert 'Out of Stock' alert on shop listing page product cards.
+- [x] Make home banner mobile view look like desktop (overlay text/button on left side of image background) instead of stacked layout.
 
